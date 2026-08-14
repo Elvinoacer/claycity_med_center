@@ -1,0 +1,229 @@
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  Heart,
+  ArrowUp,
+  Facebook,
+  Instagram,
+} from "lucide-react";
+
+const QUICK_LINKS = [
+  { label: "Services", href: "#services" },
+  { label: "About", href: "#about" },
+  { label: "Your Visit", href: "#patient-journey" },
+  { label: "Find Us", href: "#location" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Book a Visit", href: "#contact" },
+];
+
+const SERVICE_LINKS = [
+  "Maternal & child health",
+  "Childhood immunisation",
+  "Family planning",
+  "Laboratory services",
+  "Outpatient consultation",
+  "HIV testing & counselling",
+];
+
+export default function Footer() {
+  return (
+    <footer className="relative bg-brand-950 text-brand-100 overflow-hidden">
+      <div className="blob bg-brand-700 w-[24rem] h-[24rem] -top-20 -left-20 opacity-30" />
+
+      {/* Top CTA strip */}
+      <div className="relative border-b border-brand-900/70">
+        <div className="container-page py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-center sm:text-left">
+            <p className="font-display text-xl sm:text-2xl font-semibold text-white">
+              Need care today? We&rsquo;re open.
+            </p>
+            <p className="text-sm text-brand-300 mt-1">
+              Walk in or call ahead — our team is ready to help.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <a href="tel:+254721260994" className="btn btn-accent">
+              <Phone className="h-4 w-4" />
+              0721 260994
+            </a>
+            <a href="#contact" className="btn btn-white">
+              Book a Visit
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Main footer */}
+      <div className="relative container-page py-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">
+          {/* Brand block */}
+          <div className="col-span-2 lg:col-span-2">
+            <a href="#top" className="flex items-center gap-2.5" aria-label="Claycity Medical Centre home">
+              <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-md">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 21c-4.5-3-8-7-8-11.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5c0 4.5-3.5 8-8 11.5Z" />
+                </svg>
+              </span>
+              <span className="flex flex-col leading-tight">
+                <span className="font-display text-[17px] font-semibold text-white">
+                  Claycity Medical
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.18em] text-brand-400 font-semibold">
+                  Kasarani · Nairobi
+                </span>
+              </span>
+            </a>
+
+            <p className="mt-5 text-sm leading-relaxed text-brand-300 max-w-sm">
+              A licensed Level-2 outpatient clinic on First Street, Clay City,
+              Kasarani. Caring for families across the Clay City &amp; Seasons
+              community since 2018.
+            </p>
+
+            <div className="mt-6 flex items-center gap-3">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-900 hover:bg-brand-800 transition-colors"
+              >
+                <Facebook className="h-4 w-4 text-brand-200" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-900 hover:bg-brand-800 transition-colors"
+              >
+                <Instagram className="h-4 w-4 text-brand-200" />
+              </a>
+              <a
+                href="tel:+254721260994"
+                aria-label="Call"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-900 hover:bg-brand-800 transition-colors"
+              >
+                <Phone className="h-4 w-4 text-brand-200" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick links */}
+          <div>
+            <h3 className="font-display text-sm font-semibold text-white uppercase tracking-wide">
+              Explore
+            </h3>
+            <ul className="mt-4 space-y-2.5">
+              {QUICK_LINKS.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    className="text-sm text-brand-300 hover:text-white transition-colors"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="font-display text-sm font-semibold text-white uppercase tracking-wide">
+              Services
+            </h3>
+            <ul className="mt-4 space-y-2.5">
+              {SERVICE_LINKS.map((s) => (
+                <li key={s}>
+                  <a
+                    href="#services"
+                    className="text-sm text-brand-300 hover:text-white transition-colors"
+                  >
+                    {s}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="col-span-2 md:col-span-1 lg:col-span-1">
+            <h3 className="font-display text-sm font-semibold text-white uppercase tracking-wide">
+              Visit us
+            </h3>
+            <ul className="mt-4 space-y-3.5 text-sm">
+              <li className="flex gap-3">
+                <MapPin className="h-4 w-4 text-brand-400 shrink-0 mt-0.5" />
+                <span className="text-brand-300">
+                  First Street, Clay City Estate,
+                  <br />
+                  Kasarani, Nairobi
+                  <br />
+                  P.O. Box 784–00618
+                </span>
+              </li>
+              <li>
+                <a
+                  href="tel:+254721260994"
+                  className="flex gap-3 text-brand-300 hover:text-white transition-colors"
+                >
+                  <Phone className="h-4 w-4 text-brand-400 shrink-0 mt-0.5" />
+                  0721 260994
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:nabiclaycitymedical@yahoo.com"
+                  className="flex gap-3 text-brand-300 hover:text-white transition-colors break-all"
+                >
+                  <Mail className="h-4 w-4 text-brand-400 shrink-0 mt-0.5" />
+                  nabiclaycitymedical@yahoo.com
+                </a>
+              </li>
+              <li className="flex gap-3">
+                <Clock className="h-4 w-4 text-brand-400 shrink-0 mt-0.5" />
+                <span className="text-brand-300">
+                  Mon–Fri: 8am – 5pm
+                  <br />
+                  Sat: 8am – 12pm
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="relative border-t border-brand-900/70">
+        <div className="container-page py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-brand-400 text-center sm:text-left">
+            © {new Date().getFullYear()} Claycity Medical Centre, Kasarani. All
+            rights reserved.
+          </p>
+          <p className="text-xs text-brand-400 inline-flex items-center gap-1.5">
+            Made with <Heart className="h-3 w-3 text-accent-400 fill-current" />{" "}
+            for the Clay City community
+          </p>
+          <a
+            href="#top"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-200 hover:text-white"
+          >
+            Back to top <ArrowUp className="h-3.5 w-3.5" />
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}

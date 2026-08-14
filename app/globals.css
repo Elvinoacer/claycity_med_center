@@ -1,26 +1,377 @@
 @import "tailwindcss";
 
+/* =========================================================
+   Claycity Medical Centre — Design System
+   Palette: Teal + warm coral accents on soft cream canvas
+   Inspired by modern Kenyan healthcare brands.
+   ========================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand */
+  --color-brand-50: #ecfdf8;
+  --color-brand-100: #d1f8ec;
+  --color-brand-200: #a4f0d9;
+  --color-brand-300: #6ee2c2;
+  --color-brand-400: #36c9a7;
+  --color-brand-500: #14ad8d;
+  --color-brand-600: #0a8a73;
+  --color-brand-700: #0a6f5e;
+  --color-brand-800: #0c584d;
+  --color-brand-900: #0d4840;
+  --color-brand-950: #042823;
+
+  /* Accent (warm coral for CTAs / energy) */
+  --color-accent-50: #fff4ed;
+  --color-accent-100: #ffe6d4;
+  --color-accent-200: #ffc9a8;
+  --color-accent-300: #ffa571;
+  --color-accent-400: #ff7d3a;
+  --color-accent-500: #fe5f16;
+  --color-accent-600: #ef4412;
+  --color-accent-700: #c6310f;
+  --color-accent-800: #9d2812;
+  --color-accent-900: #7e2513;
+
+  /* Canvas + ink */
+  --color-canvas: #fbfaf7;
+  --color-surface: #ffffff;
+  --color-ink: #0c1f1c;
+  --color-ink-soft: #3c4a47;
+  --color-ink-muted: #6b7773;
+  --color-line: #e7ebe9;
+
+  --background: var(--color-canvas);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-canvas);
+  --color-foreground: var(--color-ink);
+
+  --color-brand-50: var(--color-brand-50);
+  --color-brand-100: var(--color-brand-100);
+  --color-brand-200: var(--color-brand-200);
+  --color-brand-300: var(--color-brand-300);
+  --color-brand-400: var(--color-brand-400);
+  --color-brand-500: var(--color-brand-500);
+  --color-brand-600: var(--color-brand-600);
+  --color-brand-700: var(--color-brand-700);
+  --color-brand-800: var(--color-brand-800);
+  --color-brand-900: var(--color-brand-900);
+  --color-brand-950: var(--color-brand-950);
+
+  --color-accent-50: var(--color-accent-50);
+  --color-accent-100: var(--color-accent-100);
+  --color-accent-200: var(--color-accent-200);
+  --color-accent-300: var(--color-accent-300);
+  --color-accent-400: var(--color-accent-400);
+  --color-accent-500: var(--color-accent-500);
+  --color-accent-600: var(--color-accent-600);
+  --color-accent-700: var(--color-accent-700);
+  --color-accent-800: var(--color-accent-800);
+  --color-accent-900: var(--color-accent-900);
+
+  --color-canvas: var(--color-canvas);
+  --color-surface: var(--color-surface);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-line: var(--color-line);
+
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =========================================================
+   Base
+   ========================================================= */
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-brand-200);
+  color: var(--color-brand-900);
+}
+
+/* Custom slim scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-200);
+  border-radius: 999px;
+  border: 2px solid var(--color-canvas);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-300);
+}
+
+/* =========================================================
+   Reusable utilities
+   ========================================================= */
+.container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 2rem;
+  }
+}
+@media (min-width: 1280px) {
+  .container-page {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Decorative blobs */
+.blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle dotted grid background */
+.bg-dot-grid {
+  background-image: radial-gradient(
+    var(--color-brand-200) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+}
+
+/* Card with soft elevated shadow */
+.card-soft {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 1.5rem;
+  box-shadow:
+    0 1px 2px rgba(13, 72, 64, 0.04),
+    0 8px 24px -12px rgba(13, 72, 64, 0.12);
+}
+
+/* Gradient text */
+.text-gradient-brand {
+  background: linear-gradient(
+    120deg,
+    var(--color-brand-700) 0%,
+    var(--color-brand-500) 50%,
+    var(--color-accent-500) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Hero radial wash */
+.hero-wash {
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 75% 15%,
+      rgba(54, 201, 167, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 10% 90%,
+      rgba(254, 95, 22, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #ffffff 0%, var(--color-brand-50) 100%);
+}
+
+/* Eyebrow chip */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: var(--color-brand-50);
+  color: var(--color-brand-700);
+  border: 1px solid var(--color-brand-100);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.4rem;
+  line-height: 1;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--color-brand-600);
+  color: #ffffff;
+  box-shadow: 0 6px 20px -8px rgba(10, 138, 115, 0.55);
+}
+.btn-primary:hover {
+  background: var(--color-brand-700);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px -10px rgba(10, 138, 115, 0.65);
+}
+.btn-accent {
+  background: var(--color-accent-500);
+  color: #ffffff;
+  box-shadow: 0 6px 20px -8px rgba(254, 95, 22, 0.55);
+}
+.btn-accent:hover {
+  background: var(--color-accent-600);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px -10px rgba(254, 95, 22, 0.65);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--color-brand-800);
+  border: 1px solid var(--color-brand-200);
+}
+.btn-ghost:hover {
+  background: var(--color-brand-50);
+  border-color: var(--color-brand-300);
+}
+.btn-white {
+  background: #ffffff;
+  color: var(--color-brand-800);
+  box-shadow: 0 6px 20px -10px rgba(13, 72, 64, 0.35);
+}
+.btn-white:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px -10px rgba(13, 72, 64, 0.45);
+}
+
+/* Section heading underline */
+.heading-underline::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-500),
+    var(--color-accent-400)
+  );
+  margin-top: 1rem;
+}
+.heading-underline.center::after {
+  margin-inline: auto;
+}
+
+/* Marquee for partners strip */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+/* Fade-up animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fadeUp 0.7s ease both;
+}
+
+/* Pulse dot */
+@keyframes pulseDot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: currentColor;
+  animation: pulseDot 1.8s ease-out infinite;
+}
+
+/* Decorative wave divider */
+.wave-divider {
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+
+/* Hide number input arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
