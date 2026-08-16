@@ -29,11 +29,16 @@ const SERVICE_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-brand-950 text-brand-100 overflow-hidden">
-      <div className="blob bg-brand-700 w-[24rem] h-[24rem] -top-20 -left-20 opacity-30" />
+    <footer className="relative bg-brand-950 text-brand-100 overflow-hidden grain">
+      {/* Gradient edge on top of the footer */}
+      <div
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/60 to-transparent"
+        aria-hidden="true"
+      />
+      <div className="blob bg-brand-600 w-[24rem] h-[24rem] -top-24 -left-20 opacity-25" />
 
       {/* Top CTA strip */}
-      <div className="relative border-b border-brand-900/70">
+      <div className="relative z-10 border-b border-white/10">
         <div className="container-page py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-left">
             <p className="font-display text-xl sm:text-2xl font-semibold text-white">
@@ -56,12 +61,16 @@ export default function Footer() {
       </div>
 
       {/* Main footer */}
-      <div className="relative container-page py-14">
+      <div className="relative z-10 container-page py-14">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">
           {/* Brand block */}
           <div className="col-span-2 lg:col-span-2">
-            <a href="#top" className="flex items-center gap-2.5" aria-label="Claycity Medical Centre home">
-              <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-md">
+            <a
+              href="#top"
+              className="flex items-center gap-2.5"
+              aria-label="Claycity Medical Centre home"
+            >
+              <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-md shadow-brand-500/30">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-5 w-5"
@@ -97,25 +106,25 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-900 hover:bg-brand-800 transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300"
               >
-                <Facebook className="h-4 w-4 text-brand-200" />
+                <Facebook className="h-4 w-4 text-brand-100" />
               </a>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-900 hover:bg-brand-800 transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300"
               >
-                <Instagram className="h-4 w-4 text-brand-200" />
+                <Instagram className="h-4 w-4 text-brand-100" />
               </a>
               <a
                 href="tel:+254721260994"
                 aria-label="Call"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-900 hover:bg-brand-800 transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300"
               >
-                <Phone className="h-4 w-4 text-brand-200" />
+                <Phone className="h-4 w-4 text-brand-100" />
               </a>
             </div>
           </div>
@@ -206,7 +215,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="relative border-t border-brand-900/70">
+      <div className="relative z-10 border-t border-white/10">
         <div className="container-page py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-brand-400 text-center sm:text-left">
             © {new Date().getFullYear()} Claycity Medical Centre, Kasarani. All
@@ -218,7 +227,7 @@ export default function Footer() {
           </p>
           <a
             href="#top"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-200 hover:text-white"
+            className="link-underline inline-flex items-center gap-1.5 text-xs font-semibold text-brand-200 hover:text-white"
           >
             Back to top <ArrowUp className="h-3.5 w-3.5" />
           </a>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, MessageCircle } from "lucide-react";
 
 const FAQS = [
   {
@@ -44,20 +44,20 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="relative py-20 md:py-28"
+      className="cv-auto relative py-20 md:py-28"
       aria-labelledby="faq-heading"
     >
       <div className="container-page">
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-16">
-          <div>
+          <div className="reveal">
             <span className="eyebrow">Good to know</span>
             <h2
               id="faq-heading"
-              className="mt-4 font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold tracking-tight text-brand-950 heading-underline"
+              className="mt-4 font-display text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.08] font-semibold tracking-[-0.01em] text-brand-950 heading-underline text-balance"
             >
               Questions we hear often
             </h2>
-            <p className="mt-5 text-lg text-ink-soft leading-relaxed">
+            <p className="mt-6 text-lg text-ink-soft leading-relaxed">
               Can&rsquo;t find what you&rsquo;re looking for? Call{" "}
               <a
                 href="tel:+254721260994"
@@ -68,19 +68,26 @@ export default function FAQ() {
               and our team will help.
             </p>
 
-            <div className="mt-8 card-soft p-6 bg-gradient-to-br from-brand-700 to-brand-900 text-white border-0">
-              <p className="font-display text-xl font-semibold">
-                Still have a question?
-              </p>
-              <p className="mt-1.5 text-sm text-brand-100">
-                Send us a message and we&rsquo;ll reply within one working day.
-              </p>
-              <a
-                href="#contact"
-                className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-800 font-semibold text-sm px-5 py-3 hover:bg-brand-50 transition-colors"
-              >
-                Send a message
-              </a>
+            <div className="mt-8 card-soft p-6 bg-gradient-to-br from-brand-700 to-brand-900 text-white border-0 relative overflow-hidden grain">
+              <div
+                className="blob bg-brand-400 w-56 h-56 -top-12 -right-12 opacity-25"
+                aria-hidden="true"
+              />
+              <div className="relative z-10">
+                <p className="font-display text-xl font-semibold">
+                  Still have a question?
+                </p>
+                <p className="mt-1.5 text-sm text-brand-100">
+                  Send us a message and we&rsquo;ll reply within one working day.
+                </p>
+                <a
+                  href="#contact"
+                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-800 font-semibold text-sm px-5 py-3 hover:bg-brand-50 hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Send a message
+                </a>
+              </div>
             </div>
           </div>
 
@@ -91,8 +98,10 @@ export default function FAQ() {
               return (
                 <div
                   key={f.q}
-                  className={`card-soft overflow-hidden transition-all ${
-                    isOpen ? "ring-1 ring-brand-200" : ""
+                  className={`card-soft overflow-hidden transition-all duration-300 ${
+                    isOpen
+                      ? "ring-1 ring-brand-200 shadow-[var(--shadow-lift)]"
+                      : "hover:border-brand-200"
                   }`}
                 >
                   <button
@@ -105,9 +114,9 @@ export default function FAQ() {
                       {f.q}
                     </span>
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all ${
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
                         isOpen
-                          ? "bg-brand-600 text-white rotate-180"
+                          ? "bg-brand-600 text-white rotate-180 shadow-md shadow-brand-600/40"
                           : "bg-brand-50 text-brand-700"
                       }`}
                     >

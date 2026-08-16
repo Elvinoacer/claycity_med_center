@@ -2,8 +2,9 @@
 
 /* =========================================================
    Claycity Medical Centre — Design System
-   Palette: Teal + warm coral accents on soft cream canvas
-   Inspired by modern Kenyan healthcare brands.
+   Palette: Teal + warm coral accents on soft cream canvas.
+   Motion: compositor-only (transform/opacity), scroll-driven
+   where supported, fully disabled under prefers-reduced-motion.
    ========================================================= */
 
 :root {
@@ -42,6 +43,11 @@
 
   --background: var(--color-canvas);
   --foreground: var(--color-ink);
+
+  --shadow-soft: 0 1px 2px rgba(13, 72, 64, 0.05),
+    0 12px 32px -16px rgba(13, 72, 64, 0.14);
+  --shadow-lift: 0 2px 4px rgba(13, 72, 64, 0.05),
+    0 20px 44px -18px rgba(13, 72, 64, 0.22);
 }
 
 @theme inline {
@@ -78,8 +84,8 @@
   --color-ink-muted: var(--color-ink-muted);
   --color-line: var(--color-line);
 
-  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
 
   --radius-xl: 1rem;
@@ -96,6 +102,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Keep anchored sections clear of the sticky header */
+  scroll-padding-top: 5.5rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -112,6 +120,12 @@ body {
 ::selection {
   background: var(--color-brand-200);
   color: var(--color-brand-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* Custom slim scrollbar */
@@ -131,8 +145,14 @@ body {
   background: var(--color-brand-300);
 }
 
+/* Skip rendering offscreen sections until scrolled near */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
 /* =========================================================
-   Reusable utilities
+   Layout helpers
    ========================================================= */
 .container-page {
   width: 100%;
@@ -151,14 +171,58 @@ body {
   }
 }
 
-/* Decorative blobs */
+/* =========================================================
+   Surfaces & texture
+   ========================================================= */
+
+/* Frosted glass card */
+.glass {
+  background: color-mix(in srgb, #ffffff 78%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, #ffffff 65%, var(--color-line));
+  box-shadow: var(--shadow-soft);
+}
+
+/* Card with soft elevated shadow */
+.card-soft {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Fine film grain — one tiny inline SVG, tiled (cheap, static) */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.34'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* Decorative blobs — animated on the compositor only */
 .blob {
   position: absolute;
   border-radius: 999px;
-  filter: blur(80px);
-  opacity: 0.55;
+  filter: blur(64px);
+  opacity: 0.5;
   pointer-events: none;
   z-index: 0;
+  will-change: transform;
+  animation: blobDrift 26s ease-in-out infinite alternate;
+}
+@keyframes blobDrift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(4%, -6%, 0) scale(1.12);
+  }
 }
 
 /* Subtle dotted grid background */
@@ -171,14 +235,36 @@ body {
   background-position: -1px -1px;
 }
 
-/* Card with soft elevated shadow */
-.card-soft {
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: 1.5rem;
-  box-shadow:
-    0 1px 2px rgba(13, 72, 64, 0.04),
-    0 8px 24px -12px rgba(13, 72, 64, 0.12);
+/* Hero layered wash */
+.hero-wash {
+  background:
+    radial-gradient(
+      ellipse 60% 55% at 82% 8%,
+      rgba(54, 201, 167, 0.22),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 45% 45% at 6% 92%,
+      rgba(254, 95, 22, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #ffffff 0%, var(--color-brand-50) 78%, #ecfdf8 100%);
+}
+
+/* Dark section wash (patient journey) */
+.dark-wash {
+  background:
+    radial-gradient(
+      ellipse 55% 50% at 85% 0%,
+      rgba(20, 173, 141, 0.28),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 45% 45% at 5% 100%,
+      rgba(254, 95, 22, 0.14),
+      transparent 55%
+    ),
+    linear-gradient(165deg, #0d4840 0%, #042823 55%, #031f1b 100%);
 }
 
 /* Gradient text */
@@ -195,40 +281,69 @@ body {
   color: transparent;
 }
 
-/* Hero radial wash */
-.hero-wash {
-  background:
-    radial-gradient(
-      ellipse 70% 60% at 75% 15%,
-      rgba(54, 201, 167, 0.18),
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 50% 50% at 10% 90%,
-      rgba(254, 95, 22, 0.12),
-      transparent 60%
-    ),
-    linear-gradient(180deg, #ffffff 0%, var(--color-brand-50) 100%);
-}
-
-/* Eyebrow chip */
+/* =========================================================
+   Typography accents
+   ========================================================= */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.4rem 0.85rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 999px;
   background: var(--color-brand-50);
   color: var(--color-brand-700);
   border: 1px solid var(--color-brand-100);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-/* Buttons */
+/* Inverted eyebrow for dark sections */
+.eyebrow-dark {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--color-brand-200);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.heading-underline::after {
+  content: "";
+  display: block;
+  width: 3.25rem;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-500),
+    var(--color-accent-400)
+  );
+  margin-top: 1.1rem;
+}
+.heading-underline.center::after {
+  margin-inline: auto;
+}
+
+/* Animated underline link */
+.link-underline {
+  background-image: linear-gradient(
+    currentColor,
+    currentColor
+  );
+  background-size: 0% 1.5px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.25s ease;
+  padding-bottom: 2px;
+}
+.link-underline:hover {
+  background-size: 100% 1.5px;
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -236,31 +351,44 @@ body {
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.95rem;
-  padding: 0.85rem 1.4rem;
+  padding: 0.85rem 1.5rem;
   line-height: 1;
-  transition: all 0.2s ease;
   cursor: pointer;
   white-space: nowrap;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.25s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active {
+  transform: translateY(0) scale(0.98);
 }
 .btn-primary {
-  background: var(--color-brand-600);
+  background: linear-gradient(135deg, var(--color-brand-500), var(--color-brand-700));
   color: #ffffff;
-  box-shadow: 0 6px 20px -8px rgba(10, 138, 115, 0.55);
+  box-shadow: 0 8px 22px -10px rgba(10, 138, 115, 0.65);
 }
 .btn-primary:hover {
-  background: var(--color-brand-700);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 26px -10px rgba(10, 138, 115, 0.65);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 30px -10px rgba(10, 138, 115, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
 }
 .btn-accent {
-  background: var(--color-accent-500);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-400),
+    var(--color-accent-600)
+  );
   color: #ffffff;
-  box-shadow: 0 6px 20px -8px rgba(254, 95, 22, 0.55);
+  box-shadow: 0 8px 22px -10px rgba(254, 95, 22, 0.6);
 }
 .btn-accent:hover {
-  background: var(--color-accent-600);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 26px -10px rgba(254, 95, 22, 0.65);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(254, 95, 22, 0.72);
 }
 .btn-ghost {
   background: transparent;
@@ -269,56 +397,120 @@ body {
 }
 .btn-ghost:hover {
   background: var(--color-brand-50);
-  border-color: var(--color-brand-300);
+  border-color: var(--color-brand-400);
 }
 .btn-white {
   background: #ffffff;
   color: var(--color-brand-800);
-  box-shadow: 0 6px 20px -10px rgba(13, 72, 64, 0.35);
+  box-shadow: 0 8px 22px -12px rgba(2, 30, 26, 0.5);
 }
 .btn-white:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 26px -10px rgba(13, 72, 64, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -12px rgba(2, 30, 26, 0.55);
 }
 
-/* Section heading underline */
-.heading-underline::after {
-  content: "";
-  display: block;
-  width: 3rem;
-  height: 4px;
-  border-radius: 999px;
+/* =========================================================
+   Forms (single source for all inputs)
+   ========================================================= */
+.input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 0.9rem;
+  border: 1px solid var(--color-line);
+  background: #ffffff;
+  color: var(--color-ink);
+  font-size: 0.95rem;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.input:hover {
+  border-color: var(--color-brand-200);
+}
+.input:focus {
+  outline: none;
+  border-color: var(--color-brand-500);
+  box-shadow: 0 0 0 4px rgba(20, 173, 141, 0.14);
+}
+.input::placeholder {
+  color: var(--color-ink-muted);
+}
+
+/* =========================================================
+   Motion — zero-JS, scroll-driven (progressive enhancement)
+   Browsers without support render everything statically.
+   ========================================================= */
+
+/* Entry reveal as elements scroll into view */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: revealUp 0.9s both ease-out;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+  .reveal-fade {
+    animation: revealFade 1s both ease-out;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+@keyframes revealUp {
+  from {
+    opacity: 0.001;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes revealFade {
+  from {
+    opacity: 0.001;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Scroll progress bar (fixed, compositor-driven) */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 60;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
   background: linear-gradient(
     90deg,
     var(--color-brand-500),
+    var(--color-brand-300),
     var(--color-accent-400)
   );
-  margin-top: 1rem;
+  pointer-events: none;
 }
-.heading-underline.center::after {
-  margin-inline: auto;
-}
-
-/* Marquee for partners strip */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: progressGrow auto linear;
+    animation-timeline: scroll(root);
   }
 }
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 35s linear infinite;
+@keyframes progressGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
-/* Fade-up animation */
+/* Hero load-in */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
@@ -326,7 +518,24 @@ body {
   }
 }
 .fade-up {
-  animation: fadeUp 0.7s ease both;
+  animation: fadeUp 0.8s cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+
+/* Soft float for hero cards */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+.floaty {
+  animation: floaty 7s ease-in-out infinite;
+}
+.floaty-slow {
+  animation: floaty 10s ease-in-out infinite;
 }
 
 /* Pulse dot */
@@ -350,12 +559,43 @@ body {
   animation: pulseDot 1.8s ease-out infinite;
 }
 
-/* Decorative wave divider */
-.wave-divider {
-  display: block;
-  width: 100%;
-  height: 40px;
+/* Marquee for the trust strip */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+.marquee-mask {
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+/* =========================================================
+   Misc
+   ========================================================= */
 
 /* Hide number input arrows */
 input[type="number"]::-webkit-outer-spin-button,
@@ -373,5 +613,13 @@ input[type="number"]::-webkit-inner-spin-button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  .blob {
+    animation: none;
+  }
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
   }
 }

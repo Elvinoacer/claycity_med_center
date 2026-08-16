@@ -1,4 +1,5 @@
 import { MapPin, Navigation, Clock, Phone, Car, Footprints } from "lucide-react";
+import OpenStatus from "./OpenStatus";
 
 const HOURS = [
   { day: "Monday", time: "8:00am – 5:00pm", open: true },
@@ -23,19 +24,19 @@ export default function Location() {
   return (
     <section
       id="location"
-      className="relative py-20 md:py-28 bg-gradient-to-b from-canvas to-brand-50/50"
+      className="cv-auto relative py-20 md:py-28 bg-white border-y border-line"
       aria-labelledby="location-heading"
     >
       <div className="container-page">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl reveal">
           <span className="eyebrow">Find us</span>
           <h2
             id="location-heading"
-            className="mt-4 font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold tracking-tight text-brand-950 heading-underline"
+            className="mt-4 font-display text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.08] font-semibold tracking-[-0.01em] text-brand-950 heading-underline text-balance"
           >
             On First Street, in the heart of Clay City
           </h2>
-          <p className="mt-5 text-lg text-ink-soft leading-relaxed">
+          <p className="mt-6 text-lg text-ink-soft leading-relaxed">
             We&rsquo;re a short walk from Seasons stage, just off Seasons Road
             in the Clay City estate, Kasarani. Look for the Co-op Kasarani
             branch — we&rsquo;re nearby on First Street.
@@ -44,7 +45,7 @@ export default function Location() {
 
         <div className="mt-12 grid lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-8 items-stretch">
           {/* Map */}
-          <div className="card-soft overflow-hidden p-2">
+          <div className="reveal card-soft overflow-hidden p-2 hover:shadow-[var(--shadow-lift)] transition-shadow duration-300">
             <div className="relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden">
               <iframe
                 title="Map showing Claycity Medical Centre on First Street, Clay City, Kasarani"
@@ -63,7 +64,7 @@ export default function Location() {
                 href={mapLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-900"
+                className="link-underline inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-900"
               >
                 <Navigation className="h-3.5 w-3.5" />
                 Open in Maps
@@ -73,12 +74,15 @@ export default function Location() {
 
           {/* Hours + directions */}
           <div className="flex flex-col gap-5">
-            <div className="card-soft p-6">
-              <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-brand-700" />
-                <h3 className="font-display text-lg font-semibold text-brand-950">
-                  Opening hours
-                </h3>
+            <div className="reveal card-soft p-6">
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-brand-700" />
+                  <h3 className="font-display text-lg font-semibold text-brand-950">
+                    Opening hours
+                  </h3>
+                </div>
+                <OpenStatus />
               </div>
               <ul className="mt-4 divide-y divide-line">
                 {HOURS.map((h) => (
@@ -110,7 +114,7 @@ export default function Location() {
               </div>
             </div>
 
-            <div className="card-soft p-6">
+            <div className="reveal card-soft p-6">
               <h3 className="font-display text-lg font-semibold text-brand-950">
                 Getting here
               </h3>

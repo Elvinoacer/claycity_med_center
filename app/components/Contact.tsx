@@ -35,7 +35,7 @@ export default function Contact() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Construct a WhatsApp/SMS-friendly message and open the phone link
+    // Construct a WhatsApp-friendly message and open the phone link
     const msg = `Hello Claycity Medical Centre,%0A%0AName: ${encodeURIComponent(
       form.name
     )}%0APhone: ${encodeURIComponent(form.phone)}%0AService: ${encodeURIComponent(
@@ -44,7 +44,6 @@ export default function Contact() {
       form.date
     )}%0AMessage: ${encodeURIComponent(form.message)}`;
     setSubmitted(true);
-    // Open WhatsApp link (works on desktop and mobile)
     setTimeout(() => {
       window.open(`https://wa.me/254721260994?text=${msg}`, "_blank");
     }, 400);
@@ -53,24 +52,24 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="cv-auto relative py-20 md:py-28 overflow-hidden hero-wash grain"
       aria-labelledby="contact-heading"
     >
-      <div className="blob bg-brand-300 w-[28rem] h-[28rem] -top-24 right-0 opacity-30" />
-      <div className="blob bg-accent-200 w-[20rem] h-[20rem] -bottom-24 -left-16 opacity-25" />
+      <div className="blob bg-brand-300 w-[26rem] h-[26rem] -top-24 right-0 opacity-25" />
+      <div className="blob bg-accent-200 w-[20rem] h-[20rem] -bottom-24 -left-16 opacity-30" />
 
-      <div className="container-page relative">
+      <div className="container-page relative z-10">
         <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-14 items-stretch">
           {/* Left: details */}
-          <div className="flex flex-col">
+          <div className="flex flex-col reveal">
             <span className="eyebrow">Get in touch</span>
             <h2
               id="contact-heading"
-              className="mt-4 font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold tracking-tight text-brand-950 heading-underline"
+              className="mt-4 font-display text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.08] font-semibold tracking-[-0.01em] text-brand-950 heading-underline text-balance"
             >
               Book a visit or ask a question
             </h2>
-            <p className="mt-5 text-lg text-ink-soft leading-relaxed">
+            <p className="mt-6 text-lg text-ink-soft leading-relaxed">
               The fastest way to reach us is by phone — our reception is staffed
               during opening hours. Otherwise, send a message and we&rsquo;ll
               reply within one working day.
@@ -79,9 +78,9 @@ export default function Contact() {
             <div className="mt-8 space-y-4">
               <a
                 href="tel:+254721260994"
-                className="card-soft flex items-center gap-4 p-5 hover:-translate-y-0.5 transition-transform"
+                className="card-soft flex items-center gap-4 p-5 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] transition-all duration-300 group"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-md shadow-brand-600/30">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-md shadow-brand-600/40">
                   <Phone className="h-5 w-5" />
                 </span>
                 <span>
@@ -99,9 +98,9 @@ export default function Contact() {
 
               <a
                 href="mailto:nabiclaycitymedical@yahoo.com"
-                className="card-soft flex items-center gap-4 p-5 hover:-translate-y-0.5 transition-transform"
+                className="card-soft flex items-center gap-4 p-5 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] transition-all duration-300"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-500 text-white shadow-md shadow-accent-500/30">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-400 to-accent-600 text-white shadow-md shadow-accent-500/40">
                   <Mail className="h-5 w-5" />
                 </span>
                 <span className="min-w-0">
@@ -137,7 +136,7 @@ export default function Contact() {
           </div>
 
           {/* Right: form */}
-          <div className="card-soft p-6 sm:p-8 lg:p-10">
+          <div className="reveal card-soft p-6 sm:p-8 lg:p-10">
             {submitted ? (
               <div className="flex flex-col items-center justify-center text-center py-10 sm:py-16">
                 <span className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-100 text-brand-700">
@@ -275,28 +274,6 @@ export default function Contact() {
           </div>
         </div>
       </div>
-
-      {/* Local style for inputs */}
-      <style jsx>{`
-        :global(.input) {
-          width: 100%;
-          padding: 0.75rem 1rem;
-          border-radius: 0.85rem;
-          border: 1px solid var(--color-line);
-          background: #fff;
-          color: var(--color-ink);
-          font-size: 0.95rem;
-          transition: border-color 0.15s, box-shadow 0.15s;
-        }
-        :global(.input:focus) {
-          outline: none;
-          border-color: var(--color-brand-500);
-          box-shadow: 0 0 0 4px rgba(20, 173, 141, 0.12);
-        }
-        :global(.input::placeholder) {
-          color: var(--color-ink-muted);
-        }
-      `}</style>
     </section>
   );
 }
