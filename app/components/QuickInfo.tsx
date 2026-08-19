@@ -49,7 +49,7 @@ export default function QuickInfo() {
                 <span className="block text-[11px] font-semibold uppercase tracking-wide text-ink-muted">
                   {it.label}
                 </span>
-                <span className="block text-sm font-semibold text-brand-900 truncate">
+                <span className="block text-sm font-semibold text-brand-900 break-words">
                   {it.value}
                 </span>
                 <span className="block text-xs text-ink-muted">{it.sub}</span>

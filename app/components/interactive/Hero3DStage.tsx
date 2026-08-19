@@ -41,7 +41,7 @@ const ASSETS = [
     badge: "Fully Stocked",
     stat: "Fair out-of-pocket",
     icon: Pill,
-    short: "Pharmacy",
+    short: "Rx",
   },
   {
     id: "maternal",
@@ -228,6 +228,7 @@ export default function Hero3DStage() {
               key={item.id}
               type="button"
               role="tab"
+              aria-label={item.title}
               aria-selected={isSelected}
               onClick={() => setActiveIdx(idx)}
               className={`relative flex flex-col items-center justify-center gap-1 rounded-2xl border px-1 py-2 sm:px-2 sm:py-2.5 transition-all duration-300 ${
@@ -244,7 +245,7 @@ export default function Hero3DStage() {
                 <Icon className="h-3.5 w-3.5" />
               </span>
               <span
-                className={`hidden sm:block text-[10px] font-bold leading-none ${
+                className={`hidden sm:block text-[10px] font-bold leading-none whitespace-nowrap ${
                   isSelected ? "text-white" : "text-brand-950"
                 }`}
               >

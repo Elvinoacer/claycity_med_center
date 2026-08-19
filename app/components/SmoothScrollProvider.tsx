@@ -3,6 +3,17 @@
 import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
 
+function revealTarget(hash: string) {
+  if (!hash || hash.length < 2) return null;
+  const el = document.querySelector<HTMLElement>(hash);
+  if (!el) return null;
+  el.classList.add("is-visible");
+  el.querySelectorAll<HTMLElement>("[data-reveal]").forEach((n) => {
+    n.classList.add("is-visible");
+  });
+  return el;
+}
+
 export default function SmoothScrollProvider({
   children,
 }: {
@@ -32,6 +43,7 @@ export default function SmoothScrollProvider({
     if (reduced || coarse) {
       nativeScroll();
       window.addEventListener("scroll", nativeScroll, { passive: true });
+      revealTarget(window.location.hash);
       return () => window.removeEventListener("scroll", nativeScroll);
     }
 
@@ -56,15 +68,20 @@ export default function SmoothScrollProvider({
       setProgress(progress);
     });
 
+    const hashEl = revealTarget(window.location.hash);
+    if (hashEl) {
+      lenis.scrollTo(hashEl, { offset: -72, immediate: true });
+    }
+
     const handleAnchorClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("a");
       if (!target) return;
       const href = target.getAttribute("href");
       if (!href || !href.startsWith("#") || href.length < 2) return;
-      const el = document.querySelector(href);
+      const el = revealTarget(href);
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el as HTMLElement, { offset: -72 });
+      lenis.scrollTo(el, { offset: -72 });
     };
     document.addEventListener("click", handleAnchorClick);
 
@@ -92,12 +109,12 @@ export default function SmoothScrollProvider({
           io.unobserve(entry.target);
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.08, rootMargin: "80px 0px -4% 0px" }
     );
     nodes.forEach((n) => io.observe(n));
     const fallback = window.setTimeout(() => {
       nodes.forEach((n) => n.classList.add("is-visible"));
-    }, 2200);
+    }, 1800);
     return () => {
       io.disconnect();
       window.clearTimeout(fallback);
