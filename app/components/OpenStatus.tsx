@@ -58,7 +58,14 @@ export default function OpenStatus() {
     return () => clearInterval(id);
   }, []);
 
-  if (!status) return null;
+  if (!status) {
+    return (
+      <span
+        className="inline-flex h-[30px] min-w-[10rem] rounded-full bg-brand-50 border border-brand-200"
+        aria-hidden="true"
+      />
+    );
+  }
 
   return (
     <span

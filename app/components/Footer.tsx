@@ -12,7 +12,8 @@ import {
 const QUICK_LINKS = [
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
-  { label: "Your Visit", href: "#patient-journey" },
+  { label: "Patient Journey", href: "#patient-journey" },
+  { label: "Why Us", href: "#why-us" },
   { label: "Find Us", href: "#location" },
   { label: "FAQ", href: "#faq" },
   { label: "Book a Visit", href: "#contact" },
@@ -21,7 +22,7 @@ const QUICK_LINKS = [
 const SERVICE_LINKS = [
   "Maternal & child health",
   "Childhood immunisation",
-  "Family planning",
+  "In-house pharmacy",
   "Laboratory services",
   "Outpatient consultation",
   "HIV testing & counselling",
@@ -29,48 +30,38 @@ const SERVICE_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-brand-950 text-brand-100 overflow-hidden grain">
-      {/* Gradient edge on top of the footer */}
-      <div
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/60 to-transparent"
-        aria-hidden="true"
-      />
-      <div className="blob bg-brand-600 w-[24rem] h-[24rem] -top-24 -left-20 opacity-25" />
-
-      {/* Top CTA strip */}
-      <div className="relative z-10 border-b border-white/10">
+    <footer className="relative bg-brand-950 text-brand-100 overflow-hidden border-t border-brand-900">
+      <div className="border-b border-white/10">
         <div className="container-page py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-left">
             <p className="font-display text-xl sm:text-2xl font-semibold text-white">
               Need care today? We&rsquo;re open.
             </p>
             <p className="text-sm text-brand-300 mt-1">
-              Walk in or call ahead — our team is ready to help.
+              Walk in or call ahead — our clinical team is ready to assist.
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <a href="tel:+254721260994" className="btn btn-accent">
+            <a href="tel:+254721260994" className="btn btn-accent shadow-md">
               <Phone className="h-4 w-4" />
               0721 260994
             </a>
-            <a href="#contact" className="btn btn-white">
+            <a href="#contact" className="btn btn-white shadow-md">
               Book a Visit
             </a>
           </div>
         </div>
       </div>
 
-      {/* Main footer */}
-      <div className="relative z-10 container-page py-14">
+      <div className="container-page py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">
-          {/* Brand block */}
           <div className="col-span-2 lg:col-span-2">
             <a
               href="#top"
               className="flex items-center gap-2.5"
               aria-label="Claycity Medical Centre home"
             >
-              <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-md shadow-brand-500/30">
+              <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-800 text-white shadow-md">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-5 w-5"
@@ -89,15 +80,14 @@ export default function Footer() {
                   Claycity Medical
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.18em] text-brand-400 font-semibold">
-                  Kasarani · Nairobi
+                  Kasarani · Level-2 Clinic
                 </span>
               </span>
             </a>
 
-            <p className="mt-5 text-sm leading-relaxed text-brand-300 max-w-sm">
+            <p className="mt-4 text-sm leading-relaxed text-brand-300 max-w-sm">
               A licensed Level-2 outpatient clinic on First Street, Clay City,
-              Kasarani. Caring for families across the Clay City &amp; Seasons
-              community since 2018.
+              Kasarani. Providing attentive healthcare for local families since 2018.
             </p>
 
             <div className="mt-6 flex items-center gap-3">
@@ -106,7 +96,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300"
               >
                 <Facebook className="h-4 w-4 text-brand-100" />
               </a>
@@ -115,21 +105,20 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300"
               >
                 <Instagram className="h-4 w-4 text-brand-100" />
               </a>
               <a
                 href="tel:+254721260994"
                 aria-label="Call"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300"
               >
                 <Phone className="h-4 w-4 text-brand-100" />
               </a>
             </div>
           </div>
 
-          {/* Quick links */}
           <div>
             <h3 className="font-display text-sm font-semibold text-white uppercase tracking-wide">
               Explore
@@ -148,7 +137,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
           <div>
             <h3 className="font-display text-sm font-semibold text-white uppercase tracking-wide">
               Services
@@ -167,10 +155,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
           <div className="col-span-2 md:col-span-1 lg:col-span-1">
             <h3 className="font-display text-sm font-semibold text-white uppercase tracking-wide">
-              Visit us
+              Visit Us
             </h3>
             <ul className="mt-4 space-y-3.5 text-sm">
               <li className="flex gap-3">
@@ -214,8 +201,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="relative z-10 border-t border-white/10">
+      <div className="border-t border-white/10">
         <div className="container-page py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-brand-400 text-center sm:text-left">
             © {new Date().getFullYear()} Claycity Medical Centre, Kasarani. All
@@ -223,7 +209,7 @@ export default function Footer() {
           </p>
           <p className="text-xs text-brand-400 inline-flex items-center gap-1.5">
             Made with <Heart className="h-3 w-3 text-accent-400 fill-current" />{" "}
-            for the Clay City community
+            for the Kasarani community
           </p>
           <a
             href="#top"

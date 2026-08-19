@@ -10,13 +10,14 @@ import Location from "./components/Location";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import MobileCallBar from "./components/MobileCallBar";
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "MedicalClinic",
   name: "Claycity Medical Centre",
   description:
-    "Licensed Level-2 outpatient clinic in Clay City, Kasarani, Nairobi. Maternal & child health, immunisation, family planning, HIV testing, laboratory services and general outpatient care.",
+    "Licensed Level-2 outpatient clinic in Clay City, Kasarani, Nairobi. Maternal & child health, immunisation, in-house pharmacy, HIV testing, laboratory diagnostics and outpatient care.",
   url: "https://claycitymed.co.ke",
   telephone: "+254721260994",
   email: "nabiclaycitymedical@yahoo.com",
@@ -56,20 +57,23 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
-      <main className="flex-1">
-        <Hero />
-        <QuickInfo />
-        <Accreditations />
-        <Services />
-        <About />
-        <PatientJourney />
-        <WhyChooseUs />
-        <Location />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
+      <div className="relative min-h-screen flex flex-col bg-canvas text-ink">
+        <Navbar />
+        <main id="main" className="flex-1">
+          <Hero />
+          <QuickInfo />
+          <Accreditations />
+          <Services />
+          <About />
+          <PatientJourney />
+          <WhyChooseUs />
+          <Location />
+          <FAQ />
+          <Contact />
+        </main>
+        <Footer />
+        <MobileCallBar />
+      </div>
     </>
   );
 }

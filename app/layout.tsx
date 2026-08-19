@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
+import SmoothScrollProvider from "./components/SmoothScrollProvider";
 
 /* Only the weights actually used — keeps the self-hosted font payload small */
 const plusJakarta = Plus_Jakarta_Sans({
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0a8a73",
+  themeColor: "#0284c7",
   width: "device-width",
   initialScale: 1,
 };
@@ -64,8 +65,11 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakarta.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-canvas text-ink">
-        {children}
+      <body className="min-h-full flex flex-col bg-canvas text-ink pb-[4.5rem] lg:pb-0">
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
   );

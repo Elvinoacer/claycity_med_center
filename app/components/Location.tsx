@@ -1,4 +1,4 @@
-import { MapPin, Navigation, Clock, Phone, Car, Footprints } from "lucide-react";
+import { MapPin, Navigation, Clock, Car, Footprints } from "lucide-react";
 import OpenStatus from "./OpenStatus";
 
 const HOURS = [
@@ -12,7 +12,6 @@ const HOURS = [
 ];
 
 export default function Location() {
-  // OpenStreetMap embed for the clinic's coordinates
   const lat = -1.21836;
   const lon = 36.90319;
   const bbox = `${lon - 0.008}%2C${lat - 0.006}%2C${lon + 0.008}%2C${
@@ -24,40 +23,36 @@ export default function Location() {
   return (
     <section
       id="location"
-      className="cv-auto relative py-20 md:py-28 bg-white border-y border-line"
+      className="relative py-16 md:py-24 bg-white border-y border-line"
       aria-labelledby="location-heading"
     >
       <div className="container-page">
-        <div className="max-w-3xl reveal">
-          <span className="eyebrow">Find us</span>
+        <div className="max-w-3xl" data-reveal>
+          <span className="eyebrow">Find Us</span>
           <h2
             id="location-heading"
             className="mt-4 font-display text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.08] font-semibold tracking-[-0.01em] text-brand-950 heading-underline text-balance"
           >
             On First Street, in the heart of Clay City
           </h2>
-          <p className="mt-6 text-lg text-ink-soft leading-relaxed">
-            We&rsquo;re a short walk from Seasons stage, just off Seasons Road
-            in the Clay City estate, Kasarani. Look for the Co-op Kasarani
-            branch — we&rsquo;re nearby on First Street.
+          <p className="mt-5 text-base sm:text-lg text-ink-soft leading-relaxed">
+            We are a short walk from Seasons stage, just off Seasons Road in the Clay City estate, Kasarani. Landmark: Co-op Kasarani branch — we are on First Street.
           </p>
         </div>
 
         <div className="mt-12 grid lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-8 items-stretch">
-          {/* Map */}
-          <div className="reveal card-soft overflow-hidden p-2 hover:shadow-[var(--shadow-lift)] transition-shadow duration-300">
-            <div className="relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden">
+          <div className="card-soft overflow-hidden p-2 shadow-md" data-reveal>
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100">
               <iframe
                 title="Map showing Claycity Medical Centre on First Street, Clay City, Kasarani"
                 src={mapSrc}
-                className="absolute inset-0 h-full w-full"
+                className="absolute inset-0 h-full w-full border-0"
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
             <div className="flex items-center justify-between gap-3 px-2 py-3">
               <p className="text-sm text-ink-soft inline-flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-brand-600" />
+                <MapPin className="h-4 w-4 text-brand-600 shrink-0" />
                 First Street, Clay City Estate, Kasarani
               </p>
               <a
@@ -72,14 +67,13 @@ export default function Location() {
             </div>
           </div>
 
-          {/* Hours + directions */}
-          <div className="flex flex-col gap-5">
-            <div className="reveal card-soft p-6">
+          <div className="flex flex-col gap-5" data-reveal>
+            <div className="card-soft p-6">
               <div className="flex items-center justify-between gap-3 flex-wrap">
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5 text-brand-700" />
                   <h3 className="font-display text-lg font-semibold text-brand-950">
-                    Opening hours
+                    Opening Hours
                   </h3>
                 </div>
                 <OpenStatus />
@@ -102,8 +96,7 @@ export default function Location() {
                 ))}
               </ul>
               <div className="mt-4 rounded-xl bg-brand-50 border border-brand-100 p-3 text-xs text-brand-800">
-                <strong>Walk-ins welcome.</strong> To skip the wait, call ahead
-                on{" "}
+                <strong>Walk-ins welcome.</strong> To skip the wait, call ahead on{" "}
                 <a
                   href="tel:+254721260994"
                   className="font-semibold underline underline-offset-2"
@@ -114,9 +107,9 @@ export default function Location() {
               </div>
             </div>
 
-            <div className="reveal card-soft p-6">
+            <div className="card-soft p-6">
               <h3 className="font-display text-lg font-semibold text-brand-950">
-                Getting here
+                Getting Here
               </h3>
               <div className="mt-4 space-y-3">
                 <div className="flex gap-3">
@@ -134,18 +127,9 @@ export default function Location() {
                     <Footprints className="h-4 w-4" />
                   </span>
                   <p className="text-sm text-ink-soft">
-                    <strong className="text-brand-900">On foot:</strong> We&rsquo;re
+                    <strong className="text-brand-900">On foot:</strong> We are
                     a 3-minute walk from Seasons matatu stage. Landmark: Co-op
                     Kasarani branch.
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700">
-                    <Phone className="h-4 w-4" />
-                  </span>
-                  <p className="text-sm text-ink-soft">
-                    <strong className="text-brand-900">Need directions?</strong>{" "}
-                    Call us and we&rsquo;ll guide you in person.
                   </p>
                 </div>
               </div>

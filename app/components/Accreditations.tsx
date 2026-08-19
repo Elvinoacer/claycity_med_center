@@ -23,7 +23,7 @@ const ITEMS = [
 export default function Accreditations() {
   return (
     <section
-      className="relative py-8 bg-white border-y border-line overflow-hidden"
+      className="relative py-8 bg-white/70 backdrop-blur-md border-y border-line overflow-hidden"
       aria-label="Accreditations"
     >
       <div className="container-page">

@@ -18,6 +18,7 @@ const SERVICES_OPTIONS = [
   "Childhood immunisation",
   "Family planning",
   "Laboratory test",
+  "In-house pharmacy",
   "HIV testing & counselling",
   "Health screening",
   "Other",
@@ -35,7 +36,6 @@ export default function Contact() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Construct a WhatsApp-friendly message and open the phone link
     const msg = `Hello Claycity Medical Centre,%0A%0AName: ${encodeURIComponent(
       form.name
     )}%0APhone: ${encodeURIComponent(form.phone)}%0AService: ${encodeURIComponent(
@@ -52,40 +52,34 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="cv-auto relative py-20 md:py-28 overflow-hidden hero-wash grain"
+      className="relative py-16 md:py-24 overflow-hidden hero-wash border-t border-line"
       aria-labelledby="contact-heading"
     >
-      <div className="blob bg-brand-300 w-[26rem] h-[26rem] -top-24 right-0 opacity-25" />
-      <div className="blob bg-accent-200 w-[20rem] h-[20rem] -bottom-24 -left-16 opacity-30" />
-
       <div className="container-page relative z-10">
         <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-14 items-stretch">
-          {/* Left: details */}
-          <div className="flex flex-col reveal">
-            <span className="eyebrow">Get in touch</span>
+          <div className="flex flex-col" data-reveal>
+            <span className="eyebrow">Get in Touch</span>
             <h2
               id="contact-heading"
               className="mt-4 font-display text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.08] font-semibold tracking-[-0.01em] text-brand-950 heading-underline text-balance"
             >
               Book a visit or ask a question
             </h2>
-            <p className="mt-6 text-lg text-ink-soft leading-relaxed">
-              The fastest way to reach us is by phone — our reception is staffed
-              during opening hours. Otherwise, send a message and we&rsquo;ll
-              reply within one working day.
+            <p className="mt-5 text-base sm:text-lg text-ink-soft leading-relaxed">
+              The fastest way to reach us is by phone or WhatsApp — our reception desk is active during clinic opening hours.
             </p>
 
             <div className="mt-8 space-y-4">
               <a
                 href="tel:+254721260994"
-                className="card-soft flex items-center gap-4 p-5 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] transition-all duration-300 group"
+                className="card-soft flex items-center gap-4 p-5 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-md shadow-brand-600/40">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-md shadow-brand-700/30">
                   <Phone className="h-5 w-5" />
                 </span>
                 <span>
                   <span className="block text-xs font-semibold uppercase tracking-wide text-ink-muted">
-                    Call us
+                    Call Us Directly
                   </span>
                   <span className="block font-display text-lg font-semibold text-brand-950">
                     0721 260994
@@ -98,31 +92,31 @@ export default function Contact() {
 
               <a
                 href="mailto:nabiclaycitymedical@yahoo.com"
-                className="card-soft flex items-center gap-4 p-5 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] transition-all duration-300"
+                className="card-soft flex items-center gap-4 p-5 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-400 to-accent-600 text-white shadow-md shadow-accent-500/40">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-500 to-accent-700 text-white shadow-md shadow-accent-500/30">
                   <Mail className="h-5 w-5" />
                 </span>
                 <span className="min-w-0">
                   <span className="block text-xs font-semibold uppercase tracking-wide text-ink-muted">
-                    Email us
+                    Email Desk
                   </span>
                   <span className="block font-display text-base font-semibold text-brand-950 break-all">
                     nabiclaycitymedical@yahoo.com
                   </span>
                   <span className="block text-xs text-ink-muted">
-                    We reply within 24 hours
+                    We reply promptly within 24 hours
                   </span>
                 </span>
               </a>
 
               <div className="card-soft flex items-center gap-4 p-5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-100 text-brand-700">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-700 border border-brand-200">
                   <MapPin className="h-5 w-5" />
                 </span>
                 <span>
                   <span className="block text-xs font-semibold uppercase tracking-wide text-ink-muted">
-                    Visit us
+                    Physical Clinic Location
                   </span>
                   <span className="block font-display text-base font-semibold text-brand-950">
                     First Street, Clay City Estate
@@ -135,26 +129,21 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right: form */}
-          <div className="reveal card-soft p-6 sm:p-8 lg:p-10">
+          <div
+            className="card-soft p-6 sm:p-8 lg:p-10 shadow-xl border-brand-200"
+            data-reveal
+            style={{ ["--reveal-delay" as string]: "100ms" }}
+          >
             {submitted ? (
               <div className="flex flex-col items-center justify-center text-center py-10 sm:py-16">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-100 text-brand-700">
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-vital-100 text-vital-600">
                   <CheckCircle2 className="h-8 w-8" />
                 </span>
                 <h3 className="mt-5 font-display text-2xl font-semibold text-brand-950">
                   Opening WhatsApp…
                 </h3>
                 <p className="mt-2 text-sm text-ink-soft max-w-sm">
-                  We&rsquo;re redirecting you to WhatsApp so your message lands
-                  directly with our reception. If nothing happens, call us on{" "}
-                  <a
-                    href="tel:+254721260994"
-                    className="font-semibold text-brand-700 underline underline-offset-2"
-                  >
-                    0721 260994
-                  </a>
-                  .
+                  We are redirecting you to WhatsApp so your appointment enquiry lands directly at our clinic desk.
                 </p>
                 <button
                   type="button"
@@ -165,14 +154,9 @@ export default function Contact() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="space-y-5">
+              <form onSubmit={onSubmit} className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <Field
-                    label="Full name"
-                    icon={User}
-                    htmlFor="name"
-                    required
-                  >
+                  <Field label="Full Name" icon={User} htmlFor="name" required>
                     <input
                       id="name"
                       type="text"
@@ -185,12 +169,7 @@ export default function Contact() {
                       className="input"
                     />
                   </Field>
-                  <Field
-                    label="Phone number"
-                    icon={Phone}
-                    htmlFor="phone"
-                    required
-                  >
+                  <Field label="Phone Number" icon={Phone} htmlFor="phone" required>
                     <input
                       id="phone"
                       type="tel"
@@ -206,11 +185,7 @@ export default function Contact() {
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <Field
-                    label="Service needed"
-                    icon={MessageSquare}
-                    htmlFor="service"
-                  >
+                  <Field label="Service Needed" icon={MessageSquare} htmlFor="service">
                     <select
                       id="service"
                       value={form.service}
@@ -227,11 +202,7 @@ export default function Contact() {
                       ))}
                     </select>
                   </Field>
-                  <Field
-                    label="Preferred date"
-                    icon={CalendarClock}
-                    htmlFor="date"
-                  >
+                  <Field label="Preferred Date" icon={CalendarClock} htmlFor="date">
                     <input
                       id="date"
                       type="date"
@@ -244,30 +215,25 @@ export default function Contact() {
                   </Field>
                 </div>
 
-                <Field
-                  label="Message (optional)"
-                  icon={MessageSquare}
-                  htmlFor="message"
-                >
+                <Field label="Message (Optional)" icon={MessageSquare} htmlFor="message">
                   <textarea
                     id="message"
-                    rows={4}
+                    rows={3}
                     value={form.message}
                     onChange={(e) =>
                       setForm({ ...form, message: e.target.value })
                     }
-                    placeholder="Tell us briefly what you need…"
+                    placeholder="Tell us briefly about your visit or question…"
                     className="input resize-none"
                   />
                 </Field>
 
-                <button type="submit" className="btn btn-primary w-full">
+                <button type="submit" className="btn btn-primary w-full py-3.5 shadow-lg">
                   <Send className="h-4 w-4" />
                   Send via WhatsApp
                 </button>
                 <p className="text-center text-xs text-ink-muted">
-                  By sending this message you agree to be contacted by
-                  Claycity Medical Centre about your enquiry.
+                  Walk-ins are always welcome during regular clinic opening hours.
                 </p>
               </form>
             )}
