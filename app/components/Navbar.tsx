@@ -67,7 +67,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="hidden md:block bg-brand-950 text-brand-100 text-[13px] border-b border-brand-900">
+      <div className="hidden md:block bg-brand-950 text-brand-100 text-[13px] border-b border-brand-900/80">
         <div className="container-page flex items-center justify-between py-2">
           <div className="flex items-center gap-6">
             <span className="inline-flex items-center gap-2 text-brand-200">
@@ -81,7 +81,7 @@ export default function Navbar() {
           </div>
           <a
             href="tel:+254721260994"
-            className="inline-flex items-center gap-2 font-medium text-white hover:text-brand-300 transition-colors"
+            className="inline-flex items-center gap-2 font-semibold text-white hover:text-accent-300 transition-colors"
           >
             <Phone className="h-3.5 w-3.5 text-accent-400" />
             0721 260994
@@ -90,9 +90,9 @@ export default function Navbar() {
       </div>
 
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
+        className={`sticky top-0 z-50 transition-all duration-350 ${
           scrolled
-            ? "bg-white/80 backdrop-blur-xl border-b border-line shadow-md shadow-brand-950/5"
+            ? "bg-white/78 backdrop-blur-2xl border-b border-line/80 shadow-lg shadow-brand-950/6"
             : "bg-transparent border-b border-transparent"
         }`}
       >
@@ -165,7 +165,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-50 text-brand-800 border border-brand-200"
+            className="lg:hidden inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-800 border border-brand-200 shadow-sm active:scale-95 transition-transform"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -175,49 +175,49 @@ export default function Navbar() {
       </header>
 
       <div
-        className={`lg:hidden fixed inset-0 z-50 transition-all duration-300 ${
+        className={`lg:hidden fixed inset-0 z-50 transition-all duration-350 ${
           open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
         <div
-          className="absolute inset-0 bg-brand-950/60 backdrop-blur-sm"
+          className="absolute inset-0 bg-brand-950/55 backdrop-blur-md"
           onClick={() => setOpen(false)}
         />
         <aside
-          className={`absolute right-0 top-0 h-full w-[85%] max-w-sm bg-white shadow-2xl rounded-l-3xl flex flex-col transition-transform duration-300 ${
+          className={`absolute right-0 top-0 h-full w-[min(88%,22rem)] bg-white/95 backdrop-blur-xl shadow-2xl rounded-l-[1.75rem] flex flex-col transition-transform duration-350 ease-out border-l border-white/60 ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="flex items-center justify-between px-5 py-4 border-b border-line">
-            <span className="font-display font-semibold text-brand-950">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-line/80">
+            <span className="font-display font-semibold text-brand-950 tracking-tight">
               Claycity Medical
             </span>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-800"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-50 text-brand-800 border border-brand-100 active:scale-95 transition-transform"
               aria-label="Close menu"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
-          <div className="flex flex-col gap-1 px-4 py-5">
+          <div className="flex flex-col gap-1 px-3.5 py-5">
             {NAV_LINKS.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium text-ink hover:bg-brand-50 hover:text-brand-700 transition-colors"
+                className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-[1.05rem] font-medium text-ink hover:bg-brand-50 hover:text-brand-700 active:bg-brand-100 transition-colors"
               >
                 {l.label}
                 <ChevronRight className="h-4 w-4 text-ink-muted" />
               </a>
             ))}
           </div>
-          <div className="mt-auto px-5 pb-8 space-y-3 border-t border-line pt-5">
+          <div className="mt-auto px-5 pb-[max(1.75rem,env(safe-area-inset-bottom))] space-y-3 border-t border-line/80 pt-5">
             <a
               href="tel:+254721260994"
-              className="btn btn-ghost w-full"
+              className="btn btn-ghost w-full py-3.5"
               onClick={() => setOpen(false)}
             >
               <Phone className="h-4 w-4" />
@@ -225,13 +225,13 @@ export default function Navbar() {
             </a>
             <a
               href="#contact"
-              className="btn btn-primary w-full"
+              className="btn btn-primary w-full py-3.5"
               onClick={() => setOpen(false)}
             >
               <CalendarClock className="h-4 w-4" />
               Book a Visit
             </a>
-            <p className="text-center text-xs text-ink-muted pt-2">
+            <p className="text-center text-xs text-ink-muted pt-1.5">
               First Street · Clay City Estate · Kasarani
             </p>
           </div>

@@ -34,7 +34,7 @@ export default function Card3DTilt({
     let hovering = false;
 
     const rest =
-      "perspective(1100px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+      "perspective(1400px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
 
     const apply = () => {
       frame = 0;
@@ -42,11 +42,11 @@ export default function Card3DTilt({
         const rx = -py * intensity;
         const ry = px * intensity;
         card.style.transition = "none";
-        card.style.transform = `perspective(1100px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+        card.style.transform = `perspective(1400px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale3d(1.03, 1.03, 1.03)`;
         card.style.willChange = "transform";
       } else {
         card.style.transition =
-          "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)";
+          "transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)";
         card.style.transform = rest;
         card.style.willChange = "auto";
       }
@@ -56,8 +56,8 @@ export default function Card3DTilt({
       if (hovering) {
         const gx = ((px + 1) * 50).toFixed(1);
         const gy = ((py + 1) * 50).toFixed(1);
-        g.style.opacity = "0.42";
-        g.style.background = `radial-gradient(circle 240px at ${gx}% ${gy}%, rgba(255,255,255,0.5), transparent 70%)`;
+        g.style.opacity = "0.5";
+        g.style.background = `radial-gradient(circle 280px at ${gx}% ${gy}%, rgba(255,255,255,0.55), rgba(186,230,253,0.15) 45%, transparent 72%)`;
       } else {
         g.style.opacity = "0";
       }
@@ -92,7 +92,7 @@ export default function Card3DTilt({
       ref={cardRef}
       className={`relative ${className}`}
       style={{
-        transform: "perspective(1100px) rotateX(0deg) rotateY(0deg)",
+        transform: "perspective(1400px) rotateX(0deg) rotateY(0deg)",
         transformStyle: "preserve-3d",
       }}
     >

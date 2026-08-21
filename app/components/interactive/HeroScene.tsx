@@ -61,13 +61,13 @@ export default function HeroScene() {
     if (!host) return;
 
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const particleCount = isMobile ? 140 : 420;
-    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.4);
+    const particleCount = isMobile ? 110 : 520;
+    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5);
 
     const scene = new Scene();
 
-    const camera = new PerspectiveCamera(36, 1, 0.1, 40);
-    camera.position.set(0, 0.15, 7.2);
+    const camera = new PerspectiveCamera(34, 1, 0.1, 40);
+    camera.position.set(0, 0.2, 7.4);
 
     const renderer = new WebGLRenderer({
       antialias: !isMobile,
@@ -86,14 +86,14 @@ export default function HeroScene() {
     const root = new Group();
     scene.add(root);
 
-    scene.add(new AmbientLight(0xe0f2fe, 0.7));
-    const key = new DirectionalLight(0xffffff, 1.15);
+    scene.add(new AmbientLight(0xe0f2fe, 0.75));
+    const key = new DirectionalLight(0xffffff, 1.25);
     key.position.set(3.2, 4.2, 5);
     scene.add(key);
-    const fill = new PointLight(0x38bdf8, 6, 18, 1.4);
+    const fill = new PointLight(0x38bdf8, 7, 20, 1.35);
     fill.position.set(-2.4, 1.4, 3);
     scene.add(fill);
-    const accent = new PointLight(0xfbbf24, 3.2, 16, 1.6);
+    const accent = new PointLight(0xfbbf24, 3.6, 18, 1.5);
     accent.position.set(3.2, -1.2, 2.2);
     scene.add(accent);
 

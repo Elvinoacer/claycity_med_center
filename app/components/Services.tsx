@@ -100,13 +100,13 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 [perspective:1200px]">
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 [perspective:1400px]">
           {SERVICES.map((s, i) => (
             <article
               key={s.title}
               data-reveal
               style={{ ["--reveal-delay" as string]: `${(i % 3) * 70}ms` }}
-              className="svc-3d card-soft p-6 h-full flex flex-col justify-between rounded-3xl border border-line relative overflow-hidden"
+              className="svc-3d card-soft p-6 sm:p-7 h-full flex flex-col justify-between rounded-[1.75rem] border border-line relative overflow-hidden"
             >
               <span
                 className="pointer-events-none absolute -right-2 -top-3 font-display text-6xl font-semibold text-brand-100/80"

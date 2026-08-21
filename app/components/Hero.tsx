@@ -32,7 +32,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden hero-wash pt-4 pb-16 sm:pt-6 sm:pb-20 md:pt-8 md:pb-24 lg:min-h-[min(calc(100svh-6rem),56rem)] lg:flex lg:items-center"
+      className="relative overflow-hidden hero-wash pt-3 pb-14 sm:pt-6 sm:pb-20 md:pt-8 md:pb-24 lg:min-h-[min(calc(100svh-6rem),58rem)] lg:flex lg:items-center"
       aria-labelledby="hero-heading"
     >
       <HeroCanvas />
@@ -55,7 +55,7 @@ export default function Hero() {
 
             <h1
               id="hero-heading"
-              className="mt-5 sm:mt-6 font-display text-[2.15rem] leading-[1.06] sm:text-5xl lg:text-[3.65rem] lg:leading-[1.02] font-semibold tracking-[-0.02em] text-brand-950 text-balance"
+              className="mt-5 sm:mt-6 font-display text-[2.05rem] leading-[1.08] sm:text-5xl lg:text-[3.65rem] lg:leading-[1.02] font-semibold tracking-[-0.025em] text-brand-950 text-balance"
             >
               Compassionate care, close to home in{" "}
               <span className="relative inline-block text-gradient-brand italic">
