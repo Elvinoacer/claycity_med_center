@@ -50,8 +50,6 @@ function makeGlowTexture() {
 
 function makeCross(material: MeshStandardMaterial) {
   const shape = new Shape();
-
-  const w = 0.34;
   const arm = 0.86;
   const half = 0.17;
 
@@ -101,8 +99,7 @@ export default function HeroScene() {
     const particleCount = isMobile ? 75 : 520;
     const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5);
 
-    // On portrait screens the 3D layer belongs behind the action/trust area,
-    // not behind the headline. On larger screens it can remain full-bleed.
+    // Keep the 3D layer out of the headline area on portrait screens.
     if (isMobile) {
       Object.assign(host.style, {
         top: "28%",
@@ -150,8 +147,7 @@ export default function HeroScene() {
     accent.position.set(3.2, -1.2, 2.2);
     scene.add(accent);
 
-    // Main 3D clinical emblem: a genuinely extruded/bevelled cross hovering
-    // inside a rotating system of orbital rings.
+    // A bevelled extruded medical cross gives the hero a real solid 3D object.
     const crossMat = new MeshStandardMaterial({
       color: new Color("#0284c7"),
       metalness: 0.58,
@@ -159,13 +155,12 @@ export default function HeroScene() {
       emissive: new Color("#0369a1"),
       emissiveIntensity: 0.32,
     });
-
     const emblem = makeCross(crossMat);
     emblem.position.set(isMobile ? 0.95 : 2.35, isMobile ? 0.15 : 0.35, 0.2);
     emblem.scale.setScalar(isMobile ? 0.8 : 1.18);
     root.add(emblem);
 
-    // Soft translucent core behind the cross adds actual volumetric depth.
+    // Soft translucent volume behind the cross creates depth separation.
     const coreMat = new MeshStandardMaterial({
       color: new Color("#7dd3fc"),
       metalness: 0.1,
@@ -211,8 +206,6 @@ export default function HeroScene() {
     rings.position.copy(emblem.position);
     root.add(rings);
 
-    // Four smaller 3D data nodes sit at different depths and move at slightly
-    // different rates, creating a layered parallax constellation.
     const nodeMat = new MeshStandardMaterial({
       color: new Color("#0ea5e9"),
       metalness: 0.5,
@@ -238,11 +231,11 @@ export default function HeroScene() {
       const node = makeNode(nodeMat, isMobile ? 0.12 : 0.17);
       node.position.set(x, y, z);
       node.userData.phase = index * 0.9;
+      node.userData.baseY = y;
       root.add(node);
       return node;
     });
 
-    // A second, smaller glowing body provides another clear 3D depth cue.
     const orbMat = new MeshStandardMaterial({
       color: new Color("#bae6fd"),
       metalness: 0.12,
@@ -254,9 +247,9 @@ export default function HeroScene() {
     });
     const orb = new Mesh(new SphereGeometry(isMobile ? 0.23 : 0.34, 20, 20), orbMat);
     orb.position.set(isMobile ? -0.2 : 2.7, isMobile ? -0.65 : -1.1, isMobile ? -1.2 : -0.8);
+    orb.userData.baseY = orb.position.y;
     root.add(orb);
 
-    // Depth field.
     const glowTex = makeGlowTexture();
     const pGeo = new BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
@@ -336,17 +329,18 @@ export default function HeroScene() {
 
       nodes.forEach((node, i) => {
         const phase = node.userData.phase as number;
+        const baseY = node.userData.baseY as number;
         node.rotation.x += 0.006 + i * 0.0007;
         node.rotation.y += 0.009 + i * 0.001;
-        node.position.y += Math.sin(t * 0.75 + phase) * 0.0008;
+        node.position.y = baseY + Math.sin(t * 0.75 + phase) * 0.045;
       });
 
-      orb.position.y += Math.sin(t * 0.9) * 0.0013;
+      const orbBaseY = orb.userData.baseY as number;
+      orb.position.y = orbBaseY + Math.sin(t * 0.9) * 0.06;
       orb.rotation.y = t * 0.18;
       points.rotation.y = t * 0.012;
 
-      // True camera parallax: the camera moves through the scene while the
-      // object continues its own independent rotation.
+      // Camera parallax lets the viewer feel the actual depth of the scene.
       cameraTarget.x += (pointer.x * (isMobile ? 0.12 : 0.28) - cameraTarget.x) * 0.035;
       cameraTarget.y += (-pointer.y * (isMobile ? 0.08 : 0.18) - cameraTarget.y) * 0.035;
       camera.position.x += (cameraTarget.x - camera.position.x) * 0.025;
