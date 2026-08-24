@@ -61,13 +61,16 @@ export default function HeroScene() {
     if (!host) return;
 
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const particleCount = isMobile ? 110 : 520;
+    const particleCount = isMobile ? 90 : 520;
     const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5);
 
     const scene = new Scene();
 
-    const camera = new PerspectiveCamera(34, 1, 0.1, 40);
-    camera.position.set(0, 0.2, 7.4);
+    // The original mobile camera was too close for a portrait viewport,
+    // making the decorative 3D artwork dominate the page. Give mobile a
+    // wider field of view and a little more distance so it stays subtle.
+    const camera = new PerspectiveCamera(isMobile ? 40 : 34, 1, 0.1, 40);
+    camera.position.set(0, isMobile ? 0.15 : 0.2, isMobile ? 10.2 : 7.4);
 
     const renderer = new WebGLRenderer({
       antialias: !isMobile,
@@ -81,6 +84,7 @@ export default function HeroScene() {
     renderer.outputColorSpace = SRGBColorSpace;
     renderer.domElement.style.cssText =
       "position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;";
+    renderer.domElement.style.opacity = isMobile ? "0.62" : "1";
     host.appendChild(renderer.domElement);
 
     const root = new Group();
@@ -105,8 +109,12 @@ export default function HeroScene() {
       emissiveIntensity: 0.35,
     });
     const emblem = makeCross(crossMat);
-    emblem.position.set(isMobile ? 0.15 : 2.35, isMobile ? 0.85 : 0.35, -0.4);
-    emblem.scale.setScalar(isMobile ? 0.82 : 1.15);
+    emblem.position.set(
+      isMobile ? 1.05 : 2.35,
+      isMobile ? -0.05 : 0.35,
+      -0.4
+    );
+    emblem.scale.setScalar(isMobile ? 0.56 : 1.15);
     root.add(emblem);
 
     const orbMat = new MeshStandardMaterial({
@@ -136,10 +144,11 @@ export default function HeroScene() {
       emissiveIntensity: 0.15,
     });
     const rings = new Group();
+    const ringScale = isMobile ? 0.68 : 1;
     const ringSpecs: [number, number, number][] = [
-      [1.85, 0.7, 0.4],
-      [2.25, 1.1, 2.2],
-      [2.65, 0.3, 1.1],
+      [1.85 * ringScale, 0.7, 0.4],
+      [2.25 * ringScale, 1.1, 2.2],
+      [2.65 * ringScale, 0.3, 1.1],
     ];
     ringSpecs.forEach(([r, rx, ry]) => {
       const mesh = new Mesh(
@@ -164,7 +173,7 @@ export default function HeroScene() {
     pGeo.setAttribute("position", new BufferAttribute(positions, 3));
     const pMat = new PointsMaterial({
       map: glowTex,
-      size: isMobile ? 0.09 : 0.12,
+      size: isMobile ? 0.08 : 0.12,
       transparent: true,
       depthWrite: false,
       blending: AdditiveBlending,
