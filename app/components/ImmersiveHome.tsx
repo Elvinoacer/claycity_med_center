@@ -38,6 +38,13 @@ import triage from "@/public/images/triage-vitals.jpg";
 import lab from "@/public/images/lab-services.jpg";
 import nursePortrait from "@/public/images/nurse-portrait.jpg";
 
+const TRUST_ITEMS = [
+  { icon: ShieldCheck, label: "KMPDC Licensed · Level-2 Clinic" },
+  { icon: TestTube, label: "KMLTTB Class-B Laboratory" },
+  { icon: Syringe, label: "KEPI-Aligned Immunisation" },
+  { icon: HeartPulse, label: "Same-Visit Results" },
+];
+
 const NAV_ITEMS = [
   { label: "The story", href: "#story" },
   { label: "Care", href: "#care" },
@@ -309,7 +316,7 @@ function StorySection() {
 
   return (
     <section id="story" className="immersive-story" aria-labelledby="story-heading">
-      <div className="container-page story-intro">
+      <div className="container-page story-intro" data-reveal>
         <div>
           <span className="immersive-kicker light-kicker">The Claycity way</span>
           <h2 id="story-heading">Good care has a feeling.</h2>
@@ -383,20 +390,20 @@ function Hero() {
 
       <div className="container-page immersive-hero-inner">
         <div className="immersive-hero-copy">
-          <div className="immersive-hero-status">
+          <div className="immersive-hero-status" style={{ "--rise-delay": "0.05s" } as CSSProperties}>
             <OpenStatus />
             <span><MapPin size={13} /> First Street, Clay City</span>
           </div>
-          <p className="immersive-kicker">A little closer to home</p>
-          <h1 id="hero-title">
+          <p className="immersive-kicker" style={{ "--rise-delay": "0.15s" } as CSSProperties}>A little closer to home</p>
+          <h1 id="hero-title" style={{ "--rise-delay": "0.25s" } as CSSProperties}>
             Care that <em>moves</em><br />
             <span>with you.</span>
           </h1>
-          <p className="immersive-hero-lede">
+          <p className="immersive-hero-lede" style={{ "--rise-delay": "0.35s" } as CSSProperties}>
             A warm, licensed outpatient clinic in Kasarani for the people and
             moments that matter most.
           </p>
-          <div className="immersive-hero-actions">
+          <div className="immersive-hero-actions" style={{ "--rise-delay": "0.45s" } as CSSProperties}>
             <a className="immersive-button coral-button" href="#contact">
               <CalendarDays size={17} /> Book a visit <ArrowRight size={16} />
             </a>
@@ -404,7 +411,7 @@ function Hero() {
               Take the journey <ArrowDownRight size={17} />
             </a>
           </div>
-          <div className="immersive-hero-proof">
+          <div className="immersive-hero-proof" style={{ "--rise-delay": "0.55s" } as CSSProperties}>
             <div className="proof-avatars" aria-hidden="true">
               <span>✦</span><span>+</span><span>♥</span>
             </div>
@@ -467,7 +474,7 @@ function CareSection() {
           </p>
         </div>
 
-        <div className="care-grid">
+        <div className="care-grid" data-reveal>
           {CARE_ITEMS.map((item, index) => {
             const Icon = item.icon;
             return (
@@ -504,7 +511,7 @@ function ClinicSection() {
     <section id="clinic" className="immersive-clinic" aria-labelledby="clinic-heading">
       <div className="clinic-orb" aria-hidden="true" />
       <div className="container-page clinic-layout">
-        <div className="clinic-image-wrap">
+        <div className="clinic-image-wrap" data-reveal>
           <div className="clinic-image-outline" aria-hidden="true" />
           <div className="clinic-image">
             <Image
@@ -519,7 +526,7 @@ function ClinicSection() {
           <div className="clinic-image-note"><Quote size={15} /><span>“You are a neighbour,<br />not a queue number.”</span></div>
         </div>
 
-        <div className="clinic-copy">
+        <div className="clinic-copy" data-reveal style={{ "--reveal-delay": "120ms" } as CSSProperties}>
           <span className="immersive-kicker light-kicker">The people behind the care</span>
           <h2 id="clinic-heading">Modern medicine.<br /><em>Neighbourhood heart.</em></h2>
           <p className="clinic-lede">
@@ -553,7 +560,7 @@ function VisitSection() {
   return (
     <section id="visit" className="immersive-visit" aria-labelledby="visit-heading">
       <div className="container-page visit-layout">
-        <div>
+        <div data-reveal>
           <span className="immersive-kicker">Make your way here</span>
           <h2 id="visit-heading">Your next good step<br /><em>is close.</em></h2>
           <p className="visit-lede">First Street, Clay City Estate.<br />Kasarani, Nairobi.</p>
@@ -564,7 +571,7 @@ function VisitSection() {
             <a className="visit-call" href="tel:+254721260994"><Phone size={16} /> 0721 260994</a>
           </div>
         </div>
-        <div className="visit-details">
+        <div className="visit-details" data-reveal style={{ "--reveal-delay": "140ms" } as CSSProperties}>
           <div className="visit-detail-head"><span className="live-dot" /> <span>We&apos;re here when you need us</span></div>
           <div className="visit-hours"><Clock3 size={21} /><div><span>Opening hours</span><strong>Mon–Fri &nbsp; 8:00 — 17:00</strong><strong>Saturday &nbsp; 8:00 — 12:00</strong><small>Sunday closed</small></div></div>
           <div className="visit-detail-rule" />
@@ -587,11 +594,14 @@ export default function ImmersiveHome() {
       <main id="main">
         <Hero />
         <div className="immersive-trust-band" aria-label="Clinic credentials">
-          <div className="container-page">
-            <span><ShieldCheck size={16} /> KMPDC Licensed · Level-2 Clinic</span>
-            <span><TestTube size={16} /> KMLTTB Class-B Laboratory</span>
-            <span><Syringe size={16} /> KEPI-Aligned Immunisation</span>
-            <span><HeartPulse size={16} /> Same-Visit Results</span>
+          <div className="trust-marquee">
+            <div className="trust-track">
+              {[...TRUST_ITEMS, ...TRUST_ITEMS].map((item, i) => (
+                <span key={`${item.label}-${i}`} aria-hidden={i >= TRUST_ITEMS.length}>
+                  <item.icon size={16} /> {item.label}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
         <StorySection />
