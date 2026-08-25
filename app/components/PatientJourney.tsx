@@ -136,7 +136,6 @@ export default function PatientJourney() {
                 <button
                   key={s.step}
                   type="button"
-                  role="listitem"
                   onClick={() => setActiveStep(idx)}
                   aria-pressed={isActive}
                   className={`relative w-full text-left cursor-pointer rounded-2xl border p-5 transition-all duration-300 ${

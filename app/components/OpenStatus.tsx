@@ -60,10 +60,10 @@ export default function OpenStatus() {
 
   if (!status) {
     return (
-      <span
-        className="inline-flex h-[30px] min-w-[10rem] rounded-full bg-brand-50 border border-brand-200"
-        aria-hidden="true"
-      />
+      <span className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold bg-brand-50/10 text-brand-200 border border-brand-300/30">
+        <span className="h-1.5 w-1.5 rounded-full bg-brand-300" />
+        Mon–Sat · Walk-ins welcome
+      </span>
     );
   }
 
