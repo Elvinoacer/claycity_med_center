@@ -31,6 +31,7 @@ import Footer from "./Footer";
 import MobileCallBar from "./MobileCallBar";
 import OpenStatus from "./OpenStatus";
 import HeroCanvas from "./interactive/HeroCanvas";
+import Card3DTilt from "./interactive/Card3DTilt";
 import heroClinic from "@/public/images/hero-clinic.jpg";
 import maternityCare from "@/public/images/maternity-care.jpg";
 import pharmacy from "@/public/images/pharmacy-dispensary.jpg";
@@ -110,6 +111,7 @@ const CARE_ITEMS = [
     title: "Maternal & child health",
     copy: "Antenatal, postnatal and well-baby care with patience built in.",
     image: maternityCare,
+    imageAlt: "Mother and infant receiving maternal care",
     tag: "Family care",
   },
   {
@@ -117,6 +119,7 @@ const CARE_ITEMS = [
     title: "Outpatient consultation",
     copy: "Unhurried support for acute illness, minor injuries and follow-ups.",
     image: heroClinic,
+    imageAlt: "Clinician consulting a patient",
     tag: "Primary care",
   },
   {
@@ -124,6 +127,7 @@ const CARE_ITEMS = [
     title: "Laboratory diagnostics",
     copy: "Routine blood, urine and rapid tests, with same-visit results where possible.",
     image: lab,
+    imageAlt: "Laboratory diagnostic services",
     tag: "Class-B lab",
   },
   {
@@ -131,6 +135,7 @@ const CARE_ITEMS = [
     title: "In-house pharmacy",
     copy: "Quality-assured medicines and clear dosage guidance before you leave.",
     image: pharmacy,
+    imageAlt: "In-house pharmacy dispensary",
     tag: "On-site",
   },
   {
@@ -138,6 +143,7 @@ const CARE_ITEMS = [
     title: "Immunisation",
     copy: "KEPI-aligned vaccinations for little ones and tetanus protection for mothers.",
     image: maternityCare,
+    imageAlt: "Childhood immunisation at the clinic",
     tag: "Prevention",
   },
   {
@@ -145,6 +151,7 @@ const CARE_ITEMS = [
     title: "Wellness screening",
     copy: "Blood pressure, blood sugar, BMI and the simple checks that keep you informed.",
     image: triage,
+    imageAlt: "Nurse checking patient vitals",
     tag: "Everyday health",
   },
 ];
@@ -234,10 +241,12 @@ function StoryOrbit({ active }: { active: number }) {
       {CHAPTERS.map((chapter, index) => {
         const offset = index - active;
         const distance = Math.abs(offset);
+        // Richer 3D depth: more Z separation, slightly stronger Y-rotation & scale falloff
         const style = {
-          transform: `translate3d(calc(-50% + ${offset * 17}%), ${offset * 5}%, ${-distance * 78}px) rotateY(${offset * -24}deg) rotateZ(${offset * 2.5}deg) scale(${1 - distance * 0.085})`,
-          opacity: distance > 2 ? 0 : 1 - distance * 0.18,
+          transform: `translate3d(calc(-50% + ${offset * 18}%), ${offset * 6}%, ${-distance * 110}px) rotateY(${offset * -28}deg) rotateX(${distance * 4}deg) rotateZ(${offset * 2.8}deg) scale(${1 - distance * 0.1})`,
+          opacity: distance > 2 ? 0 : 1 - distance * 0.2,
           zIndex: 10 - distance,
+          filter: distance === 0 ? "saturate(1.05)" : `saturate(${0.7 - distance * 0.08}) brightness(${1 - distance * 0.06})`,
         } as CSSProperties;
 
         return (
@@ -478,21 +487,34 @@ function CareSection() {
           {CARE_ITEMS.map((item, index) => {
             const Icon = item.icon;
             return (
-              <article className={`care-card care-card-${index + 1}`} key={item.title}>
-                <div className="care-card-image">
-                  <Image src={item.image} alt="" fill sizes="(max-width: 700px) 90vw, 30vw" className="object-cover" />
-                  <span className="care-card-tag">{item.tag}</span>
-                  <span className="care-card-number">0{index + 1}</span>
-                </div>
-                <div className="care-card-body">
-                  <span className="care-card-icon"><Icon size={18} /></span>
-                  <h3>{item.title}</h3>
-                  <p>{item.copy}</p>
-                  <a href="#contact" aria-label={`Book ${item.title}`}>
-                    Explore care <ArrowRight size={15} />
-                  </a>
-                </div>
-              </article>
+              <Card3DTilt
+                key={item.title}
+                intensity={9}
+                glare={true}
+                className={`care-card care-card-${index + 1}`}
+              >
+                <article>
+                  <div className="care-card-image">
+                    <Image
+                      src={item.image}
+                      alt={item.imageAlt}
+                      fill
+                      sizes="(max-width: 700px) 90vw, 30vw"
+                      className="object-cover"
+                    />
+                    <span className="care-card-tag">{item.tag}</span>
+                    <span className="care-card-number">0{index + 1}</span>
+                  </div>
+                  <div className="care-card-body">
+                    <span className="care-card-icon"><Icon size={18} /></span>
+                    <h3>{item.title}</h3>
+                    <p>{item.copy}</p>
+                    <a href="#contact" aria-label={`Book ${item.title}`}>
+                      Explore care <ArrowRight size={15} />
+                    </a>
+                  </div>
+                </article>
+              </Card3DTilt>
             );
           })}
         </div>
