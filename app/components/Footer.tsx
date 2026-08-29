@@ -10,22 +10,20 @@ import {
 } from "lucide-react";
 
 const QUICK_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Patient Journey", href: "#patient-journey" },
-  { label: "Why Us", href: "#why-us" },
-  { label: "Find Us", href: "#location" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Book a Visit", href: "#contact" },
+  { label: "The story", href: "#story" },
+  { label: "Care", href: "#care" },
+  { label: "The clinic", href: "#clinic" },
+  { label: "Visit us", href: "#visit" },
+  { label: "Book a visit", href: "#contact" },
 ];
 
 const SERVICE_LINKS = [
-  "Maternal & child health",
-  "Childhood immunisation",
-  "In-house pharmacy",
-  "Laboratory services",
-  "Outpatient consultation",
-  "HIV testing & counselling",
+  { label: "Maternal & child health", href: "#care" },
+  { label: "Childhood immunisation", href: "#care" },
+  { label: "In-house pharmacy", href: "#care" },
+  { label: "Laboratory services", href: "#care" },
+  { label: "Outpatient consultation", href: "#care" },
+  { label: "HIV testing & counselling", href: "#care" },
 ];
 
 export default function Footer() {
@@ -143,12 +141,12 @@ export default function Footer() {
             </h3>
             <ul className="mt-4 space-y-2.5">
               {SERVICE_LINKS.map((s) => (
-                <li key={s}>
+                <li key={s.label}>
                   <a
-                    href="#services"
+                    href={s.href}
                     className="text-sm text-brand-300 hover:text-white transition-colors"
                   >
-                    {s}
+                    {s.label}
                   </a>
                 </li>
               ))}
