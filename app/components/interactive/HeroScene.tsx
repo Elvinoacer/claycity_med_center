@@ -68,12 +68,12 @@ function makeCross(material: MeshStandardMaterial) {
   shape.closePath();
 
   const geometry = new ExtrudeGeometry(shape, {
-    depth: 0.42,
+    depth: 0.52,
     bevelEnabled: true,
-    bevelSegments: 3,
+    bevelSegments: 4,
     steps: 1,
-    bevelSize: 0.055,
-    bevelThickness: 0.055,
+    bevelSize: 0.065,
+    bevelThickness: 0.065,
   });
   geometry.center();
 
@@ -96,24 +96,23 @@ export default function HeroScene() {
     if (!host) return;
 
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const particleCount = isMobile ? 75 : 520;
-    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5);
+    const particleCount = isMobile ? 90 : 560;
+    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.15 : 1.6);
 
-    // Keep the 3D layer out of the headline area on portrait screens.
     if (isMobile) {
       Object.assign(host.style, {
-        top: "28%",
-        left: "8%",
-        right: "-4%",
+        top: "26%",
+        left: "6%",
+        right: "-2%",
         bottom: "0",
         width: "96%",
-        height: "72%",
+        height: "74%",
       });
     }
 
     const scene = new Scene();
-    const camera = new PerspectiveCamera(isMobile ? 42 : 34, 1, 0.1, 50);
-    camera.position.set(0, isMobile ? 0.12 : 0.2, isMobile ? 9.8 : 7.4);
+    const camera = new PerspectiveCamera(isMobile ? 40 : 32, 1, 0.1, 50);
+    camera.position.set(0, isMobile ? 0.1 : 0.18, isMobile ? 9.2 : 6.9);
 
     const renderer = new WebGLRenderer({
       antialias: !isMobile,
@@ -127,76 +126,75 @@ export default function HeroScene() {
     renderer.outputColorSpace = SRGBColorSpace;
     renderer.domElement.style.cssText =
       "position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;";
-    renderer.domElement.style.opacity = isMobile ? "0.48" : "1";
+    // More presence on mobile so the 3D layer actually feels there
+    renderer.domElement.style.opacity = isMobile ? "0.62" : "1";
     host.appendChild(renderer.domElement);
 
     const root = new Group();
     scene.add(root);
 
-    scene.add(new AmbientLight(0xe0f2fe, 0.82));
+    scene.add(new AmbientLight(0xe0f2fe, 0.9));
 
-    const key = new DirectionalLight(0xffffff, 1.35);
+    const key = new DirectionalLight(0xffffff, 1.55);
     key.position.set(3.2, 4.2, 5);
     scene.add(key);
 
-    const fill = new PointLight(0x38bdf8, 8, 20, 1.35);
+    const fill = new PointLight(0x38bdf8, 10, 22, 1.25);
     fill.position.set(-2.4, 1.4, 3);
     scene.add(fill);
 
-    const accent = new PointLight(0xfbbf24, 3.8, 18, 1.5);
+    const accent = new PointLight(0xfbbf24, 4.6, 18, 1.4);
     accent.position.set(3.2, -1.2, 2.2);
     scene.add(accent);
 
-    // A bevelled extruded medical cross gives the hero a real solid 3D object.
     const crossMat = new MeshStandardMaterial({
-      color: new Color("#0284c7"),
-      metalness: 0.58,
-      roughness: 0.24,
-      emissive: new Color("#0369a1"),
-      emissiveIntensity: 0.32,
+      color: new Color("#0ea5e9"),
+      metalness: 0.62,
+      roughness: 0.2,
+      emissive: new Color("#0284c7"),
+      emissiveIntensity: 0.48,
     });
     const emblem = makeCross(crossMat);
-    emblem.position.set(isMobile ? 0.95 : 2.35, isMobile ? 0.15 : 0.35, 0.2);
-    emblem.scale.setScalar(isMobile ? 0.8 : 1.18);
+    emblem.position.set(isMobile ? 0.9 : 2.25, isMobile ? 0.12 : 0.32, 0.25);
+    emblem.scale.setScalar(isMobile ? 0.85 : 1.28);
     root.add(emblem);
 
-    // Soft translucent volume behind the cross creates depth separation.
     const coreMat = new MeshStandardMaterial({
       color: new Color("#7dd3fc"),
-      metalness: 0.1,
-      roughness: 0.15,
+      metalness: 0.12,
+      roughness: 0.12,
       transparent: true,
-      opacity: isMobile ? 0.18 : 0.28,
+      opacity: isMobile ? 0.22 : 0.34,
       emissive: new Color("#38bdf8"),
-      emissiveIntensity: 0.18,
+      emissiveIntensity: 0.28,
     });
-    const core = new Mesh(new IcosahedronGeometry(isMobile ? 0.7 : 0.88, 2), coreMat);
-    core.scale.set(1, 1.18, 0.72);
+    const core = new Mesh(new IcosahedronGeometry(isMobile ? 0.74 : 0.95, 2), coreMat);
+    core.scale.set(1, 1.2, 0.7);
     core.position.copy(emblem.position);
-    core.position.z = -0.12;
+    core.position.z = -0.18;
     root.add(core);
 
     const ringMat = new MeshStandardMaterial({
       color: new Color("#bae6fd"),
-      metalness: 0.7,
-      roughness: 0.26,
+      metalness: 0.75,
+      roughness: 0.22,
       transparent: true,
-      opacity: isMobile ? 0.38 : 0.52,
+      opacity: isMobile ? 0.42 : 0.58,
       emissive: new Color("#0284c7"),
-      emissiveIntensity: 0.14,
+      emissiveIntensity: 0.2,
     });
 
     const rings = new Group();
-    const ringScale = isMobile ? 0.64 : 1;
+    const ringScale = isMobile ? 0.68 : 1.05;
     const ringSpecs: [number, number, number][] = [
       [1.7 * ringScale, 0.7, 0.4],
-      [2.15 * ringScale, 1.05, 2.2],
-      [2.55 * ringScale, 0.3, 1.1],
+      [2.2 * ringScale, 1.05, 2.2],
+      [2.65 * ringScale, 0.3, 1.1],
     ];
 
     for (const [radius, rx, ry] of ringSpecs) {
       const mesh = new Mesh(
-        new TorusGeometry(radius, isMobile ? 0.016 : 0.022, 8, isMobile ? 64 : 96),
+        new TorusGeometry(radius, isMobile ? 0.018 : 0.026, 8, isMobile ? 64 : 100),
         ringMat
       );
       mesh.rotation.set(rx, ry, 0);
@@ -207,11 +205,11 @@ export default function HeroScene() {
     root.add(rings);
 
     const nodeMat = new MeshStandardMaterial({
-      color: new Color("#0ea5e9"),
-      metalness: 0.5,
-      roughness: 0.3,
-      emissive: new Color("#0284c7"),
-      emissiveIntensity: 0.2,
+      color: new Color("#38bdf8"),
+      metalness: 0.55,
+      roughness: 0.25,
+      emissive: new Color("#0ea5e9"),
+      emissiveIntensity: 0.32,
     });
 
     const nodePositions = isMobile
@@ -228,7 +226,7 @@ export default function HeroScene() {
         ];
 
     const nodes = nodePositions.map(([x, y, z], index) => {
-      const node = makeNode(nodeMat, isMobile ? 0.12 : 0.17);
+      const node = makeNode(nodeMat, isMobile ? 0.13 : 0.19);
       node.position.set(x, y, z);
       node.userData.phase = index * 0.9;
       node.userData.baseY = y;
@@ -238,14 +236,14 @@ export default function HeroScene() {
 
     const orbMat = new MeshStandardMaterial({
       color: new Color("#bae6fd"),
-      metalness: 0.12,
-      roughness: 0.12,
+      metalness: 0.15,
+      roughness: 0.1,
       transparent: true,
-      opacity: 0.48,
+      opacity: 0.55,
       emissive: new Color("#38bdf8"),
-      emissiveIntensity: 0.28,
+      emissiveIntensity: 0.36,
     });
-    const orb = new Mesh(new SphereGeometry(isMobile ? 0.23 : 0.34, 20, 20), orbMat);
+    const orb = new Mesh(new SphereGeometry(isMobile ? 0.25 : 0.38, 22, 22), orbMat);
     orb.position.set(isMobile ? -0.2 : 2.7, isMobile ? -0.65 : -1.1, isMobile ? -1.2 : -0.8);
     orb.userData.baseY = orb.position.y;
     root.add(orb);
@@ -262,11 +260,11 @@ export default function HeroScene() {
 
     const pMat = new PointsMaterial({
       map: glowTex,
-      size: isMobile ? 0.07 : 0.11,
+      size: isMobile ? 0.08 : 0.125,
       transparent: true,
       depthWrite: false,
       blending: AdditiveBlending,
-      opacity: isMobile ? 0.55 : 0.8,
+      opacity: isMobile ? 0.62 : 0.88,
       color: new Color("#e0f2fe"),
     });
 
@@ -317,35 +315,38 @@ export default function HeroScene() {
     const tick = () => {
       const t = clock.getElapsedTime();
 
-      emblem.rotation.y = t * 0.24;
-      emblem.rotation.x = Math.sin(t * 0.55) * 0.08;
+      emblem.rotation.y = t * 0.28;
+      emblem.rotation.x = Math.sin(t * 0.55) * 0.1;
+      emblem.rotation.z = Math.sin(t * 0.35) * 0.04;
 
-      core.rotation.y = -t * 0.16;
-      core.rotation.z = Math.sin(t * 0.5) * 0.12;
-      core.position.y = emblem.position.y + Math.sin(t * 0.85) * 0.06;
+      core.rotation.y = -t * 0.18;
+      core.rotation.z = Math.sin(t * 0.5) * 0.14;
+      core.position.y = emblem.position.y + Math.sin(t * 0.85) * 0.07;
 
-      rings.rotation.y = t * 0.16;
-      rings.rotation.z = t * 0.06;
+      rings.rotation.y = t * 0.18;
+      rings.rotation.z = t * 0.07;
 
       nodes.forEach((node, i) => {
         const phase = node.userData.phase as number;
         const baseY = node.userData.baseY as number;
-        node.rotation.x += 0.006 + i * 0.0007;
-        node.rotation.y += 0.009 + i * 0.001;
-        node.position.y = baseY + Math.sin(t * 0.75 + phase) * 0.045;
+        node.rotation.x += 0.007 + i * 0.0008;
+        node.rotation.y += 0.01 + i * 0.0012;
+        node.position.y = baseY + Math.sin(t * 0.8 + phase) * 0.055;
       });
 
       const orbBaseY = orb.userData.baseY as number;
-      orb.position.y = orbBaseY + Math.sin(t * 0.9) * 0.06;
-      orb.rotation.y = t * 0.18;
-      points.rotation.y = t * 0.012;
+      orb.position.y = orbBaseY + Math.sin(t * 0.95) * 0.07;
+      orb.rotation.y = t * 0.22;
+      points.rotation.y = t * 0.015;
 
-      // Camera parallax lets the viewer feel the actual depth of the scene.
-      cameraTarget.x += (pointer.x * (isMobile ? 0.12 : 0.28) - cameraTarget.x) * 0.035;
-      cameraTarget.y += (-pointer.y * (isMobile ? 0.08 : 0.18) - cameraTarget.y) * 0.035;
-      camera.position.x += (cameraTarget.x - camera.position.x) * 0.025;
-      camera.position.y += (0.2 + cameraTarget.y - camera.position.y) * 0.025;
-      camera.lookAt(0, 0, 0);
+      // Stronger parallax so depth reads clearly when the pointer moves
+      const parallaxX = isMobile ? 0.16 : 0.42;
+      const parallaxY = isMobile ? 0.1 : 0.26;
+      cameraTarget.x += (pointer.x * parallaxX - cameraTarget.x) * 0.04;
+      cameraTarget.y += (-pointer.y * parallaxY - cameraTarget.y) * 0.04;
+      camera.position.x += (cameraTarget.x - camera.position.x) * 0.03;
+      camera.position.y += (0.18 + cameraTarget.y - camera.position.y) * 0.03;
+      camera.lookAt(emblem.position.x * 0.35, 0, 0);
 
       renderer.render(scene, camera);
     };
