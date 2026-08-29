@@ -1,0 +1,250 @@
+/* Immersive Contact — matches cream / coral / cyan system */
+
+.immersive-contact {
+  position: relative;
+  background: var(--iv-cream, #f5f5ee);
+  color: var(--iv-ink, #07191d);
+  border-top: 1px solid var(--iv-line, rgba(7, 25, 29, 0.13));
+}
+
+.immersive-contact-inner {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+}
+
+.immersive-contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 4.5rem;
+  align-items: start;
+}
+
+.immersive-contact-copy h2 {
+  margin-top: 1rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.6rem, 4.8vw, 4.8rem);
+  font-weight: 500;
+  letter-spacing: -0.07em;
+  line-height: 0.9;
+}
+
+.immersive-contact-copy h2 em {
+  color: #de765d;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.immersive-contact-lede {
+  max-width: 28rem;
+  margin-top: 1.6rem !important;
+  color: var(--iv-ink-soft, #36545a);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.immersive-contact-cards {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 2.4rem;
+}
+
+.immersive-contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1.05rem 1.15rem;
+  border: 1px solid var(--iv-line, rgba(7, 25, 29, 0.13));
+  border-radius: 1rem;
+  background: #fbfbf5;
+  color: inherit;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.25s ease;
+}
+
+a.immersive-contact-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(55, 140, 130, 0.35);
+  box-shadow: 0 16px 32px rgba(7, 25, 29, 0.08);
+}
+
+.immersive-contact-card-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 2.45rem;
+  height: 2.45rem;
+  place-items: center;
+  border-radius: 0.75rem;
+  color: var(--iv-ink, #07191d);
+}
+
+.immersive-contact-card-icon.phone {
+  background: var(--iv-coral, #ff9e7d);
+}
+
+.immersive-contact-card-icon.mail {
+  background: var(--iv-cyan, #a8dfd6);
+}
+
+.immersive-contact-card-icon.map {
+  background: rgba(7, 25, 29, 0.08);
+  color: #287a72;
+}
+
+.immersive-contact-card span > small {
+  display: block;
+  color: var(--iv-ink-soft, #36545a);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.immersive-contact-card span > strong {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.immersive-contact-card span > span {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--iv-ink-soft, #36545a);
+  font-size: 0.68rem;
+}
+
+.immersive-contact-form-wrap {
+  padding: 1.75rem;
+  border: 1px solid var(--iv-line, rgba(7, 25, 29, 0.13));
+  border-radius: 1.35rem;
+  background: #fff;
+  box-shadow: 0 24px 48px rgba(7, 25, 29, 0.06);
+}
+
+.immersive-contact-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.immersive-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.immersive-contact-form label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.immersive-contact-form label > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--iv-ink-soft, #36545a);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.immersive-contact-form input,
+.immersive-contact-form select,
+.immersive-contact-form textarea {
+  width: 100%;
+  padding: 0.78rem 0.95rem;
+  border: 1px solid var(--iv-line, rgba(7, 25, 29, 0.13));
+  border-radius: 0.85rem;
+  background: #fbfbf5;
+  color: var(--iv-ink, #07191d);
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.immersive-contact-form input:focus,
+.immersive-contact-form select:focus,
+.immersive-contact-form textarea:focus {
+  outline: none;
+  border-color: #378c82;
+  box-shadow: 0 0 0 3px rgba(168, 223, 214, 0.35);
+}
+
+.immersive-contact-form textarea {
+  resize: none;
+}
+
+.immersive-button.full {
+  width: 100%;
+  justify-content: center;
+  min-height: 3.35rem;
+  margin-top: 0.35rem;
+}
+
+.immersive-form-note {
+  margin: 0;
+  text-align: center;
+  color: var(--iv-ink-soft, #36545a);
+  font-size: 0.68rem;
+}
+
+.immersive-contact-success {
+  display: grid;
+  place-items: center;
+  gap: 0.85rem;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.immersive-contact-success-icon {
+  display: grid;
+  width: 3.6rem;
+  height: 3.6rem;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(168, 223, 214, 0.35);
+  color: #287a72;
+}
+
+.immersive-contact-success h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.immersive-contact-success p {
+  max-width: 22rem;
+  color: var(--iv-ink-soft, #36545a);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+/* Care cards inside Card3DTilt keep full height */
+.care-grid > .care-card {
+  height: 100%;
+}
+
+.care-grid > .care-card > article {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+@media (max-width: 900px) {
+  .immersive-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .immersive-contact-inner {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .immersive-form-row {
+    grid-template-columns: 1fr;
+  }
+}

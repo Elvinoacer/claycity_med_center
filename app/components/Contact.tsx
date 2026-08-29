@@ -12,6 +12,7 @@ import {
   MessageSquare,
   ArrowRight,
 } from "lucide-react";
+import "../immersive-contact.css";
 
 const SERVICES_OPTIONS = [
   "General consultation",
