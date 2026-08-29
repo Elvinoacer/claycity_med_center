@@ -4,10 +4,8 @@ import Image, { type StaticImageData } from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import {
   Activity,
-  ArrowDownRight,
   ArrowRight,
   Baby,
-  CalendarDays,
   Check,
   Clock3,
   HeartHandshake,
@@ -29,8 +27,7 @@ import {
 import Contact from "./Contact";
 import Footer from "./Footer";
 import MobileCallBar from "./MobileCallBar";
-import OpenStatus from "./OpenStatus";
-import HeroCanvas from "./interactive/HeroCanvas";
+import HeroStory from "./HeroStory";
 import Card3DTilt from "./interactive/Card3DTilt";
 import heroClinic from "@/public/images/hero-clinic.jpg";
 import maternityCare from "@/public/images/maternity-care.jpg";
@@ -38,6 +35,7 @@ import pharmacy from "@/public/images/pharmacy-dispensary.jpg";
 import triage from "@/public/images/triage-vitals.jpg";
 import lab from "@/public/images/lab-services.jpg";
 import nursePortrait from "@/public/images/nurse-portrait.jpg";
+import "../hero-story.css";
 
 const TRUST_ITEMS = [
   { icon: ShieldCheck, label: "KMPDC Licensed · Level-2 Clinic" },
@@ -65,9 +63,9 @@ const CHAPTERS: {
 }[] = [
   {
     number: "01",
-    label: "Arrive as you are",
-    title: "A softer first step.",
-    copy: "From the moment you walk through our door, the experience is human. No intimidating corridors. No feeling like a number.",
+    label: "Arrive",
+    title: "Soft landing.",
+    copy: "A door. A smile. Nowhere to prove yourself.",
     image: heroClinic,
     imageAlt: "Welcoming clinician at a desk inside a bright clinic",
     stat: "Walk-ins welcome",
@@ -75,32 +73,32 @@ const CHAPTERS: {
   },
   {
     number: "02",
-    label: "Be truly heard",
-    title: "Care that starts with listening.",
-    copy: "We take time to understand what is happening, explain what comes next, and make room for the questions you came in with.",
+    label: "Be heard",
+    title: "Room to speak.",
+    copy: "We listen first. Then we walk the next step with you.",
     image: maternityCare,
     imageAlt: "Mother and baby receiving attentive care from a nurse",
-    stat: "Care for every generation",
+    stat: "Every generation",
     icon: Users,
   },
   {
     number: "03",
-    label: "Leave with clarity",
-    title: "Answers you can act on.",
-    copy: "With on-site diagnostics and a stocked pharmacy, your next step can happen here — clearly, conveniently, and in one visit.",
+    label: "Clarity",
+    title: "Answers close by.",
+    copy: "Lab and pharmacy under one roof — so you leave knowing.",
     image: pharmacy,
     imageAlt: "Pharmacist preparing medicines at an in-house dispensary",
-    stat: "Same-visit support",
+    stat: "Same visit",
     icon: Activity,
   },
   {
     number: "04",
-    label: "Keep moving forward",
-    title: "A healthier rhythm for home.",
-    copy: "From a baby's first immunisation to everyday wellness checks, we are here for the small moments that add up to a healthier life.",
+    label: "Forward",
+    title: "Home, lighter.",
+    copy: "Small check-ins that add up to a healthier rhythm.",
     image: triage,
     imageAlt: "Nurse checking a patient's vital signs",
-    stat: "Open Mon–Sat",
+    stat: "Mon–Sat",
     icon: ShieldCheck,
   },
 ];
@@ -108,32 +106,32 @@ const CHAPTERS: {
 const CARE_ITEMS = [
   {
     icon: Baby,
-    title: "Maternal & child health",
-    copy: "Antenatal, postnatal and well-baby care with patience built in.",
+    title: "Maternal & child",
+    copy: "Gentle care for mums and little ones.",
     image: maternityCare,
     imageAlt: "Mother and infant receiving maternal care",
-    tag: "Family care",
+    tag: "Family",
   },
   {
     icon: Stethoscope,
-    title: "Outpatient consultation",
-    copy: "Unhurried support for acute illness, minor injuries and follow-ups.",
+    title: "Consultation",
+    copy: "Unhurried. Clear. Human.",
     image: heroClinic,
     imageAlt: "Clinician consulting a patient",
-    tag: "Primary care",
+    tag: "Primary",
   },
   {
     icon: TestTube,
-    title: "Laboratory diagnostics",
-    copy: "Routine blood, urine and rapid tests, with same-visit results where possible.",
+    title: "Laboratory",
+    copy: "Routine tests. Same-visit results where we can.",
     image: lab,
     imageAlt: "Laboratory diagnostic services",
-    tag: "Class-B lab",
+    tag: "Class-B",
   },
   {
     icon: Pill,
-    title: "In-house pharmacy",
-    copy: "Quality-assured medicines and clear dosage guidance before you leave.",
+    title: "Pharmacy",
+    copy: "Quality medicines before you leave.",
     image: pharmacy,
     imageAlt: "In-house pharmacy dispensary",
     tag: "On-site",
@@ -141,18 +139,18 @@ const CARE_ITEMS = [
   {
     icon: Syringe,
     title: "Immunisation",
-    copy: "KEPI-aligned vaccinations for little ones and tetanus protection for mothers.",
+    copy: "KEPI-aligned. Steady hands.",
     image: maternityCare,
     imageAlt: "Childhood immunisation at the clinic",
     tag: "Prevention",
   },
   {
     icon: HeartPulse,
-    title: "Wellness screening",
-    copy: "Blood pressure, blood sugar, BMI and the simple checks that keep you informed.",
+    title: "Screening",
+    copy: "BP, sugar, BMI — simple truths.",
     image: triage,
     imageAlt: "Nurse checking patient vitals",
-    tag: "Everyday health",
+    tag: "Everyday",
   },
 ];
 
@@ -241,7 +239,6 @@ function StoryOrbit({ active }: { active: number }) {
       {CHAPTERS.map((chapter, index) => {
         const offset = index - active;
         const distance = Math.abs(offset);
-        // Richer 3D depth: more Z separation, slightly stronger Y-rotation & scale falloff
         const style = {
           transform: `translate3d(calc(-50% + ${offset * 18}%), ${offset * 6}%, ${-distance * 110}px) rotateY(${offset * -28}deg) rotateX(${distance * 4}deg) rotateZ(${offset * 2.8}deg) scale(${1 - distance * 0.1})`,
           opacity: distance > 2 ? 0 : 1 - distance * 0.2,
@@ -327,13 +324,10 @@ function StorySection() {
     <section id="story" className="immersive-story" aria-labelledby="story-heading">
       <div className="container-page story-intro" data-reveal>
         <div>
-          <span className="immersive-kicker light-kicker">The Claycity way</span>
-          <h2 id="story-heading">Good care has a feeling.</h2>
+          <span className="immersive-kicker light-kicker">Still with you</span>
+          <h2 id="story-heading">The visit, slower.</h2>
         </div>
-        <p>
-          Scroll through the moments that make a visit feel different: a welcome,
-          a conversation, an answer, and a little more confidence on the way home.
-        </p>
+        <p>Four beats. No forms. Just how it feels.</p>
       </div>
 
       <div className="container-page story-layout">
@@ -390,97 +384,16 @@ function StorySection() {
   );
 }
 
-function Hero() {
-  return (
-    <section id="top" className="immersive-hero" aria-labelledby="hero-title">
-      <div className="immersive-hero-noise" aria-hidden="true" />
-      <div className="immersive-hero-gradient" aria-hidden="true" />
-      <HeroCanvas />
-
-      <div className="container-page immersive-hero-inner">
-        <div className="immersive-hero-copy">
-          <div className="immersive-hero-status" style={{ "--rise-delay": "0.05s" } as CSSProperties}>
-            <OpenStatus />
-            <span><MapPin size={13} /> First Street, Clay City</span>
-          </div>
-          <p className="immersive-kicker" style={{ "--rise-delay": "0.15s" } as CSSProperties}>A little closer to home</p>
-          <h1 id="hero-title" style={{ "--rise-delay": "0.25s" } as CSSProperties}>
-            Care that <em>moves</em><br />
-            <span>with you.</span>
-          </h1>
-          <p className="immersive-hero-lede" style={{ "--rise-delay": "0.35s" } as CSSProperties}>
-            A warm, licensed outpatient clinic in Kasarani for the people and
-            moments that matter most.
-          </p>
-          <div className="immersive-hero-actions" style={{ "--rise-delay": "0.45s" } as CSSProperties}>
-            <a className="immersive-button coral-button" href="#contact">
-              <CalendarDays size={17} /> Book a visit <ArrowRight size={16} />
-            </a>
-            <a className="immersive-text-link" href="#story">
-              Take the journey <ArrowDownRight size={17} />
-            </a>
-          </div>
-          <div className="immersive-hero-proof" style={{ "--rise-delay": "0.55s" } as CSSProperties}>
-            <div className="proof-avatars" aria-hidden="true">
-              <span>✦</span><span>+</span><span>♥</span>
-            </div>
-            <p><strong>Trusted nearby.</strong> Licensed Level-2 care, since 2018.</p>
-          </div>
-        </div>
-
-        <div className="immersive-hero-visual" aria-label="A welcoming view of the clinic">
-          <div className="hero-visual-backdrop" aria-hidden="true" />
-          <div className="hero-photo-frame">
-            <Image
-              src={heroClinic}
-              alt="A smiling clinician welcoming patients at Claycity Medical Centre"
-              fill
-              priority
-              loading="eager"
-              placeholder="blur"
-              sizes="(max-width: 900px) 92vw, 51vw"
-              className="object-cover"
-            />
-            <div className="hero-photo-gradient" />
-            <div className="hero-photo-caption">
-              <span>01 / Welcome</span>
-              <strong>Come as you are.</strong>
-            </div>
-          </div>
-          <div className="hero-float-note hero-note-top">
-            <span className="hero-note-icon"><HeartPulse size={16} /></span>
-            <span><small>Feels like home</small><strong>Human, always</strong></span>
-          </div>
-          <div className="hero-float-note hero-note-bottom">
-            <span className="hero-note-number">10<span>+</span></span>
-            <span><small>ways to care</small><strong>for your family</strong></span>
-          </div>
-          <span className="hero-coordinate">01°13′06″ S &nbsp; 36°54′11″ E</span>
-        </div>
-      </div>
-
-      <div className="container-page immersive-hero-footer">
-        <span>Scroll to explore</span>
-        <span className="hero-scroll-line"><i /></span>
-        <span>Clay City · Nairobi</span>
-      </div>
-    </section>
-  );
-}
-
 function CareSection() {
   return (
     <section id="care" className="immersive-care" aria-labelledby="care-heading">
       <div className="container-page">
         <div className="care-heading-row">
           <div>
-            <span className="immersive-kicker">Care, in full</span>
-            <h2 id="care-heading">Everything you need.<br /><em>Nothing you don&apos;t.</em></h2>
+            <span className="immersive-kicker">Care</span>
+            <h2 id="care-heading">What you need.<br /><em>Nothing extra.</em></h2>
           </div>
-          <p>
-            Thoughtful, everyday healthcare for Clay City, Seasons and the wider
-            Kasarani community — delivered by a team that knows care is personal.
-          </p>
+          <p>For Clay City, Seasons, and the rest of Kasarani — close to home.</p>
         </div>
 
         <div className="care-grid" data-reveal>
@@ -510,7 +423,7 @@ function CareSection() {
                     <h3>{item.title}</h3>
                     <p>{item.copy}</p>
                     <a href="#contact" aria-label={`Book ${item.title}`}>
-                      Explore care <ArrowRight size={15} />
+                      Explore <ArrowRight size={15} />
                     </a>
                   </div>
                 </article>
@@ -520,8 +433,8 @@ function CareSection() {
         </div>
 
         <div className="care-bottom-line">
-          <span><Sparkles size={16} /> Calm care. Clear answers. Close to home.</span>
-          <a href="#contact">Not sure where to start? Talk to us <ArrowRight size={15} /></a>
+          <span><Sparkles size={16} /> Calm. Clear. Close.</span>
+          <a href="#contact">Not sure where to start? <ArrowRight size={15} /></a>
         </div>
       </div>
     </section>
@@ -549,18 +462,15 @@ function ClinicSection() {
         </div>
 
         <div className="clinic-copy" data-reveal style={{ "--reveal-delay": "120ms" } as CSSProperties}>
-          <span className="immersive-kicker light-kicker">The people behind the care</span>
-          <h2 id="clinic-heading">Modern medicine.<br /><em>Neighbourhood heart.</em></h2>
-          <p className="clinic-lede">
-            We built Claycity Medical Centre around a simple belief: the best care
-            is clinically sound and deeply human at the same time.
-          </p>
+          <span className="immersive-kicker light-kicker">The people</span>
+          <h2 id="clinic-heading">Medicine with<br /><em>neighbourhood heart.</em></h2>
+          <p className="clinic-lede">Clinically sound. Deeply human. Same roof.</p>
           <div className="clinic-values">
-            <div><span><ShieldCheck size={16} /></span><p><strong>Licensed with confidence</strong>Level-2 clinic · Class-B laboratory</p></div>
-            <div><span><HeartHandshake size={16} /></span><p><strong>Explained with care</strong>Clear guidance, no rushed handoffs</p></div>
-            <div><span><WalletIcon /></span><p><strong>Priced with honesty</strong>Fair community pricing · M-Pesa accepted</p></div>
+            <div><span><ShieldCheck size={16} /></span><p><strong>Licensed</strong>Level-2 · Class-B lab</p></div>
+            <div><span><HeartHandshake size={16} /></span><p><strong>Explained</strong>No rushed handoffs</p></div>
+            <div><span><WalletIcon /></span><p><strong>Honest pricing</strong>M-Pesa welcome</p></div>
           </div>
-          <a className="immersive-text-link light-link" href="#visit">Meet us at First Street <ArrowRight size={16} /></a>
+          <a className="immersive-text-link light-link" href="#visit">Meet us on First Street <ArrowRight size={16} /></a>
         </div>
       </div>
 
@@ -583,30 +493,26 @@ function VisitSection() {
     <section id="visit" className="immersive-visit" aria-labelledby="visit-heading">
       <div className="container-page visit-layout">
         <div data-reveal>
-          <span className="immersive-kicker">Make your way here</span>
+          <span className="immersive-kicker">Find us</span>
           <h2 id="visit-heading">Your next good step<br /><em>is close.</em></h2>
           <p className="visit-lede">First Street, Clay City Estate.<br />Kasarani, Nairobi.</p>
           <div className="visit-actions">
             <a className="immersive-button dark-button" href="https://maps.google.com/?q=Claycity+Medical+Centre+Kasarani" target="_blank" rel="noreferrer">
-              <Navigation size={16} /> Get directions <ArrowRight size={15} />
+              <Navigation size={16} /> Directions <ArrowRight size={15} />
             </a>
             <a className="visit-call" href="tel:+254721260994"><Phone size={16} /> 0721 260994</a>
           </div>
         </div>
         <div className="visit-details" data-reveal style={{ "--reveal-delay": "140ms" } as CSSProperties}>
-          <div className="visit-detail-head"><span className="live-dot" /> <span>We&apos;re here when you need us</span></div>
-          <div className="visit-hours"><Clock3 size={21} /><div><span>Opening hours</span><strong>Mon–Fri &nbsp; 8:00 — 17:00</strong><strong>Saturday &nbsp; 8:00 — 12:00</strong><small>Sunday closed</small></div></div>
+          <div className="visit-detail-head"><span className="live-dot" /> <span>We&apos;re here</span></div>
+          <div className="visit-hours"><Clock3 size={21} /><div><span>Hours</span><strong>Mon–Fri &nbsp; 8:00 — 17:00</strong><strong>Saturday &nbsp; 8:00 — 12:00</strong><small>Sunday closed</small></div></div>
           <div className="visit-detail-rule" />
-          <div className="visit-address"><MapPin size={20} /><div><span>Find the clinic</span><strong>First Street, Clay City Estate</strong><small>Kasarani, Nairobi · P.O. Box 784–00618</small></div></div>
-          <a href="mailto:nabiclaycitymedical@yahoo.com" className="visit-email">nabiclaycitymedical@yahoo.com <ArrowUpRightIcon /></a>
+          <div className="visit-address"><MapPin size={20} /><div><span>Clinic</span><strong>First Street, Clay City Estate</strong><small>Kasarani · P.O. Box 784–00618</small></div></div>
+          <a href="mailto:nabiclaycitymedical@yahoo.com" className="visit-email">nabiclaycitymedical@yahoo.com <ArrowRight size={14} /></a>
         </div>
       </div>
     </section>
   );
-}
-
-function ArrowUpRightIcon() {
-  return <ArrowRight size={14} />;
 }
 
 export default function ImmersiveHome() {
@@ -614,7 +520,7 @@ export default function ImmersiveHome() {
     <div className="immersive-page">
       <ImmersiveHeader />
       <main id="main">
-        <Hero />
+        <HeroStory />
         <div className="immersive-trust-band" aria-label="Clinic credentials">
           <div className="trust-marquee">
             <div className="trust-track">
