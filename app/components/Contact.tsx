@@ -66,8 +66,8 @@ export default function Contact() {
               <em>or ask a question.</em>
             </h2>
             <p className="immersive-contact-lede">
-              The fastest way to reach us is by phone or WhatsApp — our reception
-              desk is active during clinic opening hours.
+              The fastest way to reach us is by phone or WhatsApp — our clinic
+              team is available 24/7.
             </p>
 
             <div className="immersive-contact-cards">
@@ -78,7 +78,7 @@ export default function Contact() {
                 <span>
                   <small>Call us directly</small>
                   <strong>0712 265746</strong>
-                  <span>Mon–Sat during opening hours</span>
+                  <span>Open 24/7</span>
                 </span>
               </a>
 
@@ -223,7 +223,7 @@ export default function Contact() {
                   <ArrowRight size={15} />
                 </button>
                 <p className="immersive-form-note">
-                  Walk-ins are always welcome during regular clinic opening hours.
+                  Walk-ins are welcome 24/7.
                 </p>
               </form>
             )}
