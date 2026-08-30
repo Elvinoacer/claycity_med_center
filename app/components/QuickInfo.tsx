@@ -11,9 +11,9 @@ const ITEMS = [
   {
     icon: Clock,
     label: "Opening Hours",
-    value: "Mon–Fri 8am–5pm",
+    value: "Open 24/7",
     href: "#location",
-    sub: "Sat 8am–12pm · Sun closed",
+    sub: "Day & night · Every day",
   },
   {
     icon: MapPin,
