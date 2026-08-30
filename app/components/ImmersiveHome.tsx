@@ -93,7 +93,7 @@ const CHAPTERS: {
     copy: "Small check-ins that add up to a healthier rhythm.",
     image: triage,
     imageAlt: "Nurse checking a patient's vital signs",
-    stat: "Mon–Sat",
+    stat: "Open 24/7",
     icon: ShieldCheck,
   },
 ];
@@ -365,7 +365,7 @@ function ClinicSection() {
         <div><strong>2018</strong><span>Serving Kasarani</span></div>
         <div><strong>Level-2</strong><span>KMPDC licensed</span></div>
         <div><strong>Class B</strong><span>On-site lab</span></div>
-        <div><strong>Mon–Sat</strong><span>Open six days</span></div>
+        <div><strong>24/7</strong><span>Open day &amp; night</span></div>
       </div>
     </section>
   );
@@ -392,7 +392,7 @@ function VisitSection() {
         </div>
         <div className="visit-details" data-reveal style={{ "--reveal-delay": "140ms" } as CSSProperties}>
           <div className="visit-detail-head"><span className="live-dot" /> <span>We&apos;re here</span></div>
-          <div className="visit-hours"><Clock3 size={21} /><div><span>Hours</span><strong>Mon–Fri &nbsp; 8:00 — 17:00</strong><strong>Saturday &nbsp; 8:00 — 12:00</strong><small>Sunday closed</small></div></div>
+          <div className="visit-hours"><Clock3 size={21} /><div><span>Hours</span><strong>Open 24/7</strong><small>Day &amp; night · every day</small></div></div>
           <div className="visit-detail-rule" />
           <div className="visit-address"><MapPin size={20} /><div><span>Clinic</span><strong>First Street, Clay City Estate</strong><small>Kasarani · P.O. Box 784–00618</small></div></div>
           <a href="mailto:nabiclaycitymedical@yahoo.com" className="visit-email">nabiclaycitymedical@yahoo.com <ArrowRight size={14} /></a>
