@@ -64,39 +64,17 @@ export default function HeroStory() {
       <style jsx global>{`
         .hero-story-bg-mobile { display: none; }
         .hero-story-bg-motion { transform: scale(1.12) translate3d(0,0,0); animation: claycityHeroDrift 18s ease-in-out infinite alternate; will-change: transform; }
-        .hero-story-bg-mobile.hero-story-bg-motion { transform: scale(1.14) translate3d(0,0,0); animation-duration: 22s; }
+        .hero-story-bg-motion { filter: blur(1.15px); }
+        .hero-story-bg-mobile.hero-story-bg-motion { transform: scale(1.14) translate3d(0,0,0); animation-duration: 22s; filter: blur(1.1px); }
         .hero-story-copy { position: relative; padding: 1rem 0; }
-        .hero-story-heading {
-          max-width: 50rem;
-          color: #fffaf7;
-          font-size: clamp(2.2rem, 8.2vw, 4.6rem);
-          line-height: 0.94;
-          text-wrap: balance;
-          text-shadow: 0 3px 18px rgba(0,0,0,0.58), 0 1px 2px rgba(0,0,0,0.75);
-          -webkit-text-stroke: 0.012em rgba(7,25,29,0.28);
-        }
-        .hero-story-lede {
-          max-width: 35rem;
-          text-shadow: 0 2px 14px rgba(0,0,0,0.6);
-        }
-        .hero-story-copy::before {
-          content: "";
-          position: absolute;
-          z-index: -1;
-          inset: -1rem auto -1rem -1.25rem;
-          width: min(42rem, 96vw);
-          border-radius: 1.75rem;
-          background: linear-gradient(90deg, rgba(7,25,29,0.28), rgba(7,25,29,0.08) 58%, transparent);
-          filter: blur(10px);
-          pointer-events: none;
-        }
+        .hero-story-heading { max-width: 50rem; color: #fffaf7; font-size: clamp(2.2rem, 8.2vw, 4.6rem); line-height: .94; text-wrap: balance; text-shadow: 0 3px 18px rgba(0,0,0,.58), 0 1px 2px rgba(0,0,0,.75); -webkit-text-stroke: .012em rgba(7,25,29,.28); }
+        .hero-story-lede { max-width: 35rem; text-shadow: 0 2px 14px rgba(0,0,0,.6); }
+        .hero-story-copy::before { content:""; position:absolute; z-index:-1; inset:-1rem auto -1rem -1.25rem; width:min(42rem,96vw); border-radius:1.75rem; background:linear-gradient(90deg,rgba(7,25,29,.28),rgba(7,25,29,.08) 58%,transparent); filter:blur(10px); pointer-events:none; }
         @keyframes claycityHeroDrift { 0%{transform:scale(1.12) translate3d(0%,0%,0)} 50%{transform:scale(1.16) translate3d(-1.2%,-0.7%,0)} 100%{transform:scale(1.12) translate3d(1.2%,0.8%,0)} }
-        @media (max-width:640px) {
-          .hero-story-bg-mobile{display:block}.hero-story-bg-desktop{display:none}.hero-story-bg-mobile{object-position:center 38%}.hero-story-bg-mobile.hero-story-bg-motion{animation-name:claycityHeroMobileDrift}.hero-story-copy{padding:.5rem 0}.hero-story-heading{font-size:clamp(2.1rem,10.5vw,3.35rem);line-height:.96;text-shadow:0 3px 16px rgba(0,0,0,.65),0 1px 2px rgba(0,0,0,.8)}.hero-story-lede{color:rgba(255,255,255,.94)}.hero-story-copy::before{inset:-.75rem auto:-.75rem -.75rem;width:min(100%,32rem);border-radius:1.25rem;background:linear-gradient(90deg,rgba(7,25,29,.38),rgba(7,25,29,.1) 72%,transparent);filter:blur(8px)}
-        }
+        @media (max-width:640px) { .hero-story-bg-mobile{display:block}.hero-story-bg-desktop{display:none}.hero-story-bg-mobile{object-position:center 38%}.hero-story-bg-mobile.hero-story-bg-motion{animation-name:claycityHeroMobileDrift}.hero-story-copy{padding:.5rem 0}.hero-story-heading{font-size:clamp(2.1rem,10.5vw,3.35rem);line-height:.96;text-shadow:0 3px 16px rgba(0,0,0,.65),0 1px 2px rgba(0,0,0,.8)}.hero-story-lede{color:rgba(255,255,255,.94)}.hero-story-copy::before{inset:-.75rem auto:-.75rem -.75rem;width:min(100%,32rem);border-radius:1.25rem;background:linear-gradient(90deg,rgba(7,25,29,.38),rgba(7,25,29,.1) 72%,transparent);filter:blur(8px)} }
         @keyframes claycityHeroMobileDrift { 0%{transform:scale(1.16) translate3d(0%,-2.8%,0)} 50%{transform:scale(1.19) translate3d(-0.8%,-3.5%,0)} 100%{transform:scale(1.16) translate3d(0.8%,-2.2%,0)} }
         @media (min-width:641px){.hero-story-bg-desktop{display:block}}
-        @media (prefers-reduced-motion:reduce){.hero-story-bg-motion{animation:none;transform:scale(1.12)}}
+        @media (prefers-reduced-motion:reduce){.hero-story-bg-motion{animation:none;transform:scale(1.12);filter:blur(1.15px)}}
       `}</style>
     </section>
   );
