@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
@@ -8,7 +9,13 @@ export const size = {
   height: 630,
 };
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const requestHeaders = await headers();
+  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
+  const protocol = requestHeaders.get("x-forwarded-proto") ?? "https";
+  const origin = host ? `${protocol}://${host}` : "https://claycitymed.co.ke";
+  const bannerUrl = `${origin}/images/claycity_banner.webp`;
+
   return new ImageResponse(
     (
       <div
@@ -23,7 +30,7 @@ export default function OpenGraphImage() {
         }}
       >
         <img
-          src="https://claycitymed.co.ke/images/claycity_banner.webp"
+          src={bannerUrl}
           alt=""
           width="1200"
           height="630"
