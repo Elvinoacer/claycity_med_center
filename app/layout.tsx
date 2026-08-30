@@ -30,12 +30,13 @@ export const metadata: Metadata = {
     template: "%s · Claycity Medical Centre",
   },
   description:
-    "Claycity Medical Centre Kasarani is a licensed Level-2 outpatient clinic in Clay City, Nairobi. We offer maternal & child health, immunisation, family planning, HIV testing, laboratory services and general outpatient care. Open Mon–Sat.",
+    "Claycity Medical Centre Kasarani is a licensed Level-2 outpatient clinic in Clay City, Nairobi. We offer maternal & child health, immunisation, family planning, HIV testing, laboratory services and general outpatient care. Open 24/7.",
   keywords: [
     "Claycity Medical Centre",
     "Kasarani clinic",
     "Clay City clinic Nairobi",
     "outpatient clinic Nairobi",
+    "24/7 clinic Kasarani",
     "maternal care Kasarani",
     "immunisation Nairobi",
     "family planning Kasarani",
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     title: "Claycity Medical Centre Kasarani — Trusted Outpatient Care",
     description:
-      "Licensed Level-2 outpatient clinic in Clay City, Kasarani. Maternal & child health, immunisation, family planning, lab services and general outpatient care.",
+      "Licensed Level-2 outpatient clinic in Clay City, Kasarani. Maternal & child health, immunisation, family planning, lab services and general outpatient care. Open 24/7.",
     siteName: "Claycity Medical Centre",
     locale: "en_KE",
     images: [
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Claycity Medical Centre Kasarani — Trusted Outpatient Care",
     description:
-      "Licensed Level-2 outpatient clinic in Clay City, Kasarani. Maternal & child health, immunisation, lab services and general outpatient care.",
+      "Licensed Level-2 outpatient clinic in Clay City, Kasarani. Maternal & child health, immunisation, lab services and general outpatient care. Open 24/7.",
     images: [SOCIAL_IMAGE],
   },
   robots: { index: true, follow: true },
