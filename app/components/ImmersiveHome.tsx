@@ -27,6 +27,7 @@ import {
 import Contact from "./Contact";
 import Footer from "./Footer";
 import MobileCallBar from "./MobileCallBar";
+import ChatWidget from "./ChatWidget";
 import HeroStory from "./HeroStory";
 import Card3DTilt from "./interactive/Card3DTilt";
 import heroClinic from "@/public/images/hero-clinic.jpg";
@@ -503,7 +504,7 @@ function VisitSection() {
           </div>
         </div>
         <div className="visit-details" data-reveal style={{ "--reveal-delay": "140ms" } as CSSProperties}>
-          <div className="visit-detail-head"><span className="live-dot" /> <span>We're here</span></div>
+          <div className="visit-detail-head"><span className="live-dot" /> <span>We&apos;re here</span></div>
           <div className="visit-hours"><Clock3 size={21} /><div><span>Hours</span><strong>Mon–Fri &nbsp; 8:00 — 17:00</strong><strong>Saturday &nbsp; 8:00 — 12:00</strong><small>Sunday closed</small></div></div>
           <div className="visit-detail-rule" />
           <div className="visit-address"><MapPin size={20} /><div><span>Clinic</span><strong>First Street, Clay City Estate</strong><small>Kasarani · P.O. Box 784–00618</small></div></div>
@@ -539,6 +540,7 @@ export default function ImmersiveHome() {
       </main>
       <Footer />
       <MobileCallBar />
+      <ChatWidget />
     </div>
   );
 }
