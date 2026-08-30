@@ -33,35 +33,32 @@ type ChatMessage = {
   content: string;
 };
 
+const FRIENDLY_UNAVAILABLE =
+  "I'm having a quiet moment. Please try again shortly, or call us on 0721 260994.";
+
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.XAI_API_KEY || process.env.GROK_API_KEY;
     if (!apiKey) {
-      return NextResponse.json(
-        { error: "Chat is not configured yet. Please add OPENAI_API_KEY." },
-        { status: 503 }
-      );
+      // Never expose configuration details to the client
+      return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 503 });
     }
 
     const body = await req.json();
     const messages = (body?.messages ?? []) as ChatMessage[];
 
     if (!Array.isArray(messages) || messages.length === 0) {
-      return NextResponse.json(
-        { error: "Messages are required." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 400 });
     }
 
-    // Keep context reasonable
     const trimmed = messages.slice(-12).map((m) => ({
       role: m.role === "assistant" ? "assistant" : "user",
       content: String(m.content ?? "").slice(0, 4000),
     }));
 
-    const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+    const model = process.env.XAI_MODEL || process.env.GROK_MODEL || "grok-3-mini";
 
-    const upstream = await fetch("https://api.openai.com/v1/chat/completions", {
+    const upstream = await fetch("https://api.x.ai/v1/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -69,7 +66,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         model,
-        temperature: 0.5,
+        temperature: 0.55,
         max_tokens: 700,
         stream: true,
         messages: [{ role: "system", content: SYSTEM_PROMPT }, ...trimmed],
@@ -78,14 +75,10 @@ export async function POST(req: NextRequest) {
 
     if (!upstream.ok || !upstream.body) {
       const errText = await upstream.text().catch(() => "");
-      console.error("OpenAI error", upstream.status, errText);
-      return NextResponse.json(
-        { error: "The assistant is temporarily unavailable. Please try again or call 0721 260994." },
-        { status: 502 }
-      );
+      console.error("xAI error", upstream.status, errText);
+      return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 502 });
     }
 
-    // Stream SSE-style chunks to the client
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
 
@@ -141,9 +134,6 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     console.error("Chat route error", err);
-    return NextResponse.json(
-      { error: "Something went wrong. Please try again or call 0721 260994." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 500 });
   }
 }
