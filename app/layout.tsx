@@ -20,9 +20,10 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://claycitymed.co.ke"),
+  metadataBase: new URL("https://claycity-med-center.vercel.app"),
   title: {
-    default: "Claycity Medical Centre Kasarani | Trusted Outpatient Care in Nairobi",
+    default:
+      "Claycity Medical Centre Kasarani | Trusted Outpatient Care in Nairobi",
     template: "%s · Claycity Medical Centre",
   },
   description:
