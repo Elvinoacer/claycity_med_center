@@ -19,8 +19,11 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+const SITE_URL = "https://claycity-med-center.vercel.app";
+const SOCIAL_IMAGE = `${SITE_URL}/images/claycity_banner.webp`;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://claycity-med-center.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default:
       "Claycity Medical Centre Kasarani | Trusted Outpatient Care in Nairobi",
@@ -39,8 +42,12 @@ export const metadata: Metadata = {
     "lab services Clay City",
   ],
   authors: [{ name: "Claycity Medical Centre" }],
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     type: "website",
+    url: SITE_URL,
     title: "Claycity Medical Centre Kasarani — Trusted Outpatient Care",
     description:
       "Licensed Level-2 outpatient clinic in Clay City, Kasarani. Maternal & child health, immunisation, family planning, lab services and general outpatient care.",
@@ -48,7 +55,7 @@ export const metadata: Metadata = {
     locale: "en_KE",
     images: [
       {
-        url: "/images/claycity_banner.webp",
+        url: SOCIAL_IMAGE,
         width: 1200,
         height: 630,
         alt: "Claycity Medical Centre — Kasarani",
@@ -60,7 +67,7 @@ export const metadata: Metadata = {
     title: "Claycity Medical Centre Kasarani — Trusted Outpatient Care",
     description:
       "Licensed Level-2 outpatient clinic in Clay City, Kasarani. Maternal & child health, immunisation, lab services and general outpatient care.",
-    images: ["/images/claycity_banner.webp"],
+    images: [SOCIAL_IMAGE],
   },
   robots: { index: true, follow: true },
 };
