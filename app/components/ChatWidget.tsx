@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowUp,
   HeartPulse,
@@ -27,10 +27,123 @@ const SUGGESTIONS = [
 ];
 
 const FALLBACK =
-  "I'm resting for a moment. Please try again, or call us on 0721 260994 — we're here for you.";
+  "I'm resting for a moment. Please try again, or call us on 0712 265746 — we're here for you.";
+
+const PHONE_DISPLAY = "0712 265746";
+const PHONE_TEL = "+254712265746";
 
 function uid() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+}
+
+function escapeHtml(s: string) {
+  return s
+    .replace(/&/g, "&")
+    .replace(/</g, "<")
+    .replace(/>/g, ">");
+}
+
+/** Lightweight markdown → React for chat bubbles */
+function MarkdownText({ text, className }: { text: string; className?: string }) {
+  const blocks = text.replace(/\r\n/g, "\n").split(/\n{2,}/);
+
+  const renderInline = (line: string): ReactNode[] => {
+    const nodes: ReactNode[] = [];
+    // **bold**, *italic*, `code`, [label](url)
+    const re =
+      /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g;
+    let last = 0;
+    let m: RegExpExecArray | null;
+    let key = 0;
+    while ((m = re.exec(line)) !== null) {
+      if (m.index > last) {
+        nodes.push(line.slice(last, m.index));
+      }
+      const token = m[0];
+      if (token.startsWith("**")) {
+        nodes.push(
+          <strong key={key++} className="font-semibold">
+            {token.slice(2, -2)}
+          </strong>
+        );
+      } else if (token.startsWith("*")) {
+        nodes.push(
+          <em key={key++} className="italic">
+            {token.slice(1, -1)}
+          </em>
+        );
+      } else if (token.startsWith("`")) {
+        nodes.push(
+          <code
+            key={key++}
+            className="rounded bg-white/10 px-1 py-0.5 text-[0.9em]"
+          >
+            {token.slice(1, -1)}
+          </code>
+        );
+      } else if (token.startsWith("[")) {
+        const linkMatch = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (linkMatch) {
+          nodes.push(
+            <a
+              key={key++}
+              href={linkMatch[2]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/30 underline-offset-2 hover:decoration-white/70"
+            >
+              {linkMatch[1]}
+            </a>
+          );
+        } else {
+          nodes.push(token);
+        }
+      }
+      last = m.index + token.length;
+    }
+    if (last < line.length) nodes.push(line.slice(last));
+    return nodes;
+  };
+
+  return (
+    <div className={className}>
+      {blocks.map((block, bi) => {
+        const lines = block.split("\n").filter((l) => l.length > 0);
+        const isUl = lines.every((l) => /^[-*]\s+/.test(l));
+        const isOl = lines.every((l) => /^\d+[.)]\s+/.test(l));
+
+        if (isUl) {
+          return (
+            <ul key={bi} className="my-1.5 list-disc space-y-1 pl-4">
+              {lines.map((l, i) => (
+                <li key={i}>{renderInline(l.replace(/^[-*]\s+/, ""))}</li>
+              ))}
+            </ul>
+          );
+        }
+        if (isOl) {
+          return (
+            <ol key={bi} className="my-1.5 list-decimal space-y-1 pl-4">
+              {lines.map((l, i) => (
+                <li key={i}>{renderInline(l.replace(/^\d+[.)]\s+/, ""))}</li>
+              ))}
+            </ol>
+          );
+        }
+
+        return (
+          <p key={bi} className={bi > 0 ? "mt-2" : undefined}>
+            {lines.map((l, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {renderInline(l)}
+              </span>
+            ))}
+          </p>
+        );
+      })}
+    </div>
+  );
 }
 
 export default function ChatWidget() {
@@ -177,7 +290,6 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Clearly labelled AI companion launcher */}
       <button
         type="button"
         onClick={() => setOpen(true)}
@@ -186,10 +298,10 @@ export default function ChatWidget() {
           open ? "pointer-events-none scale-90 opacity-0" : "opacity-100"
         } transition-all duration-500`}
       >
-        <span className="flex items-center gap-0 overflow-hidden rounded-full border border-white/15 bg-[#07191d]/95 shadow-[0_16px_40px_rgba(7,25,29,0.45)] backdrop-blur-md sm:gap-0">
+        <span className="flex items-center overflow-hidden rounded-full border border-white/15 bg-[#07191d]/95 shadow-[0_16px_40px_rgba(7,25,29,0.45)] backdrop-blur-md">
           <span className="relative flex h-12 w-12 shrink-0 items-center justify-center sm:h-14 sm:w-14">
             <span className="absolute inset-1 rounded-full bg-gradient-to-br from-[#ff9e7d] to-[#e07a5a] opacity-90" />
-            <MessageCircle className="relative h-5 w-5 text-[#07191d] sm:h-5.5 sm:w-5.5" strokeWidth={2.2} />
+            <MessageCircle className="relative h-5 w-5 text-[#07191d]" strokeWidth={2.2} />
             <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full border-2 border-[#07191d] bg-[#a8dfd6]" />
           </span>
           <span className="hidden pr-4 text-left sm:block">
@@ -201,13 +313,11 @@ export default function ChatWidget() {
             </span>
           </span>
         </span>
-        {/* Mobile-only label chip */}
         <span className="absolute -left-1 top-1/2 -translate-x-full -translate-y-1/2 whitespace-nowrap rounded-full border border-[#a8dfd6]/30 bg-[#0a2226]/95 px-2.5 py-1 text-[10px] font-bold text-[#a8dfd6] shadow-lg sm:hidden">
           Ask AI
         </span>
       </button>
 
-      {/* Stage */}
       <div
         className={`fixed inset-0 z-[80] flex items-end justify-center sm:items-center sm:justify-end sm:p-4 lg:p-8 ${
           open ? "pointer-events-auto" : "pointer-events-none"
@@ -263,9 +373,9 @@ export default function ChatWidget() {
               </p>
             </div>
             <a
-              href="tel:+254721260994"
+              href={`tel:${PHONE_TEL}`}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/75 transition hover:bg-white/10 sm:h-10 sm:w-10"
-              aria-label="Call the clinic"
+              aria-label={`Call ${PHONE_DISPLAY}`}
             >
               <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </a>
@@ -309,7 +419,14 @@ export default function ChatWidget() {
                   }`}
                 >
                   {m.content ? (
-                    <p className="whitespace-pre-wrap break-words">{m.content}</p>
+                    m.role === "assistant" ? (
+                      <MarkdownText
+                        text={m.content}
+                        className="break-words [&_strong]:text-white"
+                      />
+                    ) : (
+                      <p className="whitespace-pre-wrap break-words">{m.content}</p>
+                    )
                   ) : (
                     <span className="inline-flex items-center gap-2 text-white/45">
                       <span className="flex gap-1">
@@ -369,7 +486,7 @@ export default function ChatWidget() {
               </button>
             </div>
             <p className="mt-2 text-center text-[9px] tracking-wide text-white/25 sm:text-[10px]">
-              AI clinic guide · Emergencies need local services
+              AI clinic guide · Call {PHONE_DISPLAY} if you prefer
             </p>
           </div>
         </div>
