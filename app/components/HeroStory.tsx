@@ -21,9 +21,17 @@ export default function HeroStory() {
   return (
     <section id="top" className="relative min-h-[100svh] overflow-hidden bg-[#07191d] text-[#effbf5]" aria-labelledby="hero-heading">
       <div className="absolute inset-0">
-        <Image src={heroBackground} alt="" fill priority sizes="100vw" className="object-cover object-center" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,25,29,0.64)_0%,rgba(7,25,29,0.42)_34%,rgba(7,25,29,0.5)_62%,rgba(7,25,29,0.92)_100%)]" />
+        <Image
+          src={heroBackground}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="hero-story-bg-motion object-cover object-[62%_center] sm:object-center"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,25,29,0.62)_0%,rgba(7,25,29,0.4)_34%,rgba(7,25,29,0.5)_62%,rgba(7,25,29,0.92)_100%)]" />
         <div className="absolute inset-0 hidden sm:block bg-[linear-gradient(105deg,rgba(7,25,29,0.86)_0%,rgba(7,25,29,0.56)_40%,rgba(7,25,29,0.24)_72%,rgba(7,25,29,0.45)_100%)]" />
+        <div className="absolute inset-0 opacity-[0.08] pointer-events-none bg-[radial-gradient(rgba(255,255,255,0.55)_0.5px,transparent_0.5px)] [background-size:14px_14px] [mix-blend-mode:overlay]" />
       </div>
 
       <div className="relative z-10 flex min-h-[100svh] flex-col">
@@ -96,6 +104,40 @@ export default function HeroStory() {
           </div>
         </div>
       </div>
+
+      <style jsx global>{`
+        .hero-story-bg-motion {
+          transform: scale(1.12) translate3d(0, 0, 0);
+          animation: claycityHeroDrift 18s ease-in-out infinite alternate;
+          will-change: transform;
+        }
+
+        @keyframes claycityHeroDrift {
+          0% {
+            transform: scale(1.12) translate3d(0%, 0%, 0);
+          }
+          50% {
+            transform: scale(1.16) translate3d(-1.2%, -0.7%, 0);
+          }
+          100% {
+            transform: scale(1.12) translate3d(1.2%, 0.8%, 0);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .hero-story-bg-motion {
+            transform: scale(1.16) translate3d(0, 0, 0);
+            animation-duration: 22s;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hero-story-bg-motion {
+            animation: none;
+            transform: scale(1.12);
+          }
+        }
+      `}</style>
     </section>
   );
 }
