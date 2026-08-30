@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowUp,
   HeartPulse,
+  MessageCircle,
   Phone,
   Sparkles,
   X,
@@ -176,29 +177,33 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Living orb — smaller on phones, clears mobile call bar */}
+      {/* Clearly labelled AI companion launcher */}
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Open Claycity companion"
+        aria-label="Open AI assistant for instant clinic answers"
         className={`group fixed z-[70] bottom-[5.75rem] right-3 sm:right-4 lg:bottom-7 lg:right-7 ${
-          open ? "pointer-events-none scale-75 opacity-0" : "opacity-100"
+          open ? "pointer-events-none scale-90 opacity-0" : "opacity-100"
         } transition-all duration-500`}
       >
-        <span className="relative flex h-14 w-14 items-center justify-center sm:h-[4.25rem] sm:w-[4.25rem]">
-          <span className="absolute inset-0 animate-[spin_12s_linear_infinite] rounded-full bg-[conic-gradient(from_0deg,#ff9e7d,#a8dfd6,#ff9e7d)] opacity-70 blur-[1px]" />
-          <span className="absolute inset-[2px] rounded-full bg-[#07191d] sm:inset-[3px]" />
-          <span className="absolute inset-[5px] rounded-full bg-gradient-to-br from-[#1a3a3f] via-[#0d282c] to-[#07191d] shadow-[0_0_40px_rgba(168,223,214,0.25)] sm:inset-[6px]" />
-          <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#ff9e7d] to-[#e07a5a] text-[#07191d] shadow-[0_8px_24px_rgba(255,158,125,0.45)] transition-transform duration-500 group-hover:scale-110 sm:h-10 sm:w-10">
-            <HeartPulse className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={2.2} />
+        <span className="flex items-center gap-0 overflow-hidden rounded-full border border-white/15 bg-[#07191d]/95 shadow-[0_16px_40px_rgba(7,25,29,0.45)] backdrop-blur-md sm:gap-0">
+          <span className="relative flex h-12 w-12 shrink-0 items-center justify-center sm:h-14 sm:w-14">
+            <span className="absolute inset-1 rounded-full bg-gradient-to-br from-[#ff9e7d] to-[#e07a5a] opacity-90" />
+            <MessageCircle className="relative h-5 w-5 text-[#07191d] sm:h-5.5 sm:w-5.5" strokeWidth={2.2} />
+            <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full border-2 border-[#07191d] bg-[#a8dfd6]" />
           </span>
-          <span
-            className="pointer-events-none absolute -inset-1.5 animate-ping rounded-full border border-[#a8dfd6]/30 opacity-40 sm:-inset-2"
-            style={{ animationDuration: "2.8s" }}
-          />
+          <span className="hidden pr-4 text-left sm:block">
+            <span className="block text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#a8dfd6]">
+              AI assistant
+            </span>
+            <span className="block text-[12px] font-semibold leading-tight text-white">
+              Instant answers
+            </span>
+          </span>
         </span>
-        <span className="pointer-events-none absolute -left-2 top-1/2 hidden -translate-x-full -translate-y-1/2 whitespace-nowrap rounded-full border border-white/10 bg-[#07191d]/90 px-3 py-1.5 text-[11px] font-semibold text-white/80 opacity-0 shadow-xl backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100 lg:block">
-          Talk to Claycity
+        {/* Mobile-only label chip */}
+        <span className="absolute -left-1 top-1/2 -translate-x-full -translate-y-1/2 whitespace-nowrap rounded-full border border-[#a8dfd6]/30 bg-[#0a2226]/95 px-2.5 py-1 text-[10px] font-bold text-[#a8dfd6] shadow-lg sm:hidden">
+          Ask AI
         </span>
       </button>
 
@@ -221,7 +226,7 @@ export default function ChatWidget() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Claycity companion"
+          aria-label="Claycity AI assistant"
           className={`relative flex h-[min(100svh,100%)] w-full flex-col overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.55)] transition-all duration-500 max-sm:rounded-none sm:h-[min(88svh,680px)] sm:max-w-[400px] sm:rounded-[1.75rem] lg:max-w-[420px] ${
             open
               ? "translate-y-0 scale-100 opacity-100"
@@ -241,18 +246,7 @@ export default function ChatWidget() {
               mixBlendMode: "overlay",
             }}
           />
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 60% at 50% 0%, transparent 30%, rgba(5,18,20,0.55) 100%)",
-            }}
-          />
 
-          <div className="pointer-events-none absolute -right-16 -top-16 hidden h-48 w-48 rounded-full border border-[#a8dfd6]/10 sm:block" />
-          <div className="pointer-events-none absolute -right-8 -top-8 hidden h-32 w-32 rounded-full border border-[#ff9e7d]/10 sm:block" />
-
-          {/* Header — compact on phones */}
           <div className="relative z-10 flex shrink-0 items-center gap-2.5 px-3.5 pb-2.5 pt-[max(0.85rem,env(safe-area-inset-top))] sm:gap-3 sm:px-5 sm:pb-3 sm:pt-5">
             <div className="relative">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#ff9e7d] to-[#d96b4c] text-[#07191d] shadow-[0_10px_28px_rgba(255,158,125,0.35)] sm:h-12 sm:w-12 sm:rounded-2xl">
@@ -262,15 +256,15 @@ export default function ChatWidget() {
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-[0.95rem] font-semibold tracking-tight text-white sm:text-[1.05rem]">
-                Claycity Companion
+                Claycity AI Assistant
               </p>
               <p className="text-[10px] font-medium tracking-wide text-[#a8dfd6]/90 sm:text-[11px]">
-                {streaming ? "Listening…" : "Here for your visit"}
+                {streaming ? "Listening…" : "Instant answers about the clinic"}
               </p>
             </div>
             <a
               href="tel:+254721260994"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/75 transition hover:border-white/25 hover:bg-white/10 hover:text-white sm:h-10 sm:w-10"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/75 transition hover:bg-white/10 sm:h-10 sm:w-10"
               aria-label="Call the clinic"
             >
               <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -278,14 +272,13 @@ export default function ChatWidget() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/75 transition hover:border-white/25 hover:bg-white/10 hover:text-white sm:h-10 sm:w-10"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/75 transition hover:bg-white/10 sm:h-10 sm:w-10"
               aria-label="Close"
             >
               <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
           </div>
 
-          {/* Messages */}
           <div
             ref={listRef}
             className="relative z-10 flex-1 space-y-3 overflow-y-auto overscroll-contain px-3.5 py-3 sm:space-y-4 sm:px-5 sm:py-4"
@@ -309,10 +302,10 @@ export default function ChatWidget() {
                   </div>
                 )}
                 <div
-                  className={`max-w-[88%] px-3 py-2.5 text-[13px] leading-[1.5] sm:max-w-[82%] sm:px-4 sm:py-3 sm:text-[13.5px] sm:leading-[1.55] ${
+                  className={`max-w-[88%] px-3 py-2.5 text-[13px] leading-[1.5] sm:max-w-[82%] sm:px-4 sm:py-3 sm:text-[13.5px] ${
                     m.role === "user"
-                      ? "rounded-[1.1rem] rounded-br-md bg-gradient-to-br from-[#ff9e7d] to-[#e88766] text-[#07191d] shadow-[0_8px_24px_rgba(255,158,125,0.22)] sm:rounded-[1.25rem]"
-                      : "rounded-[1.1rem] rounded-bl-md border border-white/[0.08] bg-white/[0.06] text-white/90 backdrop-blur-sm sm:rounded-[1.25rem]"
+                      ? "rounded-[1.1rem] rounded-br-md bg-gradient-to-br from-[#ff9e7d] to-[#e88766] text-[#07191d] shadow-[0_8px_24px_rgba(255,158,125,0.22)]"
+                      : "rounded-[1.1rem] rounded-bl-md border border-white/[0.08] bg-white/[0.06] text-white/90"
                   }`}
                 >
                   {m.content ? (
@@ -333,8 +326,8 @@ export default function ChatWidget() {
 
             {messages.length <= 1 && (
               <div className="pt-1 sm:pt-2">
-                <p className="mb-2 text-[9px] font-extrabold uppercase tracking-[0.16em] text-white/30 sm:mb-2.5 sm:text-[10px] sm:tracking-[0.18em]">
-                  A gentle start
+                <p className="mb-2 text-[9px] font-extrabold uppercase tracking-[0.16em] text-white/30 sm:text-[10px]">
+                  Try asking
                 </p>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {SUGGESTIONS.map((s) => (
@@ -353,31 +346,30 @@ export default function ChatWidget() {
             )}
           </div>
 
-          {/* Composer */}
           <div className="relative z-10 shrink-0 border-t border-white/[0.06] px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2.5 sm:px-4 sm:pt-3">
-            <div className="flex items-end gap-1.5 rounded-[1.2rem] border border-white/10 bg-white/[0.05] px-2.5 py-2 shadow-inner transition focus-within:border-[#a8dfd6]/40 focus-within:bg-white/[0.07] sm:gap-2 sm:rounded-[1.35rem] sm:px-3 sm:py-2.5">
+            <div className="flex items-end gap-1.5 rounded-[1.2rem] border border-white/10 bg-white/[0.05] px-2.5 py-2 transition focus-within:border-[#a8dfd6]/40 sm:gap-2 sm:rounded-[1.35rem] sm:px-3 sm:py-2.5">
               <textarea
                 ref={inputRef}
                 rows={1}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={onKeyDown}
-                placeholder="Ask about the clinic…"
+                placeholder="Ask the AI about the clinic…"
                 disabled={streaming}
-                className="max-h-24 min-h-[2.25rem] flex-1 resize-none bg-transparent px-1 py-1.5 text-[13px] text-white placeholder:text-white/30 focus:outline-none disabled:opacity-50 sm:max-h-28 sm:min-h-[2.5rem] sm:px-1.5 sm:py-2 sm:text-[13.5px]"
+                className="max-h-24 min-h-[2.25rem] flex-1 resize-none bg-transparent px-1 py-1.5 text-[13px] text-white placeholder:text-white/30 focus:outline-none disabled:opacity-50 sm:min-h-[2.5rem] sm:text-[13.5px]"
               />
               <button
                 type="button"
                 onClick={() => void send(input)}
                 disabled={streaming || !input.trim()}
                 aria-label="Send"
-                className="mb-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#ff9e7d] to-[#e07a5a] text-[#07191d] shadow-[0_8px_20px_rgba(255,158,125,0.3)] transition enabled:active:scale-95 enabled:hover:brightness-110 sm:h-10 sm:w-10 disabled:opacity-35"
+                className="mb-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#ff9e7d] to-[#e07a5a] text-[#07191d] transition enabled:active:scale-95 sm:h-10 sm:w-10 disabled:opacity-35"
               >
                 <ArrowUp className="h-4 w-4" strokeWidth={2.5} />
               </button>
             </div>
-            <p className="mt-2 text-center text-[9px] tracking-wide text-white/25 sm:mt-2.5 sm:text-[10px]">
-              Clinic guidance only · Emergencies need local services
+            <p className="mt-2 text-center text-[9px] tracking-wide text-white/25 sm:text-[10px]">
+              AI clinic guide · Emergencies need local services
             </p>
           </div>
         </div>
@@ -385,14 +377,8 @@ export default function ChatWidget() {
 
       <style jsx global>{`
         @keyframes chatRise {
-          from {
-            opacity: 0;
-            transform: translate3d(0, 12px, 0);
-          }
-          to {
-            opacity: 1;
-            transform: none;
-          }
+          from { opacity: 0; transform: translate3d(0, 12px, 0); }
+          to { opacity: 1; transform: none; }
         }
       `}</style>
     </>
