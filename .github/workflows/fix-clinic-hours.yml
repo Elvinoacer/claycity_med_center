@@ -1,0 +1,60 @@
+name: Fix clinic hours
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-hours:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+
+      - name: Update immersive home hours
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("app/components/ImmersiveHome.tsx")
+          text = path.read_text()
+
+          replacements = {
+              'stat: "Mon–Sat",': 'stat: "Open 24/7",',
+              '<div><strong>Mon–Sat</strong><span>Open six days</span></div>': '<div><strong>24/7</strong><span>Open day &amp; night</span></div>',
+              '<div className="visit-hours"><Clock3 size={21} /><div><span>Hours</span><strong>Mon–Fri &nbsp; 8:00 — 17:00</strong><strong>Saturday &nbsp; 8:00 — 12:00</strong><small>Sunday closed</small></div></div>': '<div className="visit-hours"><Clock3 size={21} /><div><span>Hours</span><strong>Open 24/7</strong><small>Day &amp; night · every day</small></div></div>',
+          }
+
+          for old, new in replacements.items():
+              text = text.replace(old, new)
+
+          path.write_text(text)
+
+      - name: Commit targeted source update
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/components/ImmersiveHome.tsx
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
+          git commit -m "fix(clinic): update immersive home hours to 24/7"
+          git push
+
+      - name: Remove temporary workflow
+        shell: bash
+        run: |
+          rm -f .github/workflows/fix-clinic-hours.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/workflows/fix-clinic-hours.yml
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "chore: remove temporary hours migration workflow"
+          git push
