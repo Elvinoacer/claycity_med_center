@@ -47,7 +47,7 @@ export default function Contact() {
     )}%0AMessage: ${encodeURIComponent(form.message)}`;
     setSubmitted(true);
     setTimeout(() => {
-      window.open(`https://wa.me/254721260994?text=${msg}`, "_blank");
+      window.open(`https://wa.me/254712265746?text=${msg}`, "_blank");
     }, 400);
   };
 
@@ -71,13 +71,13 @@ export default function Contact() {
             </p>
 
             <div className="immersive-contact-cards">
-              <a href="tel:+254721260994" className="immersive-contact-card">
+              <a href="tel:+254712265746" className="immersive-contact-card">
                 <span className="immersive-contact-card-icon phone">
                   <Phone size={18} />
                 </span>
                 <span>
                   <small>Call us directly</small>
-                  <strong>0721 260994</strong>
+                  <strong>0712 265746</strong>
                   <span>Mon–Sat during opening hours</span>
                 </span>
               </a>
