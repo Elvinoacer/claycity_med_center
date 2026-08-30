@@ -138,9 +138,9 @@ function ImmersiveHeader() {
       </nav>
 
       <div className="immersive-header-actions">
-        <a className="immersive-phone" href="tel:+254721260994">
+        <a className="immersive-phone" href="tel:+254712265746">
           <Phone size={15} />
-          0721 260994
+          0712 265746
         </a>
         <a className="immersive-header-cta" href="#contact">
           Book a visit <ArrowRight size={15} />
@@ -387,7 +387,7 @@ function VisitSection() {
             <a className="immersive-button dark-button" href="https://maps.google.com/?q=Claycity+Medical+Centre+Kasarani" target="_blank" rel="noreferrer">
               <Navigation size={16} /> Directions <ArrowRight size={15} />
             </a>
-            <a className="visit-call" href="tel:+254721260994"><Phone size={16} /> 0721 260994</a>
+            <a className="visit-call" href="tel:+254712265746"><Phone size={16} /> 0712 265746</a>
           </div>
         </div>
         <div className="visit-details" data-reveal style={{ "--reveal-delay": "140ms" } as CSSProperties}>
