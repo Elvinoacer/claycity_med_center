@@ -5,7 +5,6 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import {
   Activity,
   ArrowRight,
-  Baby,
   Check,
   Clock3,
   HeartHandshake,
@@ -14,11 +13,8 @@ import {
   Menu,
   Navigation,
   Phone,
-  Pill,
   Quote,
   ShieldCheck,
-  Sparkles,
-  Stethoscope,
   Syringe,
   TestTube,
   Users,
@@ -29,12 +25,11 @@ import Footer from "./Footer";
 import MobileCallBar from "./MobileCallBar";
 import ChatWidget from "./ChatWidget";
 import HeroStory from "./HeroStory";
-import Card3DTilt from "./interactive/Card3DTilt";
+import CareSection from "./CareSection";
 import heroClinic from "@/public/images/hero-clinic.jpg";
 import maternityCare from "@/public/images/maternity-care.jpg";
 import pharmacy from "@/public/images/pharmacy-dispensary.jpg";
 import triage from "@/public/images/triage-vitals.jpg";
-import lab from "@/public/images/lab-services.jpg";
 import nursePortrait from "@/public/images/nurse-portrait.jpg";
 
 const TRUST_ITEMS = [
@@ -100,57 +95,6 @@ const CHAPTERS: {
     imageAlt: "Nurse checking a patient's vital signs",
     stat: "Mon–Sat",
     icon: ShieldCheck,
-  },
-];
-
-const CARE_ITEMS = [
-  {
-    icon: Baby,
-    title: "Maternal & child",
-    copy: "Gentle care for mums and little ones.",
-    image: maternityCare,
-    imageAlt: "Mother and infant receiving maternal care",
-    tag: "Family",
-  },
-  {
-    icon: Stethoscope,
-    title: "Consultation",
-    copy: "Unhurried. Clear. Human.",
-    image: heroClinic,
-    imageAlt: "Clinician consulting a patient",
-    tag: "Primary",
-  },
-  {
-    icon: TestTube,
-    title: "Laboratory",
-    copy: "Routine tests. Same-visit results where we can.",
-    image: lab,
-    imageAlt: "Laboratory diagnostic services",
-    tag: "Class-B",
-  },
-  {
-    icon: Pill,
-    title: "Pharmacy",
-    copy: "Quality medicines before you leave.",
-    image: pharmacy,
-    imageAlt: "In-house pharmacy dispensary",
-    tag: "On-site",
-  },
-  {
-    icon: Syringe,
-    title: "Immunisation",
-    copy: "KEPI-aligned. Steady hands.",
-    image: maternityCare,
-    imageAlt: "Childhood immunisation at the clinic",
-    tag: "Prevention",
-  },
-  {
-    icon: HeartPulse,
-    title: "Screening",
-    copy: "BP, sugar, BMI — simple truths.",
-    image: triage,
-    imageAlt: "Nurse checking patient vitals",
-    tag: "Everyday",
   },
 ];
 
@@ -378,63 +322,6 @@ function StorySection() {
               </button>
             ))}
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CareSection() {
-  return (
-    <section id="care" className="immersive-care" aria-labelledby="care-heading">
-      <div className="container-page">
-        <div className="care-heading-row">
-          <div>
-            <span className="immersive-kicker">Care</span>
-            <h2 id="care-heading">What you need.<br /><em>Nothing extra.</em></h2>
-          </div>
-          <p>For Clay City, Seasons, and the rest of Kasarani — close to home.</p>
-        </div>
-
-        <div className="care-grid" data-reveal>
-          {CARE_ITEMS.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <Card3DTilt
-                key={item.title}
-                intensity={9}
-                glare={true}
-                className={`care-card care-card-${index + 1}`}
-              >
-                <article>
-                  <div className="care-card-image">
-                    <Image
-                      src={item.image}
-                      alt={item.imageAlt}
-                      fill
-                      sizes="(max-width: 700px) 90vw, 30vw"
-                      className="object-cover"
-                    />
-                    <span className="care-card-tag">{item.tag}</span>
-                    <span className="care-card-number">0{index + 1}</span>
-                  </div>
-                  <div className="care-card-body">
-                    <span className="care-card-icon"><Icon size={18} /></span>
-                    <h3>{item.title}</h3>
-                    <p>{item.copy}</p>
-                    <a href="#contact" aria-label={`Book ${item.title}`}>
-                      Explore <ArrowRight size={15} />
-                    </a>
-                  </div>
-                </article>
-              </Card3DTilt>
-            );
-          })}
-        </div>
-
-        <div className="care-bottom-line">
-          <span><Sparkles size={16} /> Calm. Clear. Close.</span>
-          <a href="#contact">Not sure where to start? <ArrowRight size={15} /></a>
         </div>
       </div>
     </section>
