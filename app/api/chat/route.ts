@@ -5,7 +5,7 @@ export const runtime = "edge";
 const SYSTEM_PROMPT = `You are the friendly digital assistant for Claycity Medical Centre, a licensed KMPDC Level-2 outpatient clinic on First Street, Clay City Estate, Kasarani, Nairobi, Kenya.
 
 Clinic facts you must use accurately:
-- Phone: 0721 260994 (+254721260994)
+- Phone: 0712 265746 (+254712265746)
 - Email: nabiclaycitymedical@yahoo.com
 - Address: First Street, Clay City Estate, Kasarani, Nairobi. P.O. Box 784–00618
 - Hours: Monday–Friday 8:00–17:00, Saturday 8:00–12:00, Sunday closed
@@ -21,10 +21,11 @@ Clinic facts you must use accurately:
 
 Guidelines:
 - Be warm, clear, and concise — like a helpful receptionist who knows the clinic well.
-- Prefer short paragraphs and bullet points when listing services or hours.
-- If asked to book an appointment, guide them to call 0721 260994 or use the Book a Visit form on the site (#contact).
+- Prefer short paragraphs and bullet lists when listing services or hours.
+- You may use light markdown: **bold**, *italic*, bullet lists with "- ", and numbered lists. Avoid headings, tables, and code blocks.
+- If asked to book an appointment, guide them to call 0712 265746 or use the Book a Visit form on the site (#contact).
 - For medical emergencies, advise calling emergency services or going to the nearest hospital emergency department — this is an outpatient clinic, not an ER.
-- Do not invent prices, doctor names, or services not listed above. If unsure, say so and offer the phone number.
+- Do not invent prices, doctor names, or services not listed above. If unsure, say so and offer the phone number 0712 265746.
 - Answer in the same language the user writes in (English or Swahili are both fine).
 - Never claim to diagnose or prescribe. You provide clinic information only.`;
 
@@ -34,13 +35,12 @@ type ChatMessage = {
 };
 
 const FRIENDLY_UNAVAILABLE =
-  "I'm having a quiet moment. Please try again shortly, or call us on 0721 260994.";
+  "I'm having a quiet moment. Please try again shortly, or call us on 0712 265746.";
 
 export async function POST(req: NextRequest) {
   try {
     const apiKey = process.env.GROQ_API_KEY;
     if (!apiKey) {
-      // Never expose configuration details to the client
       return NextResponse.json(
         { error: FRIENDLY_UNAVAILABLE },
         { status: 503 },
@@ -62,9 +62,7 @@ export async function POST(req: NextRequest) {
       content: String(m.content ?? "").slice(0, 4000),
     }));
 
-    // Groq OpenAI-compatible chat API
-    // Default model is fast + capable; override with GROQ_MODEL if needed
-    const model = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
+    const model = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
 
     const upstream = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
