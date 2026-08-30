@@ -38,7 +38,7 @@ const FRIENDLY_UNAVAILABLE =
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.XAI_API_KEY || process.env.GROK_API_KEY;
+    const apiKey = process.env.GROQ_API_KEY;
     if (!apiKey) {
       // Never expose configuration details to the client
       return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 503 });
@@ -56,26 +56,32 @@ export async function POST(req: NextRequest) {
       content: String(m.content ?? "").slice(0, 4000),
     }));
 
-    const model = process.env.XAI_MODEL || process.env.GROK_MODEL || "grok-3-mini";
+    // Groq OpenAI-compatible chat API
+    // Default model is fast + capable; override with GROQ_MODEL if needed
+    const model =
+      process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
 
-    const upstream = await fetch("https://api.x.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model,
-        temperature: 0.55,
-        max_tokens: 700,
-        stream: true,
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...trimmed],
-      }),
-    });
+    const upstream = await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model,
+          temperature: 0.55,
+          max_tokens: 700,
+          stream: true,
+          messages: [{ role: "system", content: SYSTEM_PROMPT }, ...trimmed],
+        }),
+      }
+    );
 
     if (!upstream.ok || !upstream.body) {
       const errText = await upstream.text().catch(() => "");
-      console.error("xAI error", upstream.status, errText);
+      console.error("Groq error", upstream.status, errText);
       return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 502 });
     }
 
@@ -109,7 +115,9 @@ export async function POST(req: NextRequest) {
                 const delta = parsed.choices?.[0]?.delta?.content;
                 if (delta) {
                   controller.enqueue(
-                    encoder.encode(`data: ${JSON.stringify({ content: delta })}\n\n`)
+                    encoder.encode(
+                      `data: ${JSON.stringify({ content: delta })}\n\n`
+                    )
                   );
                 }
               } catch {
