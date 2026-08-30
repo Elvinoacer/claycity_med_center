@@ -28,7 +28,6 @@ export default function MobileCallBar() {
             "linear-gradient(135deg, rgba(10,34,38,0.96) 0%, rgba(7,25,29,0.98) 100%)",
         }}
       >
-        {/* Soft accent glow */}
         <div
           className="pointer-events-none absolute -left-8 top-0 h-full w-24 opacity-40"
           style={{
@@ -46,7 +45,7 @@ export default function MobileCallBar() {
 
         <div className="relative flex items-center gap-2 p-2">
           <a
-            href="tel:+254721260994"
+            href="tel:+254712265746"
             className="flex flex-1 items-center justify-center gap-2 rounded-[1rem] border border-white/15 bg-white/8 px-3 py-3 text-[0.8125rem] font-bold text-white backdrop-blur-sm transition active:scale-[0.98]"
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#a8dfd6]/20 text-[#a8dfd6]">
