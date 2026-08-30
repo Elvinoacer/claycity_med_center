@@ -42,7 +42,7 @@ export default function HeroStory() {
           sizes="100vw"
           className="hero-story-bg-motion hero-story-bg-desktop object-cover object-center"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,25,29,0.62)_0%,rgba(7,25,29,0.4)_34%,rgba(7,25,29,0.5)_62%,rgba(7,25,29,0.92)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,25,29,0.62)_0%,rgba(7,25,29,0.4)_34%,rgba(7,25,29,0.5)_62%,rgba(7,25,29,0.92)_100%)] max-sm:bg-[linear-gradient(180deg,rgba(7,25,29,0.68)_0%,rgba(7,25,29,0.5)_38%,rgba(7,25,29,0.58)_68%,rgba(7,25,29,0.94)_100%)]" />
         <div className="absolute inset-0 hidden sm:block bg-[linear-gradient(105deg,rgba(7,25,29,0.86)_0%,rgba(7,25,29,0.56)_40%,rgba(7,25,29,0.24)_72%,rgba(7,25,29,0.45)_100%)]" />
         <div className="absolute inset-0 opacity-[0.08] pointer-events-none bg-[radial-gradient(rgba(255,255,255,0.55)_0.5px,transparent_0.5px)] [background-size:14px_14px] [mix-blend-mode:overlay]" />
       </div>
@@ -156,11 +156,24 @@ export default function HeroStory() {
           }
 
           .hero-story-bg-mobile {
-            object-position: center center;
+            object-position: center 38%;
+            transform: scale(1.16) translate3d(0, -2.8%, 0);
           }
 
-          .hero-story-bg-motion {
-            animation-duration: 22s;
+          .hero-story-bg-mobile.hero-story-bg-motion {
+            animation-name: claycityHeroMobileDrift;
+          }
+        }
+
+        @keyframes claycityHeroMobileDrift {
+          0% {
+            transform: scale(1.16) translate3d(0%, -2.8%, 0);
+          }
+          50% {
+            transform: scale(1.19) translate3d(-0.8%, -3.5%, 0);
+          }
+          100% {
+            transform: scale(1.16) translate3d(0.8%, -2.2%, 0);
           }
         }
 
