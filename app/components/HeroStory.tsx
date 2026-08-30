@@ -24,7 +24,6 @@ export default function HeroStory() {
       className="relative min-h-[100svh] overflow-hidden bg-[#07191d] text-[#effbf5]"
       aria-labelledby="hero-heading"
     >
-      {/* Full-bleed stage — crops adapt to viewport */}
       <div className="absolute inset-0">
         <Image
           src={heroClinic}
@@ -62,7 +61,6 @@ export default function HeroStory() {
 
       <div className="relative z-10 flex min-h-[100svh] flex-col">
         <div className="container-page flex flex-1 flex-col justify-end pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-[5.75rem] sm:pb-12 sm:pt-28 lg:pb-16 lg:pt-36">
-          {/* Meta — compact on phones */}
           <div className="mb-auto flex flex-wrap items-center gap-1.5 sm:gap-2.5">
             <OpenStatus />
             <span className="inline-flex max-w-full items-center gap-1 rounded-full border border-white/15 bg-white/8 px-2.5 py-1 text-[10px] font-semibold text-white/70 backdrop-blur-md sm:gap-1.5 sm:px-3 sm:py-1.5 sm:text-[11px]">
@@ -72,7 +70,6 @@ export default function HeroStory() {
           </div>
 
           <div className="mt-6 grid grid-cols-1 items-end gap-6 sm:mt-10 sm:gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
-            {/* Editorial copy */}
             <div className="max-w-2xl">
               <p className="mb-2.5 inline-flex items-center gap-1.5 text-[9px] font-extrabold uppercase tracking-[0.16em] text-[#ff9e7d] sm:mb-4 sm:gap-2 sm:text-[11px] sm:tracking-[0.2em]">
                 <span className="h-px w-5 bg-[#ff9e7d]/70 sm:w-8" />
@@ -109,16 +106,15 @@ export default function HeroStory() {
                   <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </a>
                 <a
-                  href="tel:+254721260994"
+                  href="tel:+254712265746"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 py-3.5 text-[0.8125rem] font-bold text-white backdrop-blur-md transition-all duration-300 active:scale-[0.98] sm:w-auto sm:text-sm sm:hover:border-white/40 sm:hover:bg-white/15"
                 >
                   <Phone className="h-4 w-4 shrink-0" />
-                  0721 260994
+                  0712 265746
                 </a>
               </div>
             </div>
 
-            {/* Glass stack — denser on mobile */}
             <div className="relative flex flex-col gap-2.5 sm:gap-3.5 lg:pb-2">
               <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 shadow-xl backdrop-blur-xl sm:rounded-2xl sm:p-5">
                 <div className="flex items-start justify-between gap-3">
@@ -137,28 +133,16 @@ export default function HeroStory() {
                 </div>
                 <div className="mt-3 grid grid-cols-3 gap-1.5 border-t border-white/10 pt-3 sm:mt-4 sm:gap-2 sm:pt-3.5">
                   <div>
-                    <p className="font-display text-sm font-semibold text-white sm:text-base">
-                      2018
-                    </p>
-                    <p className="text-[9px] leading-tight text-white/45 sm:text-[10px]">
-                      Serving Kasarani
-                    </p>
+                    <p className="font-display text-sm font-semibold text-white sm:text-base">2018</p>
+                    <p className="text-[9px] leading-tight text-white/45 sm:text-[10px]">Serving Kasarani</p>
                   </div>
                   <div>
-                    <p className="font-display text-sm font-semibold text-white sm:text-base">
-                      Mon–Sat
-                    </p>
-                    <p className="text-[9px] leading-tight text-white/45 sm:text-[10px]">
-                      Open six days
-                    </p>
+                    <p className="font-display text-sm font-semibold text-white sm:text-base">Mon–Sat</p>
+                    <p className="text-[9px] leading-tight text-white/45 sm:text-[10px]">Open six days</p>
                   </div>
                   <div>
-                    <p className="font-display text-sm font-semibold text-white sm:text-base">
-                      Walk-in
-                    </p>
-                    <p className="text-[9px] leading-tight text-white/45 sm:text-[10px]">
-                      Always welcome
-                    </p>
+                    <p className="font-display text-sm font-semibold text-white sm:text-base">Walk-in</p>
+                    <p className="text-[9px] leading-tight text-white/45 sm:text-[10px]">Always welcome</p>
                   </div>
                 </div>
               </div>
@@ -207,7 +191,6 @@ export default function HeroStory() {
             </div>
           </div>
 
-          {/* Explore — horizontal scroll on very small screens */}
           <div className="mt-6 border-t border-white/10 pt-4 sm:mt-10 sm:pt-6">
             <div className="flex items-center gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <span className="shrink-0 text-[9px] font-extrabold uppercase tracking-[0.14em] text-white/40 sm:mr-1 sm:text-[10px]">
