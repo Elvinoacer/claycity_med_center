@@ -8,8 +8,8 @@ Clinic facts you must use accurately:
 - Phone: 0712 265746 (+254712265746)
 - Email: nabiclaycitymedical@yahoo.com
 - Address: First Street, Clay City Estate, Kasarani, Nairobi. P.O. Box 784–00618
-- Hours: Monday–Friday 8:00–17:00, Saturday 8:00–12:00, Sunday closed
-- Walk-ins are welcome
+- Hours: Open 24/7, Monday–Sunday, day and night
+- Walk-ins are welcome 24/7
 - Licensed Level-2 clinic (KMPDC)
 - Class-B laboratory (KMLTTB) with same-visit results where possible
 - In-house pharmacy
