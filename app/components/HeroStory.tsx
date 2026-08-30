@@ -13,21 +13,34 @@ import {
 } from "lucide-react";
 import OpenStatus from "./OpenStatus";
 import heroBackground from "@/public/images/hero_bg_image.webp";
+import heroBackgroundMobile from "@/public/images/hero_bg_mobile.webp";
 import maternityCare from "@/public/images/maternity-care.jpg";
 import pharmacy from "@/public/images/pharmacy-dispensary.jpg";
 import lab from "@/public/images/lab-services.jpg";
 
 export default function HeroStory() {
   return (
-    <section id="top" className="relative min-h-[100svh] overflow-hidden bg-[#07191d] text-[#effbf5]" aria-labelledby="hero-heading">
+    <section
+      id="top"
+      className="relative min-h-[100svh] overflow-hidden bg-[#07191d] text-[#effbf5]"
+      aria-labelledby="hero-heading"
+    >
       <div className="absolute inset-0">
+        <Image
+          src={heroBackgroundMobile}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="hero-story-bg-motion hero-story-bg-mobile object-cover object-center"
+        />
         <Image
           src={heroBackground}
           alt=""
           fill
           priority
           sizes="100vw"
-          className="hero-story-bg-motion object-cover object-[62%_center] sm:object-center"
+          className="hero-story-bg-motion hero-story-bg-desktop object-cover object-center"
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,25,29,0.62)_0%,rgba(7,25,29,0.4)_34%,rgba(7,25,29,0.5)_62%,rgba(7,25,29,0.92)_100%)]" />
         <div className="absolute inset-0 hidden sm:block bg-[linear-gradient(105deg,rgba(7,25,29,0.86)_0%,rgba(7,25,29,0.56)_40%,rgba(7,25,29,0.24)_72%,rgba(7,25,29,0.45)_100%)]" />
@@ -106,10 +119,19 @@ export default function HeroStory() {
       </div>
 
       <style jsx global>{`
+        .hero-story-bg-mobile {
+          display: none;
+        }
+
         .hero-story-bg-motion {
           transform: scale(1.12) translate3d(0, 0, 0);
           animation: claycityHeroDrift 18s ease-in-out infinite alternate;
           will-change: transform;
+        }
+
+        .hero-story-bg-mobile.hero-story-bg-motion {
+          transform: scale(1.14) translate3d(0, 0, 0);
+          animation-duration: 22s;
         }
 
         @keyframes claycityHeroDrift {
@@ -125,9 +147,26 @@ export default function HeroStory() {
         }
 
         @media (max-width: 640px) {
+          .hero-story-bg-mobile {
+            display: block;
+          }
+
+          .hero-story-bg-desktop {
+            display: none;
+          }
+
+          .hero-story-bg-mobile {
+            object-position: center center;
+          }
+
           .hero-story-bg-motion {
-            transform: scale(1.16) translate3d(0, 0, 0);
             animation-duration: 22s;
+          }
+        }
+
+        @media (min-width: 641px) {
+          .hero-story-bg-desktop {
+            display: block;
           }
         }
 
