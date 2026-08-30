@@ -41,14 +41,20 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.GROQ_API_KEY;
     if (!apiKey) {
       // Never expose configuration details to the client
-      return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 503 });
+      return NextResponse.json(
+        { error: FRIENDLY_UNAVAILABLE },
+        { status: 503 },
+      );
     }
 
     const body = await req.json();
     const messages = (body?.messages ?? []) as ChatMessage[];
 
     if (!Array.isArray(messages) || messages.length === 0) {
-      return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 400 });
+      return NextResponse.json(
+        { error: FRIENDLY_UNAVAILABLE },
+        { status: 400 },
+      );
     }
 
     const trimmed = messages.slice(-12).map((m) => ({
@@ -58,8 +64,7 @@ export async function POST(req: NextRequest) {
 
     // Groq OpenAI-compatible chat API
     // Default model is fast + capable; override with GROQ_MODEL if needed
-    const model =
-      process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+    const model = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
 
     const upstream = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
@@ -76,13 +81,16 @@ export async function POST(req: NextRequest) {
           stream: true,
           messages: [{ role: "system", content: SYSTEM_PROMPT }, ...trimmed],
         }),
-      }
+      },
     );
 
     if (!upstream.ok || !upstream.body) {
       const errText = await upstream.text().catch(() => "");
       console.error("Groq error", upstream.status, errText);
-      return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 502 });
+      return NextResponse.json(
+        { error: FRIENDLY_UNAVAILABLE },
+        { status: 502 },
+      );
     }
 
     const encoder = new TextEncoder();
@@ -116,8 +124,8 @@ export async function POST(req: NextRequest) {
                 if (delta) {
                   controller.enqueue(
                     encoder.encode(
-                      `data: ${JSON.stringify({ content: delta })}\n\n`
-                    )
+                      `data: ${JSON.stringify({ content: delta })}\n\n`,
+                    ),
                   );
                 }
               } catch {
