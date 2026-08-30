@@ -1,253 +1,197 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import Image from "next/image";
 import {
-  ArrowDown,
   ArrowRight,
-  Heart,
+  CalendarClock,
+  HeartPulse,
   MapPin,
-  Sparkles,
+  Phone,
+  Pill,
+  ShieldCheck,
+  Stethoscope,
+  Syringe,
+  TestTube,
+  Baby,
 } from "lucide-react";
 import OpenStatus from "./OpenStatus";
-import HeroCanvas from "./interactive/HeroCanvas";
 import heroClinic from "@/public/images/hero-clinic.jpg";
-import maternityCare from "@/public/images/maternity-care.jpg";
-import pharmacy from "@/public/images/pharmacy-dispensary.jpg";
-import triage from "@/public/images/triage-vitals.jpg";
-import lab from "@/public/images/lab-services.jpg";
-import nursePortrait from "@/public/images/nurse-portrait.jpg";
-import childImmunisation from "@/public/images/child-immunisation.jpg";
-import consultation from "@/public/images/consultation.jpg";
 
-type Moment = {
-  id: string;
-  image: StaticImageData;
-  alt: string;
-  whisper: string;
-  line: string;
-  go?: { label: string; href: string };
-};
-
-const MOMENTS: Moment[] = [
-  {
-    id: "door",
-    image: heroClinic,
-    alt: "A warm welcome at the clinic desk",
-    whisper: "First Street",
-    line: "You walk in. Someone smiles first.",
-  },
-  {
-    id: "listen",
-    image: consultation,
-    alt: "Quiet conversation with a clinician",
-    whisper: "The room softens",
-    line: "No rush. Just room for what you came to say.",
-  },
-  {
-    id: "hands",
-    image: nursePortrait,
-    alt: "A nurse ready to care",
-    whisper: "Familiar faces",
-    line: "Care that knows your neighbourhood.",
-    go: { label: "Meet the people", href: "#clinic" },
-  },
-  {
-    id: "little",
-    image: maternityCare,
-    alt: "Mother and baby receiving gentle care",
-    whisper: "Small moments",
-    line: "From first immunisations to everyday check-ins.",
-    go: { label: "See how we care", href: "#care" },
-  },
-  {
-    id: "answers",
-    image: lab,
-    alt: "On-site laboratory",
-    whisper: "Same visit",
-    line: "Tests close by. Answers before you leave.",
-  },
-  {
-    id: "home",
-    image: pharmacy,
-    alt: "In-house pharmacy",
-    whisper: "Then home",
-    line: "Medicine in hand. A little more certainty.",
-    go: { label: "Find us", href: "#visit" },
-  },
+const TRUST = [
+  { icon: ShieldCheck, value: "KMPDC", label: "Licensed Level-2" },
+  { icon: TestTube, value: "Class-B", label: "On-site laboratory" },
+  { icon: HeartPulse, value: "2018", label: "Serving Kasarani" },
 ];
 
-const FLOATERS = [
-  { image: triage, alt: "Vitals check", className: "hero-float hero-float-a" },
-  { image: childImmunisation, alt: "Well-baby visit", className: "hero-float hero-float-b" },
-  { image: nursePortrait, alt: "Our team", className: "hero-float hero-float-c" },
+const QUICK_SERVICES = [
+  { icon: Baby, label: "Maternal & Child", href: "#care" },
+  { icon: Syringe, label: "Immunisation", href: "#care" },
+  { icon: TestTube, label: "Laboratory", href: "#care" },
+  { icon: Pill, label: "Pharmacy", href: "#care" },
+  { icon: Stethoscope, label: "Consultation", href: "#care" },
 ];
 
 export default function HeroStory() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const onScroll = () => {
-      const rect = track.getBoundingClientRect();
-      const total = track.offsetHeight - window.innerHeight;
-      const scrolled = Math.min(Math.max(-rect.top, 0), total);
-      const p = total > 0 ? scrolled / total : 0;
-      setProgress(p);
-
-      const idx = Math.min(
-        MOMENTS.length - 1,
-        Math.floor(p * MOMENTS.length + 0.001)
-      );
-      setActive(idx);
-    };
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  const moment = MOMENTS[active];
-
   return (
-    <section id="top" className="hero-story" aria-label="A visit, in moments">
-      <div ref={trackRef} className="hero-story-track">
-        <div className="hero-story-sticky">
-          <div className="hero-story-atmosphere" aria-hidden="true">
-            <HeroCanvas />
-            <div className="hero-story-grain" />
-            <div className="hero-story-vignette" />
-          </div>
+    <section
+      id="top"
+      className="relative overflow-hidden bg-[#07191d] text-[#effbf5]"
+      aria-labelledby="hero-heading"
+    >
+      {/* Atmosphere */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.14]"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(255,255,255,0.55) 0.6px, transparent 0.6px)",
+            backgroundSize: "18px 18px",
+            mixBlendMode: "overlay",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 60% at 75% 30%, rgba(168,223,214,0.18), transparent 65%), linear-gradient(180deg, rgba(7,25,29,0.2) 0%, transparent 40%, rgba(7,25,29,0.75) 100%)",
+          }}
+        />
+      </div>
 
-          {/* Full-bleed image stack */}
-          <div className="hero-story-stage" aria-hidden={false}>
-            {MOMENTS.map((m, i) => {
-              const isActive = i === active;
-              const dist = Math.abs(i - active);
-              return (
-                <div
-                  key={m.id}
-                  className={`hero-story-frame ${isActive ? "is-active" : ""}`}
-                  style={
-                    {
-                      opacity: isActive ? 1 : dist === 1 ? 0.18 : 0,
-                      transform: isActive
-                        ? "scale(1) translate3d(0,0,0)"
-                        : `scale(${1.06 + dist * 0.02}) translate3d(0, ${dist * 12}px, 0)`,
-                      zIndex: isActive ? 3 : 1,
-                    } as CSSProperties
-                  }
-                >
-                  <Image
-                    src={m.image}
-                    alt={m.alt}
-                    fill
-                    priority={i === 0}
-                    placeholder="blur"
-                    sizes="100vw"
-                    className="object-cover"
-                  />
-                  <div className="hero-story-shade" />
-                </div>
-              );
-            })}
-
-            {/* Floating polaroids — charm, not clutter */}
-            <div className="hero-floaters" aria-hidden="true">
-              {FLOATERS.map((f, i) => (
-                <div
-                  key={f.className}
-                  className={f.className}
-                  style={
-                    {
-                      "--drift": `${(progress * 40 + i * 12) % 24 - 12}px`,
-                      opacity: 0.55 + Math.sin(progress * Math.PI + i) * 0.15,
-                    } as CSSProperties
-                  }
-                >
-                  <Image src={f.image} alt="" fill sizes="180px" className="object-cover" />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Minimal copy — one moment at a time */}
-          <div className="hero-story-copy">
-            <div className="hero-story-topbar">
+      <div className="relative z-10 container-page pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
+          {/* Copy */}
+          <div className="max-w-xl">
+            <div className="flex flex-wrap items-center gap-2.5">
               <OpenStatus />
-              <span className="hero-story-pin">
-                <MapPin size={12} /> Clay City
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-semibold text-white/70 backdrop-blur-sm">
+                <MapPin className="h-3 w-3 text-[#a8dfd6]" />
+                First Street, Clay City
               </span>
             </div>
 
-            <div key={moment.id} className="hero-story-moment">
-              <p className="hero-story-whisper">
-                <Sparkles size={12} /> {moment.whisper}
-              </p>
-              <h1 className="hero-story-line">{moment.line}</h1>
-              {moment.go && (
-                <a className="hero-story-branch" href={moment.go.href}>
-                  {moment.go.label} <ArrowRight size={15} />
-                </a>
-              )}
+            <h1
+              id="hero-heading"
+              className="mt-6 font-display text-[2.35rem] leading-[1.05] sm:text-5xl lg:text-[3.55rem] lg:leading-[1.02] font-medium tracking-[-0.035em] text-balance"
+            >
+              Compassionate care,{" "}
+              <span className="italic text-[#ff9e7d]">close to home</span>{" "}
+              in Kasarani.
+            </h1>
+
+            <p className="mt-5 text-base sm:text-lg leading-relaxed text-white/70 max-w-lg">
+              Licensed Level-2 outpatient clinic. Maternal & child health,
+              laboratory diagnostics, in-house pharmacy, and everyday
+              consultations — with the warmth of a neighbourhood practice.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href="#contact"
+                className="group inline-flex items-center gap-2 rounded-full bg-[#ff9e7d] px-6 py-3.5 text-sm font-extrabold text-[#07191d] shadow-[0_14px_30px_rgba(255,158,125,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_36px_rgba(255,158,125,0.35)]"
+              >
+                <CalendarClock className="h-4 w-4" />
+                Book a Visit
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </a>
+              <a
+                href="tel:+254721260994"
+                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/40"
+              >
+                <Phone className="h-4 w-4" />
+                0721 260994
+              </a>
             </div>
 
-            <div className="hero-story-nav" role="tablist" aria-label="Story moments">
-              {MOMENTS.map((m, i) => (
-                <button
-                  key={m.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === active}
-                  aria-label={m.whisper}
-                  className={i === active ? "is-active" : ""}
-                  onClick={() => {
-                    const track = trackRef.current;
-                    if (!track) return;
-                    const total = track.offsetHeight - window.innerHeight;
-                    const target =
-                      track.offsetTop +
-                      (i / Math.max(MOMENTS.length - 1, 1)) * total;
-                    window.scrollTo({ top: target, behavior: "smooth" });
-                  }}
-                />
+            {/* Trust row */}
+            <dl className="mt-10 grid grid-cols-3 gap-4 max-w-md">
+              {TRUST.map((t) => (
+                <div key={t.value} className="flex flex-col gap-1.5">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/8 border border-white/10 text-[#a8dfd6]">
+                    <t.icon className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <dd className="font-display text-lg font-semibold text-white leading-none">
+                      {t.value}
+                    </dd>
+                    <dt className="mt-1 text-[11px] text-white/50 font-medium">
+                      {t.label}
+                    </dt>
+                  </div>
+                </div>
               ))}
-            </div>
-
-            <div className="hero-story-paths">
-              <a href="#story" className="hero-path soft">
-                <Heart size={14} /> Feel the visit
-              </a>
-              <a href="#care" className="hero-path">
-                Ways we care <ArrowRight size={14} />
-              </a>
-              <a href="#visit" className="hero-path soft">
-                Come by
-              </a>
-              <a href="#contact" className="hero-path coral">
-                Book a moment <ArrowRight size={14} />
-              </a>
-            </div>
-
-            <div className="hero-story-scroll-hint" aria-hidden="true">
-              <span>Drift through</span>
-              <ArrowDown size={14} />
-            </div>
+            </dl>
           </div>
 
-          <div
-            className="hero-story-progress"
-            aria-hidden="true"
-            style={{ transform: `scaleX(${progress})` }}
-          />
+          {/* Visual */}
+          <div className="relative">
+            <div className="relative aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-white/15 shadow-[0_32px_64px_rgba(0,0,0,0.35)]">
+              <Image
+                src={heroClinic}
+                alt="Welcoming clinician at Claycity Medical Centre"
+                fill
+                priority
+                placeholder="blur"
+                sizes="(max-width: 1024px) 90vw, 42vw"
+                className="object-cover"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, transparent 45%, rgba(7,25,29,0.7) 100%)",
+                }}
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/55">
+                  Neighbourhood care
+                </p>
+                <p className="mt-1 font-display text-xl sm:text-2xl font-medium text-white leading-tight">
+                  You are a neighbour, not a queue number.
+                </p>
+              </div>
+            </div>
+
+            {/* Floating accent cards */}
+            <div className="absolute -left-3 top-[18%] hidden sm:flex items-center gap-2.5 rounded-2xl border border-white/20 bg-[#0a282c]/90 px-3.5 py-2.5 shadow-lg backdrop-blur-md">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#a8dfd6]/15 text-[#a8dfd6]">
+                <TestTube className="h-4 w-4" />
+              </span>
+              <div className="leading-tight">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-white/50">
+                  Same visit
+                </p>
+                <p className="text-xs font-semibold text-white">Lab results</p>
+              </div>
+            </div>
+
+            <div className="absolute -right-2 bottom-[22%] hidden sm:flex items-center gap-2.5 rounded-2xl border border-white/20 bg-[#0a282c]/90 px-3.5 py-2.5 shadow-lg backdrop-blur-md">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#ff9e7d]/15 text-[#ff9e7d]">
+                <Pill className="h-4 w-4" />
+              </span>
+              <div className="leading-tight">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-white/50">
+                  On-site
+                </p>
+                <p className="text-xs font-semibold text-white">Pharmacy</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick service chips */}
+        <div className="mt-12 sm:mt-14 flex flex-wrap gap-2.5">
+          {QUICK_SERVICES.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              className="group inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2.5 text-xs font-semibold text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/25 hover:text-white"
+            >
+              <s.icon className="h-3.5 w-3.5 text-[#a8dfd6] transition-colors group-hover:text-[#ff9e7d]" />
+              {s.label}
+              <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-60 group-hover:translate-x-0" />
+            </a>
+          ))}
         </div>
       </div>
     </section>
