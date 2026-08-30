@@ -7,7 +7,7 @@ const jsonLd = {
   description:
     "Licensed Level-2 outpatient clinic in Clay City, Kasarani, Nairobi. Maternal & child health, immunisation, in-house pharmacy, HIV testing, laboratory diagnostics and outpatient care.",
   url: "https://claycitymed.co.ke",
-  telephone: "+254721260994",
+  telephone: "+254712265746",
   email: "nabiclaycitymedical@yahoo.com",
   address: {
     "@type": "PostalAddress",
