@@ -35,7 +35,6 @@ import pharmacy from "@/public/images/pharmacy-dispensary.jpg";
 import triage from "@/public/images/triage-vitals.jpg";
 import lab from "@/public/images/lab-services.jpg";
 import nursePortrait from "@/public/images/nurse-portrait.jpg";
-import "../hero-story.css";
 
 const TRUST_ITEMS = [
   { icon: ShieldCheck, label: "KMPDC Licensed · Level-2 Clinic" },
@@ -504,7 +503,7 @@ function VisitSection() {
           </div>
         </div>
         <div className="visit-details" data-reveal style={{ "--reveal-delay": "140ms" } as CSSProperties}>
-          <div className="visit-detail-head"><span className="live-dot" /> <span>We&apos;re here</span></div>
+          <div className="visit-detail-head"><span className="live-dot" /> <span>We're here</span></div>
           <div className="visit-hours"><Clock3 size={21} /><div><span>Hours</span><strong>Mon–Fri &nbsp; 8:00 — 17:00</strong><strong>Saturday &nbsp; 8:00 — 12:00</strong><small>Sunday closed</small></div></div>
           <div className="visit-detail-rule" />
           <div className="visit-address"><MapPin size={20} /><div><span>Clinic</span><strong>First Street, Clay City Estate</strong><small>Kasarani · P.O. Box 784–00618</small></div></div>
