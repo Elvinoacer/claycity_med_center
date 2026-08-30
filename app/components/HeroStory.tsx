@@ -9,189 +9,233 @@ import {
   Phone,
   Pill,
   ShieldCheck,
-  Stethoscope,
-  Syringe,
   TestTube,
-  Baby,
 } from "lucide-react";
 import OpenStatus from "./OpenStatus";
 import heroClinic from "@/public/images/hero-clinic.jpg";
-
-const TRUST = [
-  { icon: ShieldCheck, value: "KMPDC", label: "Licensed Level-2" },
-  { icon: TestTube, value: "Class-B", label: "On-site laboratory" },
-  { icon: HeartPulse, value: "2018", label: "Serving Kasarani" },
-];
-
-const QUICK_SERVICES = [
-  { icon: Baby, label: "Maternal & Child", href: "#care" },
-  { icon: Syringe, label: "Immunisation", href: "#care" },
-  { icon: TestTube, label: "Laboratory", href: "#care" },
-  { icon: Pill, label: "Pharmacy", href: "#care" },
-  { icon: Stethoscope, label: "Consultation", href: "#care" },
-];
+import maternityCare from "@/public/images/maternity-care.jpg";
+import pharmacy from "@/public/images/pharmacy-dispensary.jpg";
+import lab from "@/public/images/lab-services.jpg";
 
 export default function HeroStory() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-[#07191d] text-[#effbf5]"
+      className="relative min-h-[100svh] overflow-hidden bg-[#07191d] text-[#effbf5]"
       aria-labelledby="hero-heading"
     >
-      {/* Atmosphere */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      {/* Full-bleed stage image */}
+      <div className="absolute inset-0">
+        <Image
+          src={heroClinic}
+          alt=""
+          fill
+          priority
+          placeholder="blur"
+          sizes="100vw"
+          className="object-cover object-[center_30%] scale-105"
+        />
+        {/* Cinematic overlays */}
         <div
-          className="absolute inset-0 opacity-[0.14]"
+          className="absolute inset-0"
           style={{
-            backgroundImage:
-              "radial-gradient(rgba(255,255,255,0.55) 0.6px, transparent 0.6px)",
-            backgroundSize: "18px 18px",
-            mixBlendMode: "overlay",
+            background:
+              "linear-gradient(105deg, rgba(7,25,29,0.92) 0%, rgba(7,25,29,0.72) 38%, rgba(7,25,29,0.35) 62%, rgba(7,25,29,0.55) 100%)",
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 70% 60% at 75% 30%, rgba(168,223,214,0.18), transparent 65%), linear-gradient(180deg, rgba(7,25,29,0.2) 0%, transparent 40%, rgba(7,25,29,0.75) 100%)",
+              "linear-gradient(180deg, rgba(7,25,29,0.45) 0%, transparent 28%, transparent 55%, rgba(7,25,29,0.88) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.12] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(255,255,255,0.6) 0.55px, transparent 0.55px)",
+            backgroundSize: "16px 16px",
+            mixBlendMode: "overlay",
           }}
         />
       </div>
 
-      <div className="relative z-10 container-page pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
-          {/* Copy */}
-          <div className="max-w-xl">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <OpenStatus />
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-semibold text-white/70 backdrop-blur-sm">
-                <MapPin className="h-3 w-3 text-[#a8dfd6]" />
-                First Street, Clay City
-              </span>
+      {/* Content */}
+      <div className="relative z-10 flex min-h-[100svh] flex-col">
+        <div className="container-page flex flex-1 flex-col justify-end pb-10 pt-28 sm:pb-14 sm:pt-32 lg:pb-16 lg:pt-36">
+          {/* Top meta row */}
+          <div className="mb-auto flex flex-wrap items-center gap-2.5">
+            <OpenStatus />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-[11px] font-semibold text-white/75 backdrop-blur-md">
+              <MapPin className="h-3 w-3 text-[#a8dfd6]" />
+              First Street · Clay City, Kasarani
+            </span>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 items-end gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
+            {/* Main editorial block */}
+            <div className="max-w-2xl">
+              <p className="mb-4 inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#ff9e7d]">
+                <span className="h-px w-8 bg-[#ff9e7d]/70" />
+                Neighbourhood outpatient care
+              </p>
+
+              <h1
+                id="hero-heading"
+                className="font-display text-[2.75rem] font-medium leading-[0.95] tracking-[-0.04em] text-balance sm:text-6xl lg:text-[4.6rem] lg:leading-[0.92]"
+              >
+                Care that
+                <br />
+                <span className="italic text-[#a8dfd6]">knows</span> your
+                <br />
+                neighbourhood.
+              </h1>
+
+              <p className="mt-6 max-w-md text-base leading-relaxed text-white/70 sm:text-lg">
+                Licensed Level-2 clinic on First Street. Maternal & child
+                health, same-visit lab results, and an in-house pharmacy —
+                without the hospital rush.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href="#contact"
+                  className="group inline-flex items-center gap-2.5 rounded-full bg-[#ff9e7d] px-6 py-3.5 text-sm font-extrabold text-[#07191d] shadow-[0_16px_36px_rgba(255,158,125,0.3)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_rgba(255,158,125,0.38)]"
+                >
+                  <CalendarClock className="h-4 w-4" />
+                  Book a Visit
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </a>
+                <a
+                  href="tel:+254721260994"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/15"
+                >
+                  <Phone className="h-4 w-4" />
+                  0721 260994
+                </a>
+              </div>
             </div>
 
-            <h1
-              id="hero-heading"
-              className="mt-6 font-display text-[2.35rem] leading-[1.05] sm:text-5xl lg:text-[3.55rem] lg:leading-[1.02] font-medium tracking-[-0.035em] text-balance"
-            >
-              Compassionate care,{" "}
-              <span className="italic text-[#ff9e7d]">close to home</span>{" "}
-              in Kasarani.
-            </h1>
-
-            <p className="mt-5 text-base sm:text-lg leading-relaxed text-white/70 max-w-lg">
-              Licensed Level-2 outpatient clinic. Maternal & child health,
-              laboratory diagnostics, in-house pharmacy, and everyday
-              consultations — with the warmth of a neighbourhood practice.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href="#contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-[#ff9e7d] px-6 py-3.5 text-sm font-extrabold text-[#07191d] shadow-[0_14px_30px_rgba(255,158,125,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_36px_rgba(255,158,125,0.35)]"
-              >
-                <CalendarClock className="h-4 w-4" />
-                Book a Visit
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </a>
-              <a
-                href="tel:+254721260994"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/40"
-              >
-                <Phone className="h-4 w-4" />
-                0721 260994
-              </a>
-            </div>
-
-            {/* Trust row */}
-            <dl className="mt-10 grid grid-cols-3 gap-4 max-w-md">
-              {TRUST.map((t) => (
-                <div key={t.value} className="flex flex-col gap-1.5">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/8 border border-white/10 text-[#a8dfd6]">
-                    <t.icon className="h-4 w-4" />
-                  </span>
+            {/* Floating glass stack — the creative side */}
+            <div className="relative flex flex-col gap-3 sm:gap-3.5 lg:pb-2">
+              {/* Trust glass card */}
+              <div className="rounded-2xl border border-white/15 bg-white/10 p-4 shadow-xl backdrop-blur-xl sm:p-5">
+                <div className="flex items-start justify-between gap-4">
                   <div>
-                    <dd className="font-display text-lg font-semibold text-white leading-none">
-                      {t.value}
-                    </dd>
-                    <dt className="mt-1 text-[11px] text-white/50 font-medium">
-                      {t.label}
-                    </dt>
+                    <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/50">
+                      Credentials
+                    </p>
+                    <p className="mt-1.5 font-display text-lg font-medium leading-snug text-white sm:text-xl">
+                      KMPDC Level-2
+                      <br />
+                      <span className="text-[#a8dfd6]">Class-B laboratory</span>
+                    </p>
+                  </div>
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#a8dfd6]/15 text-[#a8dfd6]">
+                    <ShieldCheck className="h-5 w-5" />
+                  </span>
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-2 border-t border-white/10 pt-3.5">
+                  <div>
+                    <p className="font-display text-base font-semibold text-white">2018</p>
+                    <p className="text-[10px] text-white/45">Serving Kasarani</p>
+                  </div>
+                  <div>
+                    <p className="font-display text-base font-semibold text-white">Mon–Sat</p>
+                    <p className="text-[10px] text-white/45">Open six days</p>
+                  </div>
+                  <div>
+                    <p className="font-display text-base font-semibold text-white">Walk-in</p>
+                    <p className="text-[10px] text-white/45">Always welcome</p>
                   </div>
                 </div>
-              ))}
-            </dl>
+              </div>
+
+              {/* Mini photo cards row */}
+              <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+                <div className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-white/15">
+                  <Image
+                    src={maternityCare}
+                    alt="Maternal care"
+                    fill
+                    sizes="120px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#07191d]/80 to-transparent" />
+                  <span className="absolute bottom-2 left-2 text-[10px] font-bold text-white/90">
+                    Maternal
+                  </span>
+                </div>
+                <div className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-white/15">
+                  <Image
+                    src={lab}
+                    alt="Laboratory"
+                    fill
+                    sizes="120px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#07191d]/80 to-transparent" />
+                  <span className="absolute bottom-2 left-2 text-[10px] font-bold text-white/90">
+                    Lab
+                  </span>
+                </div>
+                <div className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-white/15">
+                  <Image
+                    src={pharmacy}
+                    alt="Pharmacy"
+                    fill
+                    sizes="120px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#07191d]/80 to-transparent" />
+                  <span className="absolute bottom-2 left-2 text-[10px] font-bold text-white/90">
+                    Pharmacy
+                  </span>
+                </div>
+              </div>
+
+              {/* Quick facts strip */}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-white/12 bg-white/8 px-4 py-3 backdrop-blur-lg">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-white/80">
+                  <TestTube className="h-3.5 w-3.5 text-[#a8dfd6]" />
+                  Same-visit results
+                </span>
+                <span className="hidden h-3 w-px bg-white/20 sm:block" />
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-white/80">
+                  <Pill className="h-3.5 w-3.5 text-[#ff9e7d]" />
+                  In-house pharmacy
+                </span>
+                <span className="hidden h-3 w-px bg-white/20 sm:block" />
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-white/80">
+                  <HeartPulse className="h-3.5 w-3.5 text-[#a8dfd6]" />
+                  KEPI immunisation
+                </span>
+              </div>
+            </div>
           </div>
 
-          {/* Visual */}
-          <div className="relative">
-            <div className="relative aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-white/15 shadow-[0_32px_64px_rgba(0,0,0,0.35)]">
-              <Image
-                src={heroClinic}
-                alt="Welcoming clinician at Claycity Medical Centre"
-                fill
-                priority
-                placeholder="blur"
-                sizes="(max-width: 1024px) 90vw, 42vw"
-                className="object-cover"
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg, transparent 45%, rgba(7,25,29,0.7) 100%)",
-                }}
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
-                <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/55">
-                  Neighbourhood care
-                </p>
-                <p className="mt-1 font-display text-xl sm:text-2xl font-medium text-white leading-tight">
-                  You are a neighbour, not a queue number.
-                </p>
-              </div>
-            </div>
-
-            {/* Floating accent cards */}
-            <div className="absolute -left-3 top-[18%] hidden sm:flex items-center gap-2.5 rounded-2xl border border-white/20 bg-[#0a282c]/90 px-3.5 py-2.5 shadow-lg backdrop-blur-md">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#a8dfd6]/15 text-[#a8dfd6]">
-                <TestTube className="h-4 w-4" />
-              </span>
-              <div className="leading-tight">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-white/50">
-                  Same visit
-                </p>
-                <p className="text-xs font-semibold text-white">Lab results</p>
-              </div>
-            </div>
-
-            <div className="absolute -right-2 bottom-[22%] hidden sm:flex items-center gap-2.5 rounded-2xl border border-white/20 bg-[#0a282c]/90 px-3.5 py-2.5 shadow-lg backdrop-blur-md">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#ff9e7d]/15 text-[#ff9e7d]">
-                <Pill className="h-4 w-4" />
-              </span>
-              <div className="leading-tight">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-white/50">
-                  On-site
-                </p>
-                <p className="text-xs font-semibold text-white">Pharmacy</p>
-              </div>
-            </div>
+          {/* Bottom service jump links */}
+          <div className="mt-10 flex flex-wrap items-center gap-2 border-t border-white/10 pt-6 sm:mt-12">
+            <span className="mr-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-white/40">
+              Explore
+            </span>
+            {[
+              { label: "Care", href: "#care" },
+              { label: "The visit", href: "#story" },
+              { label: "The clinic", href: "#clinic" },
+              { label: "Find us", href: "#visit" },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="group inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/75 transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
+              >
+                {item.label}
+                <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-70 group-hover:translate-x-0" />
+              </a>
+            ))}
           </div>
-        </div>
-
-        {/* Quick service chips */}
-        <div className="mt-12 sm:mt-14 flex flex-wrap gap-2.5">
-          {QUICK_SERVICES.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              className="group inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2.5 text-xs font-semibold text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/25 hover:text-white"
-            >
-              <s.icon className="h-3.5 w-3.5 text-[#a8dfd6] transition-colors group-hover:text-[#ff9e7d]" />
-              {s.label}
-              <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-60 group-hover:translate-x-0" />
-            </a>
-          ))}
         </div>
       </div>
     </section>
